@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ERPSoftifyApplication.DomainLayer/ERPSoftifyApplication.DomainLayer.csproj" Id="40a1c95c-2358-42b5-8f27-49865a21ccd2" />
+  <Project Path="ERPSoftifyApplication.InfrastructureLayer/ERPSoftifyApplication.InfrastructureLayer.csproj" Id="35649425-4eb9-4ccc-b983-64079776742a" />
+  <Project Path="ERPSoftifyApplication/ERPSoftifyApplication.csproj" />
+  <Project Path="ERPSoftifyApplicatione.ApplicationLayer/ERPSoftifyApplicatione.ApplicationLayer.csproj" Id="8a0be9f3-4341-44e7-afce-d26f81cdb74e" />
+</Solution>

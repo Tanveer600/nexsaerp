@@ -1,0 +1,438 @@
+@use "@coreui/coreui/scss/coreui" as * with ( 
+  $enable-deprecation-messages: false,
+);
+@use "@coreui/chartjs/scss/coreui-chartjs";
+@use "vendors/simplebar";
+
+body {
+  background-color: var(--cui-tertiary-bg);
+  top: 0 !important;
+    position: static !important;
+    min-height: 100vh !important;
+}
+/* =========================
+    GLOBAL UI COLOR UNIFICATION
+   ========================= */
+
+:root {
+  --my-custom-bg: #ffffff; 
+}
+
+.header {
+  --cui-header-bg: var(--my-custom-bg) !important;
+  background-color: var(--my-custom-bg) !important;
+  border-bottom: 1px solid var(--cui-border-color-translucent);
+}
+
+
+.footer {
+  --cui-footer-bg: var(--my-custom-bg) !important;
+  background-color: var(--my-custom-bg) !important;
+}
+
+
+.card {
+  --cui-card-bg: var(--my-custom-bg) !important;
+  background-color: var(--my-custom-bg) !important;
+  border: 1px solid var(--cui-border-color-translucent);
+  
+  .card-header, .card-body, .card-footer {
+    background-color: transparent !important; 
+  }
+}
+/* =============================================================
+   ULTRA-MODERN GREY THEME (EXACT MATCH)
+   ============================================================= */
+
+.modern-grey-modal {
+  .modal-content {
+    background-color: #f8f9fa !important; 
+    border-radius: 16px !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  .modal-header {
+    border: none !important;
+    padding: 2rem 2rem 0 !important;
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #3c4b64;
+    }
+  }
+
+  .modal-body {
+    padding: 2rem !important;
+  }
+
+  .form-control, .form-select {
+    background-color: rgba(255, 255, 255, 0.6) !important; // Halka transparent white
+    border: 1.5px solid #e0e2e6 !important;
+    color: #3c4b64 !important;
+    height: calc(3rem + 2px); 
+    
+    &::placeholder {
+      color: #a1a1a1 !important;
+    }
+
+    &:hover {
+      border-color: #d1d4d7 !important;
+    }
+
+    // Focus state: 
+    &:focus {
+      background-color: #ffffff !important; 
+      border-color: #6f42c1 !important;
+      box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.1) !important;
+    }
+  }
+
+
+  .form-label {
+    color: #636f83 !important;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
+
+  .modal-footer {
+    border: none !important;
+    padding: 0 2rem 2rem !important;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
+
+.btn-primary {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 0.6rem 1.5rem !important;
+  box-shadow: 0 4px 6px rgba(111, 66, 193, 0.2) !important;
+}
+/* TABLE MODERNIZATION (ROLE STYLE) */
+
+.modern-card {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.action-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+// Table row hover change subtle background change
+.table-hover tbody tr:hover {
+  background-color: rgba(111, 66, 193, 0.03) !important;
+}
+
+// Avatar circle style
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+// Custom badge styles (Soft look)
+.badge-soft-success {
+  background-color: #e6fcf5 !important;
+  color: #0ca678 !important;
+}
+
+.badge-soft-danger {
+  background-color: #fff5f5 !important;
+  color: #fa5252 !important;
+}
+/* =============================================================
+   COMPANY SETTINGS MODERN UI
+   ============================================================= */
+
+.modern-settings-card {
+  border-radius: 16px !important;
+  overflow: hidden;
+
+  .custom-settings-nav {
+    .nav-link {
+      color: #636f83;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: transparent;
+
+      &.active {
+        background-color: #6f42c1 !important; // Your purple brand color
+        color: white !important;
+        box-shadow: 0 4px 12px rgba(111, 66, 193, 0.2);
+      }
+
+      &:hover:not(.active) {
+        background-color: rgba(111, 66, 193, 0.05);
+        color: #6f42c1;
+      }
+    }
+  }
+
+  // Inputs within settings should be clean
+  .form-control {
+    background-color: #f8f9fa;
+    border: 1.5px solid #eceef1;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+
+    &:focus {
+      background-color: #ffffff;
+      border-color: #6f42c1;
+      box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.1);
+    }
+  }
+
+  .form-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #4f5d73;
+    margin-bottom: 8px;
+  }
+}
+
+// Roles.scss
+.permissions-modal {
+  .modal-header {
+    border-bottom: 1px solid #ebedef;
+    .btn-close { margin: 0; }
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid #ebedef;
+    .nav-link {
+      color: #666;
+      &.active {
+        color: #000;
+        border-bottom: 2px solid #802060; // Bordole line
+      }
+    }
+  }
+
+  .permissions-container {
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .permissions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 20px;
+  }
+
+  .form-check {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    
+    .form-check-input {
+      border: 1px solid #ccc;
+      cursor: pointer;
+      
+      &:checked {
+        background-color: #802060; // Bordole color
+        border-color: #802060;
+      }
+    }
+
+    .form-check-label {
+      font-size: 0.85rem;
+      color: #444;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  }
+
+  .btn-save-custom {
+    background-color: #802060; 
+    color: white;
+    border: none;
+    border-radius: 20px; 
+    padding: 6px 25px;
+    
+    &:hover {
+      background-color: #6a1a4f;
+      color: white;
+    }
+  }
+}
+
+body {
+  background-color: var(--my-custom-bg) !important;
+}
+.wrapper {
+  width: 100%;
+  padding-inline: var(--cui-sidebar-occupy-start, 0) var(--cui-sidebar-occupy-end, 0);
+  will-change: auto;
+  @include transition(padding .15s);
+}
+
+.header > .container-fluid,
+.sidebar-header {
+  min-height: calc(4rem + 1px); 
+}
+
+.sidebar-brand-full {
+  margin-left: 3px;
+}
+
+.sidebar-header {
+  .nav-underline-border {
+    --cui-nav-underline-border-link-padding-x: 1rem;
+    --cui-nav-underline-border-gap: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: calc(4rem + 1px); 
+  }
+}
+
+.sidebar-toggler {
+  margin-inline-start: auto;
+}
+
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  .sidebar-toggler {
+    margin-inline-end: auto;
+  }
+}
+
+.header > .container-fluid + .container-fluid {
+  min-height: 3rem;
+}
+
+.footer {
+  min-height: calc(3rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+/* =========================
+   ERP TABLE (COMPACT STYLE)
+========================= */
+
+.erp-table {
+  --cui-table-bg: #fff;
+  border-collapse: collapse !important;
+  font-size: 13px;
+}
+
+/* HEADER */
+.erp-table thead th {
+  padding: 6px 10px !important;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--cui-secondary-color);
+  border-bottom: 1px solid var(--cui-border-color);
+  height: 36px;
+}
+
+/* BODY CELLS */
+.erp-table tbody td {
+  padding: 6px 10px !important;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--cui-border-color-translucent);
+  height: 36px;
+}
+
+/* ROW HOVER */
+.erp-table tbody tr:hover {
+  background-color: var(--cui-tertiary-bg);
+  transition: 0.15s ease;
+}
+@include color-mode(dark) {
+  body {
+    background-color: var(--cui-dark-bg-subtle);
+  }
+
+  .footer {
+    --cui-footer-bg: var(--cui-body-bg);
+  }
+}
+
+
+:root {
+  --cui-primary: var(--dynamic-primary) !important;
+}
+
+/* BUTTON */
+.btn-primary {
+  background-color: var(--cui-primary) !important;
+  border-color: var(--cui-primary) !important;
+}
+
+/* HEADER */
+.header {
+  background-color: var(--cui-primary) !important;
+}
+
+/* SIDEBAR */
+.sidebar {
+  background-color: var(--cui-primary) !important;
+}
+
+/* ACTIVE LINKS */
+.nav-link.active {
+  color: var(--cui-primary) !important;
+}
+
+.goog-te-banner-frame.skiptranslate, 
+.goog-te-banner-frame {
+    display: none !important;
+}
+
+
+body {
+    top: 0px !important;
+}
+
+
+#goog-gt-tt, 
+.goog-te-balloon-frame,
+.goog-te-balloon-frame-main {
+    display: none !important;
+}
+
+
+.goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+
+.goog-te-menu-value span {
+    color: transparent !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+body {
+    top: 0px !important; 
+}
+
+
+#goog-gt-tt {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.goog-te-balloon-frame {
+    display: none !important;
+}

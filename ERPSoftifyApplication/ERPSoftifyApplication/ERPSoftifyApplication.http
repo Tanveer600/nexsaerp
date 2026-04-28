@@ -1,0 +1,6 @@
+@ERPSoftifyApplication_HostAddress = http://localhost:5222
+
+GET {{ERPSoftifyApplication_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

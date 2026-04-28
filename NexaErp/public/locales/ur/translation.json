@@ -1,0 +1,15 @@
+{
+  "branch_directory": "دليل الفروع",
+  "manage_branches_subtitle": "إدارة ومراقبة جميع مواقع عملك",
+  "export_excel": "تصدير إكسل",
+  "add_branch": "إضافة فرع",
+  "branch_identity": "هوية الفرع",
+  "code": "الكود",
+  "location_contact": "الموقع والاتصال",
+  "status": "الحالة",
+  "actions": "الإجراءات",
+  "active": "نشط",
+  "inactive": "غير نشط",
+  "no_manager": "لا يوجد مدير",
+  "na": "غير متوفر"
+}

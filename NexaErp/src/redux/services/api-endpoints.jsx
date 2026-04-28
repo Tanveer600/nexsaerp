@@ -1,0 +1,68 @@
+export const API_ENDPOINTS = {
+  USERS: {
+    LOGIN: '/api/Users/login',
+    CREATE: '/api/Users/create',
+    GET_ALL: '/api/Users/all',
+    BY_ID: (id) => `/api/Users/${id}`,
+    UPDATE: (id) => `/api/Users/${id}`,
+    DELETE: (id) => `/api/Users/${id}`,
+    CHANGE_PASSWORD: '/api/Users/change-password',
+    FORGOT_PASSWORD: '/api/Users/forgot-password',
+    RESET_PASSWORD: '/api/Users/reset-password',
+    UPDATE_EMAIL: '/api/Users/update-email',
+    ACTIVATE: (id, isActive) => `/api/Users/${id}/activate?isActive=${isActive}`,
+    GET_ROLES: '/api/Users/roles',
+  },
+
+  ROLES: {
+    CREATE: '/api/Role/createrole',
+    GET_ALL: '/api/Role/getrole',
+    BY_ID: (id) => `/api/Role/${id}`,
+    UPDATE: (id) => `/api/Role/${id}`,
+    DELETE: (id) => `/api/Role/${id}`,
+  },
+
+  BRANCHES: {
+    CREATE: '/api/Branch/createBranch',
+    GET_ALL: '/api/Branch/getBranch',
+    BY_ID: (id) => `/api/Branch/${id}`,
+    UPDATE: (id) => `/api/Branch/${id}`,
+    DELETE: (id) => `/api/Branch/${id}`,
+  },
+
+  TENANTS: {
+    CREATE: '/api/Tenant/createTenantSetting',
+    GET_ALL: '/api/Tenant/getTenantSetting',
+    BY_ID: (id) => `/api/Tenant/${id}`,
+    UPDATE: (id) => `/api/Tenant/${id}`,
+    DELETE: (id) => `/api/Tenant/${id}`,
+  },
+
+  SETTINGS: {
+    PROFILE: {
+      GET_BY_USER_ID: (userId) => `/api/CompanySetting/profile/${userId}`,
+      SAVE_OR_UPDATE: '/api/CompanySetting/profile',
+    },
+    COMPANY: {
+      GET_BY_COMPANY_ID: (companyId) => `/api/CompanySetting/company/${companyId}`,
+      SAVE_OR_UPDATE: '/api/CompanySetting/company',
+      GET_ALL: '/api/CompanySetting/getallcompanydata',
+    },
+  },
+
+  PERMISSIONS: {
+    CREATE: '/api/Permission/create',
+    GET_ALL: '/api/Permission/getpermission',
+    BY_ID: (id) => `/api/Permission/${id}`,
+    UPDATE: (id) => `/api/Permission/${id}`,
+    DELETE: (id) => `/api/Permission/${id}`,
+  },
+  MENU: {
+    CREATE: '/api/Menu/create',
+    GET_ALL: '/api/Menu/getall',
+    Get_BY_ID: (id) => `/api/Menu/GetById/${id}`,
+    UPDATE: '/api/Menu/Update',
+    DELETE: (id) => `/api/Menu/Delete/${id}`,
+    GetMenus_By_Role: (roleId) => `/api/Menu/GetMenusByRole/${roleId}`,
+  },
+}
