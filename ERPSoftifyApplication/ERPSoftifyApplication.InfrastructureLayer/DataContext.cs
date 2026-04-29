@@ -57,9 +57,25 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<RoleMenu>(entity =>
+            {
+                entity.HasKey(x => x.ID);
 
-            modelBuilder.Entity<RoleMenu>()
-                .HasKey(rm => new { rm.RoleId, rm.MenuId });
+                entity.Property(x => x.ID)
+                    .ValueGeneratedOnAdd();
+
+                entity.HasOne(x => x.Role)
+                    .WithMany()
+                    .HasForeignKey(x => x.RoleId);
+
+                entity.HasOne(x => x.Menu)
+                    .WithMany()
+                    .HasForeignKey(x => x.MenuId);
+
+                entity.HasOne(x => x.Permission)
+                    .WithMany()
+                    .HasForeignKey(x => x.PermissionId);
+            });
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {

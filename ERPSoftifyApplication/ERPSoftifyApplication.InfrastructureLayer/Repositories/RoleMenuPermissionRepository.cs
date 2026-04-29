@@ -64,7 +64,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
 
             return Menu;
         }
-
+        
         public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken)
         {
             var entity = await _context.RoleMenus
@@ -78,6 +78,12 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
 
             return true;
         }
+        public async Task<List<RoleMenu>> GetRoleMenusOnlyAsync(int roleId, CancellationToken ct)
+        {
+            return await _context.RoleMenus
+                         .Where(x => x.RoleId == roleId)
+                         .ToListAsync(ct);
+        }
         public async Task<List<RoleMenu>> GetMenusByRoleIdAsync(int roleId, CancellationToken ct)
         {
 
@@ -87,7 +93,17 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
                  .Where(x => x.RoleId == roleId)
                 .ToListAsync(ct);
         }
+        public async Task DeleteRangeAsync(List<RoleMenu> items, CancellationToken ct)
+        {
+            _context.RoleMenus.RemoveRange(items);
+            await _context.SaveChangesAsync(ct);
+        }
 
+        public async Task CreateRangeAsync(List<RoleMenu> items, CancellationToken ct)
+        {
+            await _context.RoleMenus.AddRangeAsync(items, ct);
+            await _context.SaveChangesAsync(ct);
+        }
 
     }
 }

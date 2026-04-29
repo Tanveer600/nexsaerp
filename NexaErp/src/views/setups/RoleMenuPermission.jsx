@@ -35,8 +35,10 @@ function RoleMenuPermission() {
   // --- 1. Selectors ---
   const roles = useSelector((state) => state.roles?.result || [])
   const menusData = useSelector((state) => state.menues?.result?.data || state.menues?.result || [])
+  console.log('>>> Menus Data:', menusData)
   const dbPermissions = useSelector((state) => state.roleMenuPermissions?.rolePermissions || [])
   const permissions = useSelector((state) => state.permissions?.result || [])
+  console.log('>>> Permissions:', permissions)
   const isLoading = useSelector((state) => state.roleMenuPermissions?.isLoading)
 
   // --- 2. Local State ---
@@ -61,15 +63,16 @@ function RoleMenuPermission() {
   }, [selectedRole, dispatch])
 
   useEffect(() => {
-    const initialMap = {}
-    if (dbPermissions && dbPermissions.length > 0) {
-      dbPermissions.forEach((item) => {
-        initialMap[item.menuId] = item.permissionId
-      })
-      setAssignments(initialMap)
-    } else {
-      setAssignments({})
-    }
+    if (!dbPermissions || dbPermissions.length === 0) return
+
+    const map = dbPermissions.reduce((acc, item) => {
+      if (item.menuId && item.permissionId) {
+        acc[item.menuId] = item.permissionId
+      }
+      return acc
+    }, {})
+
+    setAssignments(map)
   }, [dbPermissions])
 
   // --- 6. Handlers ---

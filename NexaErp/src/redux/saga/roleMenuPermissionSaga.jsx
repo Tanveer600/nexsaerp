@@ -46,9 +46,10 @@ function* assignRoleMenuPermissionsSaga(action) {
     // Assign ke baad list refresh karna professional practice hai
     yield put(getAllRoleMenuPermissions())
   } catch (e) {
-    console.error('>>> Saga: Assign Permissions Error:', e)
-    yield put(setIsLoading(false))
+    console.error('FULL ERROR:', e.response?.data) // 🔥 IMPORTANT
+    console.error('STATUS:', e.response?.status)
   }
+  yield put(setIsLoading(false))
 }
 
 // 4. Single Delete

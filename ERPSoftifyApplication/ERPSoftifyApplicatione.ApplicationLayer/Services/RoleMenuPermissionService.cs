@@ -22,41 +22,36 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             {
                 if (dto == null || dto.MenuPermissions == null || !dto.MenuPermissions.Any())
                 {
-                    return ResponseDataModel<string>.FailureResponse("No permissions provided to assign.");
+                    return ResponseDataModel<string>.FailureResponse("No permissions provided.");
                 }
 
-                var currentDbPermissions = await _repo.GetMenusByRoleIdAsync(dto.RoleId, ct);
+                var existing = await _repo.GetRoleMenusOnlyAsync(dto.RoleId, ct);
 
-                if (currentDbPermissions != null && currentDbPermissions.Any())
+                if (existing.Any())
                 {
-                    foreach (var record in currentDbPermissions)
-                    {
-                        await _repo.DeleteAsync(record.ID, ct);
-                    }
+                    await _repo.DeleteRangeAsync(existing, ct); 
                 }
 
-                foreach (var item in dto.MenuPermissions)
-                {
-                    if (item.PermissionId > 0)
+                var newList = dto.MenuPermissions
+                    .Where(x => x.PermissionId > 0)
+                    .Select(item => new RoleMenu
                     {
-                        var newEntry = new RoleMenu
-                        {
-                            RoleId = dto.RoleId,
-                            MenuId = item.MenuId,
-                            PermissionId = item.PermissionId,
-                            TenantId = dto.TenantId
-                        };
+                        RoleId = dto.RoleId,
+                        MenuId = item.MenuId,
+                        PermissionId = item.PermissionId,
+                        TenantId = dto.TenantId
+                    }).ToList();
 
-                        await _repo.CreateAsync(newEntry, ct);
-                    }
+                if (newList.Any())
+                {
+                    await _repo.CreateRangeAsync(newList, ct); 
                 }
 
                 return ResponseDataModel<string>.SuccessResponse("Permissions Updated Successfully!");
             }
             catch (Exception ex)
             {
-                var errorMsg = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                return ResponseDataModel<string>.FailureResponse($"Error: {errorMsg}");
+                return ResponseDataModel<string>.FailureResponse(ex.Message);
             }
         }
         public async Task<ResponseDataModel<List<MenuDto>>> GetMenusByRoleIdAsync(int roleId, CancellationToken ct)

@@ -576,22 +576,28 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 name: "RoleMenus",
                 columns: table => new
                 {
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: false),
                     PermissionId = table.Column<int>(type: "int", nullable: true),
-                    TenantId = table.Column<int>(type: "int", nullable: false)
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    MenuId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoleMenus", x => new { x.RoleId, x.MenuId });
+                    table.PrimaryKey("PK_RoleMenus", x => x.ID);
                     table.ForeignKey(
                         name: "FK_RoleMenus_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RoleMenus_Menus_MenuId1",
+                        column: x => x.MenuId1,
+                        principalTable: "Menus",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_RoleMenus_Permissions_PermissionId",
                         column: x => x.PermissionId,
@@ -709,9 +715,19 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 column: "MenuId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RoleMenus_MenuId1",
+                table: "RoleMenus",
+                column: "MenuId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RoleMenus_PermissionId",
                 table: "RoleMenus",
                 column: "PermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleMenus_RoleId",
+                table: "RoleMenus",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RolePermissions_PermissionId",

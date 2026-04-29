@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260429151658_initial")]
+    [Migration("20260429172058_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -1140,29 +1140,36 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
             modelBuilder.Entity("RoleMenu", b =>
                 {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MenuId1")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
-                    b.HasKey("RoleId", "MenuId");
+                    b.HasKey("ID");
 
                     b.HasIndex("MenuId");
 
+                    b.HasIndex("MenuId1");
+
                     b.HasIndex("PermissionId");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("RoleMenus");
                 });
@@ -1261,10 +1268,14 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
             modelBuilder.Entity("RoleMenu", b =>
                 {
                     b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Menu", "Menu")
-                        .WithMany("RoleMenus")
+                        .WithMany()
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Menu", null)
+                        .WithMany("RoleMenus")
+                        .HasForeignKey("MenuId1");
 
                     b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Permission", "Permission")
                         .WithMany()
