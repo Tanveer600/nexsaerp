@@ -1,5 +1,5 @@
-﻿using ERPSoftifyApplicatione.ApplicationLayer.Interface;
-using Microsoft.AspNetCore.Http;
+﻿using ERPSoftifyApplicatione.ApplicationLayer.DTO;
+using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSoftifyApplication.Controllers
@@ -8,39 +8,44 @@ namespace ERPSoftifyApplication.Controllers
     [ApiController]
     public class RoleMenuController : ControllerBase
     {
-        private readonly IRoleMenuService _service;
+        private readonly IRoleMenuPermissionService _service;
 
-        public RoleMenuController(IRoleMenuService service)
+        public RoleMenuController(IRoleMenuPermissionService service)
         {
             _service = service;
         }
 
-        [HttpPost("assign")]
-        public async Task<IActionResult> AssignMenus(int roleId, List<int> menuIds, CancellationToken cancellationToken)
+        [HttpPost("assign-permissions")]
+        public async Task<IActionResult> AssignMenus([FromBody] AssignRoleMenusDto dto, CancellationToken cancellationToken)
         {
-            await _service.AssignMenusAsync(roleId, menuIds, cancellationToken);
-            return Ok("Permissions Updated Successfully");
+            if (dto == null || dto.RoleId <= 0)
+                return BadRequest("Invalid request data.");
+
+            var result = await _service.AssignRoleMenusAsync(dto, cancellationToken);
+
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("role/{roleId}")]
-        public async Task<IActionResult> GetMenusByRole(int roleId, CancellationToken cancellationToken)
+        [HttpGet("by-role/{roleId}")]
+        public async Task<IActionResult> GetMenusByRoleId(int roleId, CancellationToken cancellationToken)
         {
-            var result = await _service.GetMenusByRoleAsync(roleId, cancellationToken);
-            return Ok(result);
+            var result = await _service.GetMenusByRoleIdAsync(roleId, cancellationToken);
+
+            return result.Success ? Ok(result) : NotFound(result);
         }
 
-        [HttpDelete("remove")]
-        public async Task<IActionResult> RemoveMenu(int roleId, int menuId, CancellationToken cancellationToken)
-        {
-            await _service.RemoveMenuAsync(roleId, menuId, cancellationToken);
-            return Ok("Permission Removed");
-        }
-
-        [HttpGet]
+        [HttpGet("all-assignments")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _service.GetAllAsync(cancellationToken);
+            var result = await _service.GetAllAssignedPermissionsAsync(cancellationToken);
             return Ok(result);
+        }
+        [HttpDelete("remove-permission/{id}")]
+        public async Task<IActionResult> RemovePermission(int id, CancellationToken cancellationToken)
+        {
+            var result = await _service.DeleteRolePermissionAsync(id, cancellationToken);
+
+            return result.Success ? Ok(result) : BadRequest(result);
         }
     }
 }

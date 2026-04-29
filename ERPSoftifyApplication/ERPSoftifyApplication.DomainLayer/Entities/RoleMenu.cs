@@ -1,22 +1,28 @@
-﻿using ERPSoftifyApplicatione.ApplicationLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ERPSoftifyApplication.DomainLayer.Entities;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ERPSoftifyApplication.DomainLayer.Entities
+public class RoleMenu
 {
-    public class RoleMenu: IMustHaveTenant
-    {
+    [Key] // Primary Key define karta hai
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Auto-increment (1,2,3...) set karta hai
+    public int ID { get; set; }
 
-        public int Id { get; set; }
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
-        public int TenantId { get; set; }
+    [Required]
+    public int RoleId { get; set; }
 
-        public int MenuId { get; set; }
-        public Menu Menu { get; set; }
-        
-    }
+    [ForeignKey("RoleId")]
+    public virtual Role Role { get; set; }
+
+    [Required]
+    public int MenuId { get; set; }
+
+    [ForeignKey("MenuId")]
+    public virtual Menu Menu { get; set; }
+    public int? PermissionId { get; set; }
+    [ForeignKey("PermissionId")]
+    public virtual Permission Permission { get; set; }
+
+    [Required]
+    public int TenantId { get; set; }
 }

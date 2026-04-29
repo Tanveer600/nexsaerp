@@ -44,6 +44,7 @@ const Permissions = React.lazy(() => import('./views/setups/Permissions'))
 const Menu = React.lazy(() => import('./views/setups/Menu'))
 const Tenants = React.lazy(() => import('./views/setups/Tenants'))
 const Branch=react.lazy(()=> import('./views/setups/Branch'))
+const RoleMenuPermission=react.lazy(()=> import('./views/setups/RoleMenuPermission'))
 const CompanySetting=react.lazy(()=> import('./views/setups/CompanySetting'))
 // src/routes.js
 const PermissionSetting = React.lazy(() => import('./views/PermissionSetting'))
@@ -151,6 +152,7 @@ export const routes = [
   { path: '/setups/branch', name: 'Branch', element: Branch },
   { path: '/setups/companySetting', name: 'CompanySetting', element: CompanySetting },
  { path: '/permission-settings', name: 'Permission Settings', element: PermissionSetting },
+ { path: '/setups/role-menu-permission', name: 'Role Menu Permission', element: RoleMenuPermission },
 ]
 
 export default routes

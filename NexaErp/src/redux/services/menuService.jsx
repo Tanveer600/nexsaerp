@@ -28,10 +28,10 @@ const menuService = {
     const res = await apiClient.delete(API_ENDPOINTS.MENU.DELETE(id))
     return res?.data
   },
-  getMenusByRole: async (id) => {
-    const res = await apiClient.get(API_ENDPOINTS.MENU.GetMenus_By_Role(id))
-    return res?.data
-  },
+  // getMenusByRole: async (id) => {
+  //   const res = await apiClient.get(API_ENDPOINTS.MENU.GetMenus_By_Role(id))
+  //   return res?.data
+  // },
 }
 
 export default menuService

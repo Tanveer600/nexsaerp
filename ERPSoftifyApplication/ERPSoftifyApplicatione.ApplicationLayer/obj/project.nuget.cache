@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bWojKWOSYr0=",
+  "dgSpecHash": "ZMWDEmjJlQc=",
   "success": true,
-  "projectFilePath": "C:\\NEXSERP\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj",
+  "projectFilePath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tanveer\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\Tanveer\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

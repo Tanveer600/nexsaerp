@@ -50,11 +50,9 @@ function Roles() {
   return (
     <CRow>
       <CCol xs={12}>
-        {/* Modern Shadow aur Border-radius ke sath card */}
         <CCard className="mb-4 shadow-sm border-0 overflow-hidden">
           <CCardBody className="p-0">
             {' '}
-            {/* Padding 0 taake header color full width ho */}
             <div className="d-flex justify-content-between align-items-center p-4 bg-light border-bottom">
               <div>
                 <h5 className="mb-1 fw-bold text-dark">User Roles</h5>

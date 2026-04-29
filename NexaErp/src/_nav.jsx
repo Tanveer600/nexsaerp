@@ -118,6 +118,12 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Role Menu Permissions',
+        to: '/setups/role-menu-permission', // Is path ko check karein routes.js mein
+        icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
+      },
+      {
+        component: CNavItem,
         name: 'CompanySetting',
         to: '/setups/companySetting',
       },

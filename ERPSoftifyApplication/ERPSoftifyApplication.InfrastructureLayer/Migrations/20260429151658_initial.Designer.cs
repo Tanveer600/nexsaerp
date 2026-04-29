@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260422181432_init")]
-    partial class init
+    [Migration("20260429151658_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -866,27 +866,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.RoleMenu", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoleId", "MenuId");
-
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("RoleMenus");
-                });
-
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.RolePermission", b =>
                 {
                     b.Property<int>("Id")
@@ -910,7 +889,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RolePermission");
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.SalesOrder", b =>
@@ -1159,6 +1138,35 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.ToTable("UserProfiles");
                 });
 
+            modelBuilder.Entity("RoleMenu", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int?>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId", "MenuId");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("RoleMenus");
+                });
+
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Branch", b =>
                 {
                     b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Branch", "ParentBranch")
@@ -1175,25 +1183,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.RoleMenu", b =>
-                {
-                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Menu", "Menu")
-                        .WithMany("RoleMenus")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Menu");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.RolePermission", b =>
@@ -1267,6 +1256,31 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("RoleMenu", b =>
+                {
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Menu", "Menu")
+                        .WithMany("RoleMenus")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId");
+
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Branch", b =>

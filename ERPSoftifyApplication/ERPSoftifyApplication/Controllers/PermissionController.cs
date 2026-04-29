@@ -40,7 +40,6 @@ namespace ERPSoftifyApplication.Controllers
             return Ok(result);
         }
 
-        // Update permission
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdatePermissionDto dto, CancellationToken cancellationToken)
         {
@@ -48,7 +47,6 @@ namespace ERPSoftifyApplication.Controllers
             return Ok(result);
         }
 
-        // Delete
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {

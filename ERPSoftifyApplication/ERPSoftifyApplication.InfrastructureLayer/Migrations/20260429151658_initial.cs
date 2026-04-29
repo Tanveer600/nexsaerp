@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -578,7 +578,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 {
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     MenuId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PermissionId = table.Column<int>(type: "int", nullable: true),
                     TenantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -591,6 +593,11 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_RoleMenus_Permissions_PermissionId",
+                        column: x => x.PermissionId,
+                        principalTable: "Permissions",
+                        principalColumn: "ID");
+                    table.ForeignKey(
                         name: "FK_RoleMenus_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
@@ -599,7 +606,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RolePermission",
+                name: "RolePermissions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -610,15 +617,15 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RolePermission", x => x.Id);
+                    table.PrimaryKey("PK_RolePermissions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RolePermission_Permissions_PermissionId",
+                        name: "FK_RolePermissions_Permissions_PermissionId",
                         column: x => x.PermissionId,
                         principalTable: "Permissions",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RolePermission_Roles_RoleId",
+                        name: "FK_RolePermissions_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "ID",
@@ -702,13 +709,18 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 column: "MenuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_PermissionId",
-                table: "RolePermission",
+                name: "IX_RoleMenus_PermissionId",
+                table: "RoleMenus",
                 column: "PermissionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_RoleId",
-                table: "RolePermission",
+                name: "IX_RolePermissions_PermissionId",
+                table: "RolePermissions",
+                column: "PermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RolePermissions_RoleId",
+                table: "RolePermissions",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -806,7 +818,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 name: "RoleMenus");
 
             migrationBuilder.DropTable(
-                name: "RolePermission");
+                name: "RolePermissions");
 
             migrationBuilder.DropTable(
                 name: "SalesOrders");

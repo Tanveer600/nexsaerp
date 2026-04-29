@@ -517,7 +517,7 @@
   {
     "ContainingType": "ERPSoftifyApplication.Controllers.RoleMenuController",
     "Method": "GetAll",
-    "RelativePath": "api/RoleMenu",
+    "RelativePath": "api/RoleMenu/all-assignments",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -527,19 +527,14 @@
   {
     "ContainingType": "ERPSoftifyApplication.Controllers.RoleMenuController",
     "Method": "AssignMenus",
-    "RelativePath": "api/RoleMenu/assign",
+    "RelativePath": "api/RoleMenu/assign-permissions",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "roleId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "menuIds",
-        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Name": "dto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.AssignRoleMenusDto",
         "IsRequired": true
       }
     ],
@@ -547,35 +542,30 @@
   },
   {
     "ContainingType": "ERPSoftifyApplication.Controllers.RoleMenuController",
-    "Method": "RemoveMenu",
-    "RelativePath": "api/RoleMenu/remove",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "roleId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "menuId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ERPSoftifyApplication.Controllers.RoleMenuController",
-    "Method": "GetMenusByRole",
-    "RelativePath": "api/RoleMenu/role/{roleId}",
+    "Method": "GetMenusByRoleId",
+    "RelativePath": "api/RoleMenu/by-role/{roleId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "roleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.RoleMenuController",
+    "Method": "RemovePermission",
+    "RelativePath": "api/RoleMenu/remove-permission/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       }

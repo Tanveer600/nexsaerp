@@ -36,6 +36,10 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.MenuDtos
         public int TenantId { get; set; }
         public bool IsActive { get; set; }
         public int? ParentId { get; set; }
+        public bool CanView { get; set; }
+        public bool CanAdd { get; set; }
+        public bool CanUpdate { get; set; }
+        public bool CanDelete { get; set; }
         public string? ParentTitle { get; set; } 
         public List<MenuDto> Children { get; set; } = new List<MenuDto>();
     }

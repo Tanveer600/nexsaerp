@@ -822,48 +822,26 @@
         }
       }
     },
-    "/api/RoleMenu/assign": {
+    "/api/RoleMenu/assign-permissions": {
       "post": {
         "tags": [
           "RoleMenu"
-        ],
-        "parameters": [
-          {
-            "name": "roleId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int32"
-                }
+                "$ref": "#/components/schemas/AssignRoleMenusDto"
               }
             },
             "text/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int32"
-                }
+                "$ref": "#/components/schemas/AssignRoleMenusDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "type": "integer",
-                  "format": "int32"
-                }
+                "$ref": "#/components/schemas/AssignRoleMenusDto"
               }
             }
           }
@@ -875,7 +853,7 @@
         }
       }
     },
-    "/api/RoleMenu/role/{roleId}": {
+    "/api/RoleMenu/by-role/{roleId}": {
       "get": {
         "tags": [
           "RoleMenu"
@@ -898,28 +876,10 @@
         }
       }
     },
-    "/api/RoleMenu/remove": {
-      "delete": {
+    "/api/RoleMenu/all-assignments": {
+      "get": {
         "tags": [
           "RoleMenu"
-        ],
-        "parameters": [
-          {
-            "name": "roleId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "menuId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -928,10 +888,21 @@
         }
       }
     },
-    "/api/RoleMenu": {
-      "get": {
+    "/api/RoleMenu/remove-permission/{id}": {
+      "delete": {
         "tags": [
           "RoleMenu"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -1517,6 +1488,27 @@
   },
   "components": {
     "schemas": {
+      "AssignRoleMenusDto": {
+        "type": "object",
+        "properties": {
+          "roleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenantId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "menuPermissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MenuPermissionDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Branch": {
         "type": "object",
         "properties": {
@@ -1938,6 +1930,20 @@
             "nullable": true
           },
           "tenantId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MenuPermissionDto": {
+        "type": "object",
+        "properties": {
+          "menuId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "permissionId": {
             "type": "integer",
             "format": "int32"
           }

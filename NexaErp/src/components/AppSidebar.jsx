@@ -30,25 +30,30 @@ import { logo } from 'src/assets/brand/logo'
 import { sygnet } from 'src/assets/brand/sygnet'
 import navigation from '../_nav'
 import { useNavigate } from 'react-router-dom'
-import { getMenuByRole } from '../redux/slice/menuSlice'
+import { getPermissionsByRole } from '../redux/slice/roleMenuPermissionSlice'
 import { setSidebarShow } from 'src/redux/slice/sidebarSlice'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const userMenus = useSelector((state) => state.menues.result)
+  const userMenus = useSelector((state) => state.roleMenuPermissions.rolePermissions)
+  console.log('>>> AppSidebar: Fetched role Menus from Redux:', userMenus)
   const menus = Array.isArray(userMenus)
     ? userMenus
     : Array.isArray(userMenus?.data)
       ? userMenus.data
       : []
-  console.log('>>> AppSidebar Rendered with Menus:', menus)
+  console.log('>>> AppSidebar Rendered with rolemenu:', menus)
   const sidebarShow = useSelector((state) => state.ui.sidebarShow)
   const unfoldable = useSelector((state) => state.ui.sidebarUnfoldable)
   useEffect(() => {
-    // Testing ke liye Role ID 1 bhej rahe hain
-    dispatch(getMenuByRole(1))
+    const user = JSON.parse(localStorage.getItem('user'))
+    const roleId = user?.roleId
+
+    if (roleId) {
+      dispatch(getPermissionsByRole(roleId))
+    }
   }, [dispatch])
   return (
     <CSidebar

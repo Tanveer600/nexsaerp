@@ -16,7 +16,7 @@ import { getAllTenants } from '../slice/tenantSlice'
 // ================= WORKER SAGAS =================
 
 function* getRolesSaga() {
-  console.log('>>> Saga: getRolesSaga Triggered')
+  //console.log('>>> Saga: getRolesSaga Triggered')
   try {
     const data = yield call(roleService.getAll)
     //console.log('>>> Saga: getTenantsSaga Success Data:', data)
@@ -28,10 +28,10 @@ function* getRolesSaga() {
 }
 
 function* createRoleSaga(action) {
-  console.log('>>> Saga: createRoleSaga Triggered with:', action.payload)
+  //console.log('>>> Saga: createRoleSaga Triggered with:', action.payload)
   try {
     const res = yield call(roleService.create, action.payload)
-    console.log('>>> Saga: createRoleSaga Success Response:', res)
+    //console.log('>>> Saga: createRoleSaga Success Response:', res)
     yield put(createRoleCompleted(res))
     yield put(getAllRoles())
   } catch (e) {
@@ -41,10 +41,10 @@ function* createRoleSaga(action) {
 }
 
 function* updateRoleSaga(action) {
-  console.log('>>> Saga: updateRoleSaga Triggered with:', action.payload)
+  //console.log('>>> Saga: updateRoleSaga Triggered with:', action.payload)
   try {
     const res = yield call(roleService.update, action.payload)
-    console.log('>>> Saga: updateRoleSaga Success Response:', res)
+    //console.log('>>> Saga: updateRoleSaga Success Response:', res)
     yield put(updateRoleCompleted(res))
     yield put(getAllTenants())
   } catch (e) {
@@ -54,7 +54,7 @@ function* updateRoleSaga(action) {
 }
 
 function* deleteRoleSaga(action) {
-  console.log('>>> Saga: deleteRoleSaga Triggered for ID:', action.payload)
+  //console.log('>>> Saga: deleteRoleSaga Triggered for ID:', action.payload)
   try {
     yield call(roleService.delete, action.payload)
     console.log('>>> Saga: deleteroleSaga Delete Successful')
@@ -69,22 +69,22 @@ function* deleteRoleSaga(action) {
 // ================= WATCHER SAGAS =================
 
 function* watchGetRoles() {
-  console.log('Watcher: watchGetRoles Active', getAllRoles.type)
+  //  console.log('Watcher: watchGetRoles Active', getAllRoles.type)
   yield takeLatest(getAllRoles.type, getRolesSaga)
 }
 
 function* watchCreateRole() {
-  console.log('Watcher: watchCreateRole Active', createRole.type)
+  // console.log('Watcher: watchCreateRole Active', createRole.type)
   yield takeLatest(createRole.type, createRoleSaga)
 }
 
 function* watchUpdateRole() {
-  console.log('Watcher: watchUpdateRole Active', updateRole.type)
+  //console.log('Watcher: watchUpdateRole Active', updateRole.type)
   yield takeLatest(updateRole.type, updateRoleSaga)
 }
 
 function* watchDeleteRole() {
-  console.log('Watcher: watchDeleteRole Active', deleteRole.type)
+  //console.log('Watcher: watchDeleteRole Active', deleteRole.type)
   yield takeLatest(deleteRole.type, deleteRoleSaga)
 }
 

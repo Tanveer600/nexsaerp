@@ -19,7 +19,7 @@ function* getMenusSaga() {
   //console.log('>>> Saga: getMenusSaga Triggered')
   try {
     const data = yield call(menuService.getAll)
-    console.log('>>> Saga: getMenusSaga Success Data:', data)
+    // console.log('>>> Saga: getMenusSaga Success Data:', data)
     yield put(setAllMenus(data))
   } catch (e) {
     console.error('>>> Saga: Get Menus Error:', e)
@@ -65,24 +65,24 @@ function* deleteMenuSaga(action) {
     yield put(setIsLoading(false))
   }
 }
-function* getMenusByRoleSaga(action) {
-  try {
-    const data = yield call(menuService.getMenusByRole, action.payload)
-    yield put(setAllMenus(data))
-  } catch (e) {
-    console.error('>>> Saga: Get Menus by role Error:', e)
-    yield put(setAllMenus([]))
-  }
-}
+// function* getMenusByRoleSaga(action) {
+//   try {
+//     const data = yield call(menuService.getMenusByRole, action.payload)
+//     yield put(setAllMenus(data))
+//   } catch (e) {
+//     console.error('>>> Saga: Get Menus by role Error:', e)
+//     yield put(setAllMenus([]))
+//   }
+// }
 // ================= WATCHER SAGAS =================
 
 function* watchGetMenus() {
   //console.log('Watcher: watchGetMenus Active', getAllMenus.type)
   yield takeLatest(getAllMenus.type, getMenusSaga)
 }
-function* watchGetMenusByRole() {
-  yield takeLatest(getMenuByRole.type, getMenusByRoleSaga)
-}
+// function* watchGetMenusByRole() {
+//   yield takeLatest(getMenuByRole.type, getMenusByRoleSaga)
+// }
 function* watchCreateMenu() {
   //console.log('Watcher: watchCreateMenu Active', createMenu.type)
   yield takeLatest(createMenu.type, createMenuSaga)
@@ -101,7 +101,7 @@ function* watchDeleteMenu() {
 export function* menuSaga() {
   yield all([
     fork(watchGetMenus),
-    fork(watchGetMenusByRole),
+    // fork(watchGetMenusByRole),
     fork(watchCreateMenu),
     fork(watchUpdateMenu),
     fork(watchDeleteMenu),

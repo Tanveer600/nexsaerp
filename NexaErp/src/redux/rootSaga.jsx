@@ -6,6 +6,7 @@ import { roleSaga } from './saga/roleSaga'
 import { companySaga } from './saga/companySaga'
 import { permissionSaga } from './saga/permissionSaga'
 import { menuSaga } from './saga/menuSaga'
+import { roleMenuPermissionSaga } from './saga/roleMenuPermissionSaga'
 export default function* rootSaga() {
   yield all([
     fork(tenantSaga),
@@ -15,5 +16,6 @@ export default function* rootSaga() {
     fork(companySaga),
     fork(permissionSaga),
     fork(menuSaga),
+    fork(roleMenuPermissionSaga),
   ])
 }

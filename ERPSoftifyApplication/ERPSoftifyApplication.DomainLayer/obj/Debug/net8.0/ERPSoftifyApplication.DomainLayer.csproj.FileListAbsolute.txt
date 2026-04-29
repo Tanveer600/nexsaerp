@@ -22,3 +22,15 @@ C:\NEXSERP\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net
 C:\NEXSERP\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\refint\ERPSoftifyApplication.DomainLayer.dll
 C:\NEXSERP\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.pdb
 C:\NEXSERP\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ref\ERPSoftifyApplication.DomainLayer.dll
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\bin\Debug\net8.0\ERPSoftifyApplication.DomainLayer.deps.json
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\bin\Debug\net8.0\ERPSoftifyApplication.DomainLayer.dll
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\bin\Debug\net8.0\ERPSoftifyApplication.DomainLayer.pdb
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.AssemblyInfoInputs.cache
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.AssemblyInfo.cs
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.csproj.CoreCompileInputs.cache
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.sourcelink.json
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.dll
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\refint\ERPSoftifyApplication.DomainLayer.dll
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.pdb
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ref\ERPSoftifyApplication.DomainLayer.dll

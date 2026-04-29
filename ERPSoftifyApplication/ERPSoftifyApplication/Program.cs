@@ -62,6 +62,8 @@ builder.Services.AddScoped<IMenuInterface, MenuRepository>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<ICompanySettingInterface, CompanyRepository>();
 builder.Services.AddScoped<ICompanySettingService, CompanySettingService>();
+builder.Services.AddScoped<IRoleMenuPermissionInterface, RoleMenuPermissionRepository>();
+builder.Services.AddScoped<IRoleMenuPermissionService, RoleMenuPermissionService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",

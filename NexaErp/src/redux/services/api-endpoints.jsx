@@ -63,6 +63,11 @@ export const API_ENDPOINTS = {
     Get_BY_ID: (id) => `/api/Menu/GetById/${id}`,
     UPDATE: '/api/Menu/Update',
     DELETE: (id) => `/api/Menu/Delete/${id}`,
-    GetMenus_By_Role: (roleId) => `/api/Menu/GetMenusByRole/${roleId}`,
+  },
+  ROLE_MENU_PERMISSION: {
+    ASSIGN_PERMISSIONS: '/api/RoleMenu/assign-permissions',
+    GET_BY_ROLE: (roleId) => `/api/RoleMenu/by-role/${roleId}`,
+    GET_ALL: '/api/RoleMenu/all-assignments',
+    DELETE: (id) => `/api/RoleMenu/remove-permission/${id}`,
   },
 }
