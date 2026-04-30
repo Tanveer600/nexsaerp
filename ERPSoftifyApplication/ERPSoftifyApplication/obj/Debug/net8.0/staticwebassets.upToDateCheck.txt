@@ -1,3 +1,4 @@
+wwwroot\uploads\profile\0827bf42-df67-4953-b7d1-c0756130a80f.jpg
 wwwroot\uploads\profile\3d54d5fc-52f8-48e1-ba38-9ccd1af3cf7d.jpg
 wwwroot\uploads\profile\412bfe4e-c768-4148-b5f8-c06adcb207cb.jpg
 wwwroot\uploads\profile\510ff9ed-5cf4-4221-b833-f3d9a8bb4438.PNG

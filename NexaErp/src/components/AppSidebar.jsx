@@ -38,13 +38,13 @@ const AppSidebar = () => {
   const navigate = useNavigate()
 
   const userMenus = useSelector((state) => state.roleMenuPermissions.rolePermissions)
-  console.log('>>> AppSidebar: Fetched role Menus from Redux:', userMenus)
+  //// console.log('>>> AppSidebar: Fetched role Menus from Redux:', userMenus)
   const menus = Array.isArray(userMenus)
     ? userMenus
     : Array.isArray(userMenus?.data)
       ? userMenus.data
       : []
-  console.log('>>> AppSidebar Rendered with rolemenu:', menus)
+  //console.log('>>> AppSidebar Rendered with rolemenu:', menus)
   const sidebarShow = useSelector((state) => state.ui.sidebarShow)
   const unfoldable = useSelector((state) => state.ui.sidebarUnfoldable)
   useEffect(() => {

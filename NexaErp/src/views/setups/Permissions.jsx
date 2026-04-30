@@ -3,9 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CRow, CCol, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem } from '@coreui/react'
 import AppButton from '../../components/common/AppButton'
 import AddEditPermissionModal from './AddEditPermissionForm'
-// Do dots (..) ka matlab hai aik folder bahar jana
-// Teen bar dots (../../..) use karein agar file src/scss folder mein hai
-// Sirf do baar (../../) peeche jana hy src tak pohanchny k liye
 import '../../scss/permissingSetting.scss'
 // Import your slices (Just like Users.jsx)
 import {

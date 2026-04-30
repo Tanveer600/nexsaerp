@@ -48,6 +48,7 @@ const RoleMenuPermission=react.lazy(()=> import('./views/setups/RoleMenuPermissi
 const CompanySetting=react.lazy(()=> import('./views/setups/CompanySetting'))
 // src/routes.js
 const PermissionSetting = React.lazy(() => import('./views/PermissionSetting'))
+const Customers = React.lazy(() => import('./views/stakeholders/Customers'))
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
 const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
@@ -150,6 +151,7 @@ export const routes = [
   { path: '/setups/users', name: 'Users', element: Users },
   { path: '/setups/tenants', name: 'Tenants', element: Tenants },
   { path: '/setups/branch', name: 'Branch', element: Branch },
+  { path: '/stakeholders/customers', name: 'Customers', element: Customers },
   { path: '/setups/companySetting', name: 'CompanySetting', element: CompanySetting },
  { path: '/permission-settings', name: 'Permission Settings', element: PermissionSetting },
  { path: '/setups/role-menu-permission', name: 'Role Menu Permission', element: RoleMenuPermission },

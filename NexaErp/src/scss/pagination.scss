@@ -1,0 +1,67 @@
+/* Modern Pill Pagination Styling */
+.custom-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 10px;
+
+  .page-item {
+    .page-link {
+      border: none; // Borderless by default
+      background-color: transparent;
+      color: #666;
+      width: 32px;  // Circle size
+      height: 32px; // Circle size
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50% !important; // Make it a circle
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #f0f0f0; // Subtle grey on hover
+      }
+    }
+
+    /* Active State: Purple/Blue Circle Border */
+    &.active .page-link {
+      background-color: white !important; 
+      border: 1px solid #6f42c1 !important; // Image wala Purple/Blue border
+      color: #6f42c1 !important;
+      box-shadow: none;
+    }
+
+    /* Arrows Styling */
+    &:first-child, &:last-child {
+      .page-link {
+        border: 1px solid #ddd;
+        font-size: 18px;
+        color: #999;
+      }
+    }
+
+    &.disabled .page-link {
+      background-color: transparent;
+      border-color: #eee;
+      color: #ccc;
+    }
+  }
+}
+
+/* Row Card Styling (From your image) */
+.user-card {
+  background: white;
+  border-radius: 12px !important; // Extra rounded corners
+  border: 1px solid #f0f0f0 !important;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+  transition: transform 0.2s;
+
+  &:hover {
+    background-color: #fafafa;
+  }
+}

@@ -70,4 +70,12 @@ export const API_ENDPOINTS = {
     GET_ALL: '/api/RoleMenu/all-assignments',
     DELETE: (id) => `/api/RoleMenu/remove-permission/${id}`,
   },
+  CUSTOMER: {
+    CREATE: '/api/Customer/createCustomer',
+    GET_ALL: (page = 1, size = 10) =>
+      `/api/Customer/getCustomer?pageNumber=${page}&pageSize=${size}`,
+    BY_ID: (id) => `/api/Customer/${id}`,
+    UPDATE: (id) => `/api/Customer/${id}`,
+    DELETE: (Id) => `/api/Customer/deleteCustomer/${Id}`,
+  },
 }

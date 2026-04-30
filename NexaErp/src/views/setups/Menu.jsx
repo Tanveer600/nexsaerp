@@ -94,6 +94,7 @@ function Menu() {
                     setActiveColumn={setActiveColumn}
                   />
                   <TableHeader col="URL" />
+                  <TableHeader col="Icon" />
                   <TableHeader col="Parent" />
                   <TableHeader col="Action" />
                 </CTableRow>
@@ -107,6 +108,7 @@ function Menu() {
                       {m.title}
                     </CTableDataCell>
                     <CTableDataCell>{m.url}</CTableDataCell>
+                    <CTableDataCell>{m.icon}</CTableDataCell>
                     <CTableDataCell>
                       {m.parentTitle ? (
                         <CBadge color="info">{m.parentTitle}</CBadge>

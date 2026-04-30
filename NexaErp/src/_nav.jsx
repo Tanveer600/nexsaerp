@@ -87,6 +87,23 @@ const _nav = [
       text: 'NEW',
     },
   },
+
+  {
+    component: CNavTitle,
+    name: 'Stakeholders',
+  },
+  {
+    component: CNavGroup,
+    name: 'Stakeholders',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Customers',
+        to: '/stakeholders/customers',
+      },
+    ],
+  },
   {
     component: CNavTitle,
     name: 'Setups',

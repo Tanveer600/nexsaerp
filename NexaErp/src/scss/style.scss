@@ -436,3 +436,32 @@ body {
 .goog-te-balloon-frame {
     display: none !important;
 }
+/* Custom Pagination Styling */
+.custom-pagination {
+  .page-item {
+    .page-link {
+      border-color: #add8e6; // Light Blue Border
+      color: #0056b3; // Professional Blue Text
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #f0f8ff; // Very light blue on hover
+        border-color: #87ceeb;
+      }
+    }
+
+    &.active .page-link {
+      background-color: #007bff !important; // Solid blue for active
+      border-color: #007bff !important;
+      color: white !important;
+      box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    }
+
+    &.disabled .page-link {
+      border-color: #e9ecef;
+      color: #6c757d;
+    }
+  }
+}
