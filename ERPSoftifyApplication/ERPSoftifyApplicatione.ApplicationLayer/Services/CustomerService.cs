@@ -25,7 +25,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 Name = dto.Name,
                 Address = dto.Address,
                 Phone = dto.Phone,
-                Email = dto.Email,
+                Email = dto.Email,             
                 BranchId = _currentUserService.BranchId,
                 TenantId = _currentUserService.TenantId,
 

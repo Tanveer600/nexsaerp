@@ -33,7 +33,6 @@ function Customers() {
   const [form, setForm] = useState({
     id: 0,
     name: '',
-    contact: '',
     address: '',
     phone: '',
     email: '',
@@ -73,7 +72,7 @@ function Customers() {
   }
 
   const resetForm = () => {
-    setForm({ Id: 0, name: '', contact: '', address: '', phone: '', email: '' })
+    setForm({ id: 0, name: '', address: '', phone: '', email: '' })
   }
 
   const indexOfLastItem = currentPage * itemsPerPage
@@ -105,41 +104,31 @@ function Customers() {
 
       {/* Table Header with Underline Logic */}
       <div className="table-header px-4 d-none d-md-grid text-muted small mb-1" style={gridLayout}>
-        <div>
-          <TableHeader
-            col={l('name')}
-            activeColumn={activeColumn}
-            setActiveColumn={setActiveColumn}
-          />
-        </div>
-        <div>
-          <TableHeader
-            col={l('email')}
-            activeColumn={activeColumn}
-            setActiveColumn={setActiveColumn}
-          />
-        </div>
-        <div>
-          <TableHeader
-            col={l('phone')}
-            activeColumn={activeColumn}
-            setActiveColumn={setActiveColumn}
-          />
-        </div>
-        <div>
-          <TableHeader
-            col={l('address')}
-            activeColumn={activeColumn}
-            setActiveColumn={setActiveColumn}
-          />
-        </div>
-        <div>
-          <TableHeader
-            col={l('action')}
-            activeColumn={activeColumn}
-            setActiveColumn={setActiveColumn}
-          />
-        </div>
+        <TableHeader
+          col={l('name')}
+          activeColumn={activeColumn}
+          setActiveColumn={setActiveColumn}
+        />
+        <TableHeader
+          col={l('email')}
+          activeColumn={activeColumn}
+          setActiveColumn={setActiveColumn}
+        />
+        <TableHeader
+          col={l('phone')}
+          activeColumn={activeColumn}
+          setActiveColumn={setActiveColumn}
+        />
+        <TableHeader
+          col={l('address')}
+          activeColumn={activeColumn}
+          setActiveColumn={setActiveColumn}
+        />
+        <TableHeader
+          col={l('action')}
+          activeColumn={activeColumn}
+          setActiveColumn={setActiveColumn}
+        />
       </div>
 
       {/* Customer List */}

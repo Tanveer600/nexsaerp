@@ -60,15 +60,7 @@ const AddEditCustomerModal = ({ visible, setVisible, form, setForm, handleSave }
           </CCol>
 
           {/* Row 2: Contact Person */}
-          <CCol md={12}>
-            <CFormLabel className="fw-semibold small">Contact Person / Department</CFormLabel>
-            <CFormInput
-              name="contact"
-              value={form.contact}
-              onChange={handleChange}
-              placeholder="e.g. Finance Manager or Dept Name"
-            />
-          </CCol>
+
           <CCol md={12}>
             <CFormLabel className="fw-semibold small">Email</CFormLabel>
             <CFormInput
