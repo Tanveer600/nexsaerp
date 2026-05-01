@@ -21,6 +21,7 @@ const menuService = {
 
   update: async (payload) => {
     const res = await apiClient.put(API_ENDPOINTS.MENU.UPDATE, payload)
+    console.log('API Response for update Menu:', res)
     return res?.data
   },
 

@@ -75,7 +75,7 @@ export const API_ENDPOINTS = {
     GET_ALL: (page = 1, size = 10) =>
       `/api/Customer/getCustomer?pageNumber=${page}&pageSize=${size}`,
     BY_ID: (id) => `/api/Customer/${id}`,
-    UPDATE: (id) => `/api/Customer/${id}`,
+    UPDATE: (id) => `/api/Customer/updateCustomer/${id}`,
     DELETE: (Id) => `/api/Customer/deleteCustomer/${Id}`,
   },
 }

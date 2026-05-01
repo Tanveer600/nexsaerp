@@ -97,17 +97,19 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             if (existing == null)
                 return ResponseDataModel<UpdateCustomerDto>.FailureResponse("Customer not found");
 
+            // Map updated values
             existing.Name = dto.Name;
             existing.Address = dto.Address;
             existing.Phone = dto.Phone;
             existing.Email = dto.Email;
 
-
+            // Yahan ensure karein ke aapka Repository internally _context.Update(existing) aur _context.SaveChangesAsync() kar raha hai
             await _customerInterface.UpDateCustomer(existing, cancellationToken);
 
             return ResponseDataModel<UpdateCustomerDto>.SuccessResponse(dto, "Customer updated successfully");
         }
 
+       
         public async Task<ResponseDataModel<bool>> DeletecustomerAsync(int id, CancellationToken cancellationToken)
         {
             var existing = await _customerInterface.GetById(id, cancellationToken);
@@ -117,7 +119,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
 
 
-            await _customerInterface.UpDateCustomer(existing, cancellationToken);
+            await _customerInterface.DeleteCustomer(existing.ID, cancellationToken);
 
             return ResponseDataModel<bool>.SuccessResponse(true, "Customer deleted successfully");
         }

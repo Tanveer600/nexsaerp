@@ -25,7 +25,7 @@ function Customers() {
   const { l } = useAppLanguage() // Translation initialization
 
   const customersData = useSelector((state) => state.customers?.result) || []
-
+  console.log('Customers Data from Redux:', customersData)
   // States
   const [currentPage, setCurrentPage] = useState(1)
   const [activeColumn, setActiveColumn] = useState(l('name')) // Underline state

@@ -48,12 +48,20 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
 
         public async Task<Customer> UpDateCustomer(Customer model, CancellationToken cancellationToken)
         {
-            var list = await _dbcontext.Customers.Where(c => c.ID == model.ID).FirstOrDefaultAsync();
-            if (list != null)
+            try
+            {
+                var list = await _dbcontext.Customers.Where(c => c.ID == model.ID).FirstOrDefaultAsync();
+                if (list != null)
 
-                _dbcontext.Customers.Update(model);
-            await _dbcontext.SaveChangesAsync();
-            return model;
+                    _dbcontext.Customers.Update(model);
+                await _dbcontext.SaveChangesAsync();
+                return model;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
 
         }
     }
