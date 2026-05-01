@@ -25,7 +25,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 Name = dto.Name,
                 Address = dto.Address,
                 Phone = dto.Phone,
-                Email = dto.Email,             
+                Email = dto.Email,
                 BranchId = _currentUserService.BranchId,
                 TenantId = _currentUserService.TenantId,
 
@@ -45,18 +45,15 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
             var totalCount = query.Count();
 
-            var customers = query
-                .OrderByDescending(x => x.ID)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                         .Select(b => new CustomerDto
-                         {
-                             ID=b.ID,
-                             Name = b.Name,
-                             Address = b.Address,
-                             Email = b.Email,
-                             Phone = b.Phone
-                         }).ToList();
+            var customers = query.OrderByDescending(x => x.ID).Skip((pageNumber - 1) * pageSize).Take(pageSize)
+                           .Select(b => new CustomerDto
+                           {
+                               ID = b.ID,
+                               Name = b.Name,
+                               Address = b.Address,
+                               Email = b.Email,
+                               Phone = b.Phone
+                           }).ToList();
 
             var pagedData = new PagedResponse<CustomerDto>
             {
@@ -83,7 +80,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 Address = customer.Address,
                 Phone = customer.Phone,
                 Email = customer.Email,
-               // TenantId = customer.TenantId,
+                // TenantId = customer.TenantId,
 
             };
 
@@ -109,7 +106,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             return ResponseDataModel<UpdateCustomerDto>.SuccessResponse(dto, "Customer updated successfully");
         }
 
-       
+
         public async Task<ResponseDataModel<bool>> DeletecustomerAsync(int id, CancellationToken cancellationToken)
         {
             var existing = await _customerInterface.GetById(id, cancellationToken);

@@ -25,9 +25,11 @@ function Customers() {
   const { l } = useAppLanguage() // Translation initialization
 
   const customersData = useSelector((state) => state.customers?.result) || []
+  const totalCount = useSelector((state) => state.customers?.totalCount) || 0
   console.log('Customers Data from Redux:', customersData)
   // States
   const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
   const [activeColumn, setActiveColumn] = useState(l('name')) // Underline state
   const [visible, setVisible] = useState(false)
   const [form, setForm] = useState({
@@ -37,10 +39,6 @@ function Customers() {
     phone: '',
     email: '',
   })
-
-  const itemsPerPage = 6
-  const totalPages = Math.ceil(customersData.length / itemsPerPage)
-
   const gridLayout = {
     display: 'grid',
     gridTemplateColumns: '1.2fr 1.8fr 1fr 1.5fr 0.5fr',
@@ -48,37 +46,38 @@ function Customers() {
   }
 
   useEffect(() => {
-    dispatch(getAllCustomers())
-  }, [dispatch])
-
+    dispatch(getAllCustomers({ page: currentPage, size: pageSize }))
+  }, [dispatch, currentPage, pageSize])
+  const totalPages = Math.ceil(totalCount / pageSize)
+  const currentCustomers = customersData
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages)
+    }
+  }, [totalPages])
   const handleSave = () => {
     if (!form.name) return
     if (form.id === 0) {
       dispatch(createCustomer(form))
-      addToast(l('success'), l('customer_created'), 'success')
+      addToast(l('success'), l('customer created successfully'), 'success')
     } else {
       dispatch(updateCustomer(form))
-      addToast(l('success'), l('customer_updated'), 'success')
+      addToast(l('success'), l('customer updated successfully'), 'success')
     }
     setVisible(false)
     resetForm()
   }
 
   const handleDelete = (id) => {
-    if (window.confirm(l('are_you_sure_delete'))) {
+    if (window.confirm(l('are you sure you want to delete this customer?'))) {
       dispatch(deleteCustomer(id))
-      addToast(l('deleted'), l('customer_deleted_msg'), 'error')
+      addToast(l('deleted'), l('customer deleted successfully'), 'error')
     }
   }
 
   const resetForm = () => {
     setForm({ id: 0, name: '', address: '', phone: '', email: '' })
   }
-
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentCustomers = customersData.slice(indexOfFirstItem, indexOfLastItem)
-
   return (
     <div className="user-container px-3">
       {/* Header Section */}
