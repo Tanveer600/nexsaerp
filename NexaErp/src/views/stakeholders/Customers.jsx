@@ -25,17 +25,14 @@ function Customers() {
   const { l } = useAppLanguage() // Translation initialization
 
   const customersData = useSelector((state) => state.customers?.result) || []
-<<<<<<< Updated upstream
   const totalCount = useSelector((state) => state.customers?.totalCount) || 0
   console.log('Customers Data from Redux:', customersData)
   // States
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-=======
   console.log('Customers Data from Redux:', customersData)
   // States
-  const [currentPage, setCurrentPage] = useState(1)
->>>>>>> Stashed changes
+
   const [activeColumn, setActiveColumn] = useState(l('name')) // Underline state
   const [visible, setVisible] = useState(false)
   const [form, setForm] = useState({
@@ -45,13 +42,7 @@ function Customers() {
     phone: '',
     email: '',
   })
-<<<<<<< Updated upstream
-=======
 
-  const itemsPerPage = 6
-  const totalPages = Math.ceil(customersData.length / itemsPerPage)
-
->>>>>>> Stashed changes
   const gridLayout = {
     display: 'grid',
     gridTemplateColumns: '1.2fr 1.8fr 1fr 1.5fr 0.5fr',
@@ -59,7 +50,6 @@ function Customers() {
   }
 
   useEffect(() => {
-<<<<<<< Updated upstream
     dispatch(getAllCustomers({ page: currentPage, size: pageSize }))
   }, [dispatch, currentPage, pageSize])
   const totalPages = Math.ceil(totalCount / pageSize)
@@ -69,55 +59,37 @@ function Customers() {
       setCurrentPage(totalPages)
     }
   }, [totalPages])
-=======
+
+  useEffect(() => {
     dispatch(getAllCustomers())
   }, [dispatch])
 
->>>>>>> Stashed changes
   const handleSave = () => {
     if (!form.name) return
+
     if (form.id === 0) {
       dispatch(createCustomer(form))
-<<<<<<< Updated upstream
-      addToast(l('success'), l('customer created successfully'), 'success')
-    } else {
-      dispatch(updateCustomer(form))
-      addToast(l('success'), l('customer updated successfully'), 'success')
-=======
       addToast(l('success'), l('customer_created'), 'success')
     } else {
       dispatch(updateCustomer(form))
       addToast(l('success'), l('customer_updated'), 'success')
->>>>>>> Stashed changes
     }
+
     setVisible(false)
     resetForm()
   }
 
   const handleDelete = (id) => {
-<<<<<<< Updated upstream
     if (window.confirm(l('are you sure you want to delete this customer?'))) {
       dispatch(deleteCustomer(id))
       addToast(l('deleted'), l('customer deleted successfully'), 'error')
-=======
-    if (window.confirm(l('are_you_sure_delete'))) {
-      dispatch(deleteCustomer(id))
-      addToast(l('deleted'), l('customer_deleted_msg'), 'error')
->>>>>>> Stashed changes
     }
   }
 
   const resetForm = () => {
     setForm({ id: 0, name: '', address: '', phone: '', email: '' })
   }
-<<<<<<< Updated upstream
-=======
 
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentCustomers = customersData.slice(indexOfFirstItem, indexOfLastItem)
-
->>>>>>> Stashed changes
   return (
     <div className="user-container px-3">
       {/* Header Section */}
