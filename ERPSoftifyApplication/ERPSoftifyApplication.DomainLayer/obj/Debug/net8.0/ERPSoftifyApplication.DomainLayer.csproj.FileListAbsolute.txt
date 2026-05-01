@@ -34,3 +34,15 @@ C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Deb
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\refint\ERPSoftifyApplication.DomainLayer.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.pdb
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ref\ERPSoftifyApplication.DomainLayer.dll
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\bin\Debug\net8.0\ERPSoftifyApplication.DomainLayer.deps.json
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\bin\Debug\net8.0\ERPSoftifyApplication.DomainLayer.dll
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\bin\Debug\net8.0\ERPSoftifyApplication.DomainLayer.pdb
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.AssemblyInfoInputs.cache
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.AssemblyInfo.cs
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.csproj.CoreCompileInputs.cache
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.sourcelink.json
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.dll
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\refint\ERPSoftifyApplication.DomainLayer.dll
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ERPSoftifyApplication.DomainLayer.pdb
+C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.DomainLayer\obj\Debug\net8.0\ref\ERPSoftifyApplication.DomainLayer.dll

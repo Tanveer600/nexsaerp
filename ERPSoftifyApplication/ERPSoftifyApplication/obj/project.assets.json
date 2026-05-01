@@ -4328,23 +4328,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tanveer\\.nuget\\packages\\": {},
+    "C:\\Users\\Sidra\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\ERPSoftifyApplication.csproj",
+      "projectUniqueName": "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\ERPSoftifyApplication.csproj",
       "projectName": "ERPSoftifyApplication",
-      "projectPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\ERPSoftifyApplication.csproj",
-      "packagesPath": "C:\\Users\\Tanveer\\.nuget\\packages\\",
-      "outputPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\obj\\",
+      "projectPath": "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\ERPSoftifyApplication.csproj",
+      "packagesPath": "C:\\Users\\Sidra\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Tanveer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sidra\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4360,14 +4360,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj": {
-              "projectPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj"
+            "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj": {
+              "projectPath": "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj"
             },
-            "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj": {
-              "projectPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj"
+            "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj": {
+              "projectPath": "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj"
             },
-            "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj": {
-              "projectPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj"
+            "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj": {
+              "projectPath": "C:\\Users\\Sidra\\source\\repos\\NexaERP\\nxa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj"
             }
           }
         }
@@ -4426,7 +4426,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
