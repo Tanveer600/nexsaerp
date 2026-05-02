@@ -1,4 +1,5 @@
-﻿using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+﻿using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplication.DomainLayer.Entities
 {
-    public class PurchaseOrder: IMustHaveTenant
+    public class PurchaseOrder: IMustHaveTenant,IMustHaveBranch
     {
         public int ID { get; set; }
 
@@ -20,5 +21,6 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public int TenantId { get; set; }
 
         public int BranchId { get; set; }
+        public ICollection<PurchaseOrderItem> Items { get; set; } = new List<PurchaseOrderItem>();
     }
 }

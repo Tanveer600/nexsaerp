@@ -6,13 +6,14 @@ using ERPSoftifyApplicatione.ApplicationLayer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -66,6 +67,12 @@ builder.Services.AddScoped<IRoleMenuPermissionInterface, RoleMenuPermissionRepos
 builder.Services.AddScoped<IRoleMenuPermissionService, RoleMenuPermissionService>();
 builder.Services.AddScoped<ICustomerInterface, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IProductInterface, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IVendorInterface, VendorRepository>();
+builder.Services.AddScoped<IVendorService, VendorService>();
+builder.Services.AddScoped<IPurchaseOrderInterface, PurchaseOrderRepository>();
+builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",

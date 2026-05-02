@@ -9,7 +9,9 @@ import permissionReducer from './permissionSlice'
 import menuReducer from './menuSlice'
 import roleMenuPermissionReducer from './roleMenuPermissionSlice'
 import customerReducer from './customerSlice'
-
+import productReducer from './productSlice'
+import vendorReducer from './vendorSlice'
+import purchaseOrderItemReducer from './purchaseOrdertemSlice'
 const rootReducer = combineReducers({
   tenants: tenantReducer,
   users: userReducer,
@@ -21,6 +23,9 @@ const rootReducer = combineReducers({
   menues: menuReducer,
   roleMenuPermissions: roleMenuPermissionReducer,
   customers: customerReducer,
+  products: productReducer,
+  vendors: vendorReducer,
+  purchaseOrderItems: purchaseOrderItemReducer,
 })
 
 export default rootReducer

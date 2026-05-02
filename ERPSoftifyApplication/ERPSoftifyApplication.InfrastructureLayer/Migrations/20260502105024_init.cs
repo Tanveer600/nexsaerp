@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -225,23 +225,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "invoiceitems",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InvoiceId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_invoiceitems", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "JobAssignments",
                 columns: table => new
                 {
@@ -395,23 +378,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PurchaseOrderItems",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    POId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PurchaseOrderItems", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PurchaseOrders",
                 columns: table => new
                 {
@@ -426,23 +392,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PurchaseOrders", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "QuotationItems",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QuotationId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuotationItems", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -548,6 +497,22 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Vendors",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vendors", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserProfiles",
                 columns: table => new
                 {
@@ -569,6 +534,78 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         column: x => x.CompanyId,
                         principalTable: "CompanySettings",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "invoiceitems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InvoiceId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_invoiceitems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_invoiceitems_invoice_InvoiceId",
+                        column: x => x.InvoiceId,
+                        principalTable: "invoice",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PurchaseOrderItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    POId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseOrderItems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_PurchaseOrderItems_PurchaseOrders_POId",
+                        column: x => x.POId,
+                        principalTable: "PurchaseOrders",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuotationItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuotationId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuotationItems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_QuotationItems_Quotations_QuotationId",
+                        column: x => x.QuotationId,
+                        principalTable: "Quotations",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -705,9 +742,24 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 column: "ParentBranchId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_invoiceitems_InvoiceId",
+                table: "invoiceitems",
+                column: "InvoiceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Menus_ParentId",
                 table: "Menus",
                 column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseOrderItems_POId",
+                table: "PurchaseOrderItems",
+                column: "POId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuotationItems_QuotationId",
+                table: "QuotationItems",
+                column: "QuotationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleMenus_MenuId",
@@ -795,9 +847,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 name: "GoodsReceiveds");
 
             migrationBuilder.DropTable(
-                name: "invoice");
-
-            migrationBuilder.DropTable(
                 name: "invoiceitems");
 
             migrationBuilder.DropTable(
@@ -822,13 +871,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 name: "PurchaseOrderItems");
 
             migrationBuilder.DropTable(
-                name: "PurchaseOrders");
-
-            migrationBuilder.DropTable(
                 name: "QuotationItems");
-
-            migrationBuilder.DropTable(
-                name: "Quotations");
 
             migrationBuilder.DropTable(
                 name: "RoleMenus");
@@ -850,6 +893,18 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Vendors");
+
+            migrationBuilder.DropTable(
+                name: "invoice");
+
+            migrationBuilder.DropTable(
+                name: "PurchaseOrders");
+
+            migrationBuilder.DropTable(
+                name: "Quotations");
 
             migrationBuilder.DropTable(
                 name: "Menus");

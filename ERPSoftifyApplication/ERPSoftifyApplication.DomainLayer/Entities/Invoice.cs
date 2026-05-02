@@ -24,5 +24,7 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public int TenantId { get; set; }
 
         public int BranchId { get; set; }
+        public ICollection<InvoiceItems> Items { get; set; } = new List<InvoiceItems>();
+        
     }
 }

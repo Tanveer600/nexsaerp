@@ -1,6 +1,7 @@
 ﻿using ERPSoftifyApplication.DomainLayer;
 using ERPSoftifyApplication.DomainLayer.Entities;
 using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using System;
 using System.Collections.Generic;
@@ -10,82 +11,214 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 {
-    public class PurchaseOrderService:IPurchaseOrderService
+    public class PurchaseOrderService: IPurchaseOrderService
     {
-        private readonly IPurchaseOrderInterface _PurchaseOrderRepository;
-
-        public PurchaseOrderService(IPurchaseOrderInterface userRepository)
+        private readonly IPurchaseOrderInterface _repository;
+        private readonly ICurrentUserService _currentUserService;
+        public PurchaseOrderService(IPurchaseOrderInterface repository, ICurrentUserService currentUserService)
         {
-            _PurchaseOrderRepository = userRepository;
+            _repository = repository;
+            _currentUserService = currentUserService;
         }
 
-        public async Task<ResponseDataModel<PurchaseOrder>> CreatePurchaseOrderAsync(
-            PurchaseOrder PurchaseOrder,
-            CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<PurchaseOrderResponseDto>> CreatePurchaseOrderAsync(PurchaseOrderRequestDto request, CancellationToken cancellationToken)
         {
-            //PurchaseOrder.CreatedAt = DateTime.UtcNow;
+            try
+            {
+                var tenantId = _currentUserService.TenantId;
+                var branchId = _currentUserService.BranchId;
+                var orderEntity = new PurchaseOrder
+                {
+                    VendorId = request.VendorId,
+                    OrderDate = request.OrderDate,
+                    Status = request.Status,
+                    BranchId = _currentUserService.BranchId,
+                    TenantId=_currentUserService.TenantId,
+                    Items = request.Items.Select(i => new PurchaseOrderItem
+                    {
+                        ProductId = i.ProductId,
+                        Quantity = i.Quantity,
+                        UnitPrice = i.UnitPrice,
+                        Discount = i.Discount,
+                        TaxAmount = i.TaxAmount,
+                        TenantId = tenantId,
+                        BranchId = branchId,
+                        
+                    }).ToList()
+                };
 
-            var result = await _PurchaseOrderRepository.CreateAsync(PurchaseOrder, cancellationToken);
+                var result = await _repository.CreateAsync(orderEntity, cancellationToken);
 
-            return ResponseDataModel<PurchaseOrder>.SuccessResponse(result, "PurchaseOrder created successfully");
+                var responseDto = new PurchaseOrderResponseDto
+                {
+                    ID = result.ID,
+                    VendorId = result.VendorId,
+                    VendorName = "Vendor-" + result.VendorId, 
+                    OrderDate = result.OrderDate,
+                    Status = result.Status,
+                    Items = result.Items.Select(item => new PurchaseOrderItemResponseDto
+                    {
+                        ID = item.ID,
+                        ProductId = item.ProductId,
+                        ProductName = "Product-" + item.ProductId, 
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice,
+                        Discount = item.Discount,
+                        TaxAmount = item.TaxAmount
+                    }).ToList()
+                };
+
+                return ResponseDataModel<PurchaseOrderResponseDto>.SuccessResponse(responseDto, "Created Successfully");
+            }
+            catch (Exception ex)
+            {
+                return ResponseDataModel<PurchaseOrderResponseDto>.FailureResponse(ex.Message);
+            }
         }
 
-        public async Task<ResponseDataModel<List<PurchaseOrder>>> GetAllPurchaseOrdersAsync(
-            CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<PagedResponse<PurchaseOrderResponseDto>>> GetAllPurchaseOrdersAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            var result = await _PurchaseOrderRepository.GetAllAsync(cancellationToken);
+            try
+            {
+                var allOrders = await _repository.GetAllAsync(cancellationToken);
 
-            return ResponseDataModel<List<PurchaseOrder>>.SuccessResponse(result);
+                var totalCount = allOrders.Count();
+                var paginatedOrders = allOrders
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+                var mappedItems = paginatedOrders.Select(o => new PurchaseOrderResponseDto
+                {
+                    ID = o.ID,
+                    VendorId = o.VendorId,
+                    VendorName = "Vendor-" + o.VendorId,
+                    OrderDate = o.OrderDate,
+                    Status = o.Status,
+                    Items = o.Items.Select(i => new PurchaseOrderItemResponseDto
+                    {
+                        ID = i.ID,
+                        ProductId = i.ProductId,
+                        ProductName = "Product-" + i.ProductId,
+                        Quantity = i.Quantity,
+                        UnitPrice = i.UnitPrice,
+                        Discount = i.Discount,
+                        TaxAmount = i.TaxAmount
+                    }).ToList()
+                }).ToList();
+
+                var pagedData = new PagedResponse<PurchaseOrderResponseDto>
+                {
+                    TotalCount = totalCount,
+                    Page = pageNumber,
+                    PageSize = pageSize,
+                    Items = mappedItems
+                };
+
+                return ResponseDataModel<PagedResponse<PurchaseOrderResponseDto>>.SuccessResponse(pagedData);
+            }
+            catch (Exception ex)
+            {
+                return ResponseDataModel<PagedResponse<PurchaseOrderResponseDto>>.FailureResponse(ex.Message);
+            }
         }
 
-        public async Task<ResponseDataModel<PurchaseOrder>> GetPurchaseOrderByIdAsync(
-            int id,
-            CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<PurchaseOrderResponseDto>> GetPurchaseOrderByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var PurchaseOrder = await _PurchaseOrderRepository.GetByIdAsync(id, cancellationToken);
+            try
+            {
+                var order = await _repository.GetByIdAsync(id, cancellationToken);
+                if (order == null) return ResponseDataModel<PurchaseOrderResponseDto>.FailureResponse("Not Found");
+                var responseDto = new PurchaseOrderResponseDto
+                {
+                    ID = order.ID,
+                    VendorId = order.VendorId,
+                    VendorName = "Vendor-" + order.VendorId,
+                    OrderDate = order.OrderDate,
+                    Status = order.Status,
+                    Items = order.Items.Select(i => new PurchaseOrderItemResponseDto
+                    {
+                        ID = i.ID,
+                        ProductId = i.ProductId,
+                        ProductName = "Product-" + i.ProductId,
+                        Quantity = i.Quantity,
+                        UnitPrice = i.UnitPrice,
+                        Discount = i.Discount,
+                        TaxAmount = i.TaxAmount
+                    }).ToList()
+                };
 
-            if (PurchaseOrder == null)
-                return ResponseDataModel<PurchaseOrder>.FailureResponse("PurchaseOrder not found");
-
-            return ResponseDataModel<PurchaseOrder>.SuccessResponse(PurchaseOrder);
+                return ResponseDataModel<PurchaseOrderResponseDto>.SuccessResponse(responseDto);
+            }
+            catch (Exception ex)
+            {
+                return ResponseDataModel<PurchaseOrderResponseDto>.FailureResponse(ex.Message);
+            }
         }
 
-        public async Task<ResponseDataModel<PurchaseOrder>> UpdatePurchaseOrderAsync(
-            int id,
-            PurchaseOrder PurchaseOrder,
-            CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<PurchaseOrderResponseDto>> UpdatePurchaseOrderAsync(PurchaseOrderRequestDto request, CancellationToken cancellationToken)
         {
-            var existing = await _PurchaseOrderRepository.GetByIdAsync(id, cancellationToken);
+            try
+            {
+                var orderToUpdate = new PurchaseOrder
+                {
+                    ID = request.ID,
+                    VendorId = request.VendorId,
+                    OrderDate = request.OrderDate,
+                    Status = request.Status,
+                    Items = request.Items.Select(i => new PurchaseOrderItem
+                    {
+                        ID = i.ID ?? 0,
+                        POId = request.ID,
+                        ProductId = i.ProductId,
+                        Quantity = i.Quantity,
+                        UnitPrice = i.UnitPrice,
+                        Discount = i.Discount,
+                        TaxAmount = i.TaxAmount
+                    }).ToList()
+                };
 
-            if (existing == null)
-                return ResponseDataModel<PurchaseOrder>.FailureResponse("PurchaseOrder not found");
+                var result = await _repository.UpdateAsync(orderToUpdate, cancellationToken);
 
-            existing.Status = PurchaseOrder.Status;
-            existing.OrderDate = PurchaseOrder.OrderDate;
-            existing.TenantId = PurchaseOrder.TenantId;
-            existing.BranchId = PurchaseOrder.BranchId;
-            existing.VendorId = PurchaseOrder.VendorId;
-          
+                var responseDto = new PurchaseOrderResponseDto
+                {
+                    ID = result.ID,
+                    VendorId = result.VendorId,
+                    VendorName = "Vendor-" + result.VendorId,
+                    OrderDate = result.OrderDate,
+                    Status = result.Status,
+                    Items = result.Items.Select(item => new PurchaseOrderItemResponseDto
+                    {
+                        ID = item.ID,
+                        ProductId = item.ProductId,
+                        ProductName = "Product-" + item.ProductId,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice,
+                        Discount = item.Discount,
+                        TaxAmount = item.TaxAmount
+                    }).ToList()
+                };
 
-
-            var updated = await _PurchaseOrderRepository.UpdateAsync(existing, cancellationToken);
-
-            return ResponseDataModel<PurchaseOrder>.SuccessResponse(updated, "PurchaseOrder updated successfully");
+                return ResponseDataModel<PurchaseOrderResponseDto>.SuccessResponse(responseDto, "Updated Successfully");
+            }
+            catch (Exception ex)
+            {
+                return ResponseDataModel<PurchaseOrderResponseDto>.FailureResponse(ex.Message);
+            }
         }
 
-        public async Task<ResponseDataModel<bool>> DeletePurchaseOrderAsync(
-            int id,
-            CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<bool>> DeletePurchaseOrderAsync(int id, CancellationToken cancellationToken)
         {
-            var exists = await _PurchaseOrderRepository.GetByIdAsync(id, cancellationToken);
-
-            if (exists == null)
-                return ResponseDataModel<bool>.FailureResponse("PurchaseOrder not found");
-
-            var deleted = await _PurchaseOrderRepository.DeleteAsync(id, cancellationToken);
-
-            return ResponseDataModel<bool>.SuccessResponse(deleted, "PurchaseOrder deleted successfully");
+            try
+            {
+                var deleted = await _repository.DeleteAsync(id, cancellationToken);
+                return deleted
+                    ? ResponseDataModel<bool>.SuccessResponse(true, "Deleted")
+                    : ResponseDataModel<bool>.FailureResponse("Failed to delete");
+            }
+            catch (Exception ex)
+            {
+                return ResponseDataModel<bool>.FailureResponse(ex.Message);
+            }
         }
-
     }
 }

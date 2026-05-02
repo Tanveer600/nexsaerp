@@ -104,6 +104,44 @@ const _nav = [
       },
     ],
   },
+
+  {
+    component: CNavTitle,
+    name: 'Inventory Management',
+  },
+  {
+    component: CNavGroup,
+    name: 'Product',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Product',
+        to: '/inventoryManagement/product',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: 'Purchase Management',
+  },
+  {
+    component: CNavGroup,
+    name: 'Vendors',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Vendors',
+        to: '/purchaseManagement/vendors',
+      },
+      {
+        component: CNavItem,
+        name: 'Purchase Order Items',
+        to: '/purchaseManagement/purchase-order-items',
+      },
+    ],
+  },
   {
     component: CNavTitle,
     name: 'Setups',

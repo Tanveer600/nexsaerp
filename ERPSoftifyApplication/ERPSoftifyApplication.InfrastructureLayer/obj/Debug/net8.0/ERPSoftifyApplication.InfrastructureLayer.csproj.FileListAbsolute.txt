@@ -56,6 +56,12 @@ C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftif
 C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.pdb
 C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.genruntimeconfig.cache
 C:\Users\Sidra\source\repos\NexaERP\nxa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ref\ERPSoftifyApplication.InfrastructureLayer.dll
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.csproj.AssemblyReference.cache
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.AssemblyInfoInputs.cache
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.AssemblyInfo.cs
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.csproj.CoreCompileInputs.cache
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.sourcelink.json
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\bin\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.deps.json
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\bin\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.runtimeconfig.json
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\bin\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.dll
@@ -64,12 +70,6 @@ C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\bin\Debug\net8.0\ERPSoftifyApplicatione.ApplicationLayer.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\bin\Debug\net8.0\ERPSoftifyApplication.DomainLayer.pdb
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\bin\Debug\net8.0\ERPSoftifyApplicatione.ApplicationLayer.pdb
-C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.csproj.AssemblyReference.cache
-C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.GeneratedMSBuildEditorConfig.editorconfig
-C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.AssemblyInfoInputs.cache
-C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.AssemblyInfo.cs
-C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.csproj.CoreCompileInputs.cache
-C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.sourcelink.json
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSofti.12BE0841.Up2Date
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\ERPSoftifyApplication.InfrastructureLayer.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication.InfrastructureLayer\obj\Debug\net8.0\refint\ERPSoftifyApplication.InfrastructureLayer.dll

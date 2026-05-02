@@ -8,6 +8,9 @@ import { permissionSaga } from './saga/permissionSaga'
 import { menuSaga } from './saga/menuSaga'
 import { roleMenuPermissionSaga } from './saga/roleMenuPermissionSaga'
 import { customerSaga } from './saga/customerSaga'
+import { productSaga } from './saga/productSaga'
+import { vendorSaga } from './saga/vendorSaga'
+import { purchaseItemOrderSaga } from './saga/purchaseItemOrderSaga'
 export default function* rootSaga() {
   yield all([
     fork(tenantSaga),
@@ -19,5 +22,8 @@ export default function* rootSaga() {
     fork(menuSaga),
     fork(roleMenuPermissionSaga),
     fork(customerSaga),
+    fork(productSaga),
+    fork(vendorSaga),
+    fork(purchaseItemOrderSaga),
   ])
 }

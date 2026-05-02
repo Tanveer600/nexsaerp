@@ -1,18 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { CTableHeaderCell } from '@coreui/react' // CoreUI ka component import karein
 
 const TableHeader = ({ col, activeColumn, setActiveColumn }) => {
   const { t } = useTranslation()
 
-  // Safety Check: Agar col undefined ho toh empty string use karein
+  // Safety Check
   const columnValue = col || ''
 
-  // Logic: "User Name" -> "user_name"
+  // Translation Logic
   const translationKey = columnValue.toLowerCase().replace(/ /g, '_')
   const translatedLabel = t(translationKey, { defaultValue: columnValue })
 
   return (
-    <div
+    <CTableHeaderCell
       className="position-relative"
       style={{ cursor: 'pointer', paddingBottom: '12px' }}
       onClick={() => setActiveColumn && setActiveColumn(col)}
@@ -32,7 +33,7 @@ const TableHeader = ({ col, activeColumn, setActiveColumn }) => {
           }}
         />
       )}
-    </div>
+    </CTableHeaderCell>
   )
 }
 

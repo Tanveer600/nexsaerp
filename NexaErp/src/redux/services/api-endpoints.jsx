@@ -78,4 +78,27 @@ export const API_ENDPOINTS = {
     UPDATE: (id) => `/api/Customer/updateCustomer/${id}`,
     DELETE: (Id) => `/api/Customer/deleteCustomer/${Id}`,
   },
+  PRODUCT: {
+    CREATE: '/api/Product/createProduct',
+    GET_ALL: (page = 1, size = 10) => `/api/Product/getProduct?pageNumber=${page}&pageSize=${size}`,
+    GET_LIST: '/api/Product/productList',
+    BY_ID: (id) => `/api/Product/${id}`,
+    UPDATE: (id) => `/api/Product/updateProduct/${id}`,
+    DELETE: (Id) => `/api/Product/deleteProduct/${Id}`,
+  },
+  VENDOR: {
+    CREATE: '/api/Vendor/createVendor',
+    GET_LIST: '/api/Vendor/getVendorList',
+    GET_ALL: (page = 1, size = 10) => `/api/Vendor/getVendor?pageNumber=${page}&pageSize=${size}`,
+    BY_ID: (id) => `/api/Vendor/${id}`,
+    UPDATE: (id) => `/api/Vendor/updateVendor/${id}`,
+    DELETE: (Id) => `/api/Vendor/deleteVendor/${Id}`,
+  },
+  PURCHASE_ORDER: {
+    CREATE: '/api/PurchaseOrder',
+    GET_ALL: (page = 1, size = 10) => `/api/PurchaseOrder?pageNumber=${page}&pageSize=${size}`,
+    BY_ID: (id) => `/api/PurchaseOrder/${id}`,
+    UPDATE: (id) => `/api/PurchaseOrder/${id}`,
+    DELETE: (id) => `/api/PurchaseOrder/${id}`,
+  },
 }

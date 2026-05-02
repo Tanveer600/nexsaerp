@@ -37,10 +37,14 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
         private int GetIntClaim(string key)
         {
-            var value = User.FindFirst(key)?.Value;
+            var claimType = key == ClaimTypes.NameIdentifier ? "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier" : key;
+
+            var value = User.FindFirst(key)?.Value ?? User.FindFirst(claimType)?.Value;
 
             if (string.IsNullOrEmpty(value))
-                throw new Exception($"Missing claim: {key}");
+            {
+                return 0;
+            }
 
             return int.Parse(value);
         }

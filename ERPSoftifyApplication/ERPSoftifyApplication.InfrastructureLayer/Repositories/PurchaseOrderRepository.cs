@@ -11,6 +11,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
 {
     public class PurchaseOrderRepository:IPurchaseOrderInterface
     {
+
         private readonly DataContext _context;
 
         public PurchaseOrderRepository(DataContext context)
@@ -18,46 +19,76 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
             _context = context;
         }
 
-        public async Task<PurchaseOrder> CreateAsync(PurchaseOrder PurchaseOrder, CancellationToken cancellationToken)
+        public async Task<PurchaseOrder> CreateAsync(PurchaseOrder order, CancellationToken cancellationToken)
         {
-            await _context.PurchaseOrders.AddAsync(PurchaseOrder, cancellationToken);
+            await _context.Set<PurchaseOrder>().AddAsync(order, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
-
-            return PurchaseOrder;
+            return order;
         }
 
         public async Task<PurchaseOrder?> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            return await _context.PurchaseOrders
+            return await _context.Set<PurchaseOrder>()
+                .Include(x => x.Items)
                 .FirstOrDefaultAsync(x => x.ID == id, cancellationToken);
         }
 
         public async Task<List<PurchaseOrder>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await _context.PurchaseOrders
+            return await _context.Set<PurchaseOrder>()
+                .Include(x => x.Items)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<PurchaseOrder> UpdateAsync(PurchaseOrder PurchaseOrder, CancellationToken cancellationToken)
+        public async Task<PurchaseOrder> UpdateAsync(PurchaseOrder order, CancellationToken cancellationToken)
         {
-            _context.PurchaseOrders.Update(PurchaseOrder);
-            await _context.SaveChangesAsync(cancellationToken);
+            var existingOrder = await _context.Set<PurchaseOrder>()
+                .Include(x => x.Items)
+                .FirstOrDefaultAsync(x => x.ID == order.ID);
 
-            return PurchaseOrder;
+            if (existingOrder == null) throw new Exception("Purchase Order not found");
+
+            _context.Entry(existingOrder).CurrentValues.SetValues(order);
+
+            foreach (var existingItem in existingOrder.Items.ToList())
+            {
+                if (!order.Items.Any(i => i.ID == existingItem.ID))
+                {
+                    _context.Set<PurchaseOrderItem>().Remove(existingItem);
+                }
+            }
+            foreach (var newItem in order.Items)
+            {
+                var existingItem = newItem.ID != 0
+                    ? existingOrder.Items.FirstOrDefault(i => i.ID == newItem.ID)
+                    : null;
+
+                if (existingItem != null)
+                {
+                    _context.Entry(existingItem).CurrentValues.SetValues(newItem);
+                }
+                else
+                {
+                    newItem.ID = 0;
+                    existingOrder.Items.Add(newItem);
+                }
+            }
+
+            await _context.SaveChangesAsync(cancellationToken);
+            return existingOrder;
         }
 
         public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            var entity = await _context.PurchaseOrders
+            var order = await _context.Set<PurchaseOrder>()
+                .Include(x => x.Items)
                 .FirstOrDefaultAsync(x => x.ID == id, cancellationToken);
 
-            if (entity == null)
-                return false;
+            if (order == null) return false;
 
-            _context.PurchaseOrders.Remove(entity);
+            _context.Set<PurchaseOrder>().Remove(order);
             await _context.SaveChangesAsync(cancellationToken);
-
             return true;
         }
     }

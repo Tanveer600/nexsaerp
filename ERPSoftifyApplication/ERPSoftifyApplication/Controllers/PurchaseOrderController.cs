@@ -1,4 +1,5 @@
 ﻿using ERPSoftifyApplication.DomainLayer.Entities;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,46 +10,66 @@ namespace ERPSoftifyApplication.Controllers
     [ApiController]
     public class PurchaseOrderController : ControllerBase
     {
-        private readonly IPurchaseOrderService _Service;
+        private readonly IPurchaseOrderService _service;
 
-        public PurchaseOrderController(IPurchaseOrderService Service)
+        public PurchaseOrderController(IPurchaseOrderService service)
         {
-            _Service = Service;
+            _service = service;
         }
 
-        [HttpPost("createpurchaseorder")]
-        public async Task<IActionResult> Create([FromBody] PurchaseOrder Role, CancellationToken cancellationToken)
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] PurchaseOrderRequestDto request, CancellationToken cancellationToken)
         {
-            var result = await _Service.CreatePurchaseOrderAsync(Role, cancellationToken);
-            return Ok(result);
+            if (request == null) return BadRequest("Invalid request data");
+
+            var response = await _service.CreatePurchaseOrderAsync(request, cancellationToken);
+
+            if (response.Success)
+                return Ok(response);
+
+            return BadRequest(response);
         }
 
-        [HttpGet("getpurchaseorder")]
-        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, CancellationToken cancellationToken = default)
         {
-            var result = await _Service.GetAllPurchaseOrdersAsync(cancellationToken);
-            return Ok(result);
+            var response = await _service.GetAllPurchaseOrdersAsync(pageNumber, pageSize, cancellationToken);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
-            var result = await _Service.GetPurchaseOrderByIdAsync(id, cancellationToken);
-            return Ok(result);
+            var response = await _service.GetPurchaseOrderByIdAsync(id, cancellationToken);
+
+            if (response.Success)
+                return Ok(response);
+
+            return NotFound(response);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] PurchaseOrder Role, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(int id, [FromBody] PurchaseOrderRequestDto request, CancellationToken cancellationToken)
         {
-            var result = await _Service.UpdatePurchaseOrderAsync(id, Role, cancellationToken);
-            return Ok(result);
+            if (id != request.ID) return BadRequest("ID mismatch in URL and body");
+
+            var response = await _service.UpdatePurchaseOrderAsync(request, cancellationToken);
+
+            if (response.Success)
+                return Ok(response);
+
+            return BadRequest(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            var result = await _Service.DeletePurchaseOrderAsync(id, cancellationToken);
-            return Ok(result);
+            var response = await _service.DeletePurchaseOrderAsync(id, cancellationToken);
+
+            if (response.Success)
+                return Ok(response);
+
+            return BadRequest(response);
         }
     }
 }

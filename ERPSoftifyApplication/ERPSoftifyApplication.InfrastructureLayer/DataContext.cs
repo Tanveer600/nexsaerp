@@ -15,8 +15,11 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         {
             _currentUserService = currentUserService;
         }
+
         public int CurrentTenantId => _currentUserService.TenantId;
-        public int CurrentBranchId  => _currentUserService.BranchId;
+        public int CurrentBranchId => _currentUserService.BranchId;
+        public int CurrentCompanyId => _currentUserService.CompanyId;
+        public int CurrentUserId => _currentUserService.UserId;
 
         #region DbSets
         public DbSet<Product> Products { get; set; }
@@ -52,98 +55,97 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public DbSet<Branch> Branches { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<CompanySetting> CompanySettings { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<RoleMenu>(entity =>
             {
                 entity.HasKey(x => x.ID);
-
-                entity.Property(x => x.ID)
-                    .ValueGeneratedOnAdd();
-
-                entity.HasOne(x => x.Role)
-                    .WithMany()
-                    .HasForeignKey(x => x.RoleId);
-
-                entity.HasOne(x => x.Menu)
-                    .WithMany()
-                    .HasForeignKey(x => x.MenuId);
-
-                entity.HasOne(x => x.Permission)
-                    .WithMany()
-                    .HasForeignKey(x => x.PermissionId);
+                entity.Property(x => x.ID).ValueGeneratedOnAdd();
+                entity.HasOne(x => x.Role).WithMany().HasForeignKey(x => x.RoleId);
+                entity.HasOne(x => x.Menu).WithMany().HasForeignKey(x => x.MenuId);
+                entity.HasOne(x => x.Permission).WithMany().HasForeignKey(x => x.PermissionId);
             });
-
+     
+            modelBuilder.Entity<PurchaseOrderItem>()
+                .HasOne(i => i.PurchaseOrder)
+                .WithMany(o => o.Items)
+                .HasForeignKey(i => i.POId)
+                .OnDelete(DeleteBehavior.Cascade);
+        
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-
                 if (typeof(IMustHaveTenant).IsAssignableFrom(entityType.ClrType))
                 {
                     var parameter = Expression.Parameter(entityType.ClrType, "e");
-                    var property = Expression.Property(parameter, nameof(IMustHaveTenant.TenantId));
-
                     var filter = Expression.Lambda(
                         Expression.Equal(
-                            property,
-                            Expression.Property(Expression.Constant(this), nameof(DataContext.CurrentTenantId))
+                            Expression.Property(parameter, nameof(IMustHaveTenant.TenantId)),
+                            Expression.Property(Expression.Constant(this), nameof(CurrentTenantId))
                         ),
                         parameter
                     );
-
                     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
                 }
+
                 if (typeof(IMustHaveBranch).IsAssignableFrom(entityType.ClrType))
                 {
                     var parameter = Expression.Parameter(entityType.ClrType, "e");
-                    var property = Expression.Property(parameter, nameof(IMustHaveBranch.BranchId));
-
                     var filter = Expression.Lambda(
                         Expression.Equal(
-                            property,
-                            Expression.Property(Expression.Constant(this), nameof(DataContext.CurrentBranchId))
+                            Expression.Property(parameter, nameof(IMustHaveBranch.BranchId)),
+                            Expression.Property(Expression.Constant(this), nameof(CurrentBranchId))
                         ),
                         parameter
                     );
                     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
                 }
             }
-
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var entries = ChangeTracker.Entries<IMustHaveTenant>();
-
-            foreach (var entry in entries)
+            foreach (var entry in ChangeTracker.Entries())
             {
-                switch (entry.State)
+                if (entry.Entity is IMustHaveTenant tenantEntity)
                 {
-                    case EntityState.Added:
-                        if (entry.Entity.TenantId == 0)
-                        {
-                            entry.Entity.TenantId = CurrentTenantId;
-                        }
-                        break;
-
-                    case EntityState.Modified:
-                        entry.Property(x => x.TenantId).IsModified = false;
-                        break;
-                }
-            }
-            var branchEntries = ChangeTracker.Entries<IMustHaveBranch>();
-            foreach (var entry in branchEntries)
-            {
-                if (entry.State == EntityState.Added)
-                {
-                    if (entry.Entity.BranchId == 0)
+                    if (entry.State == EntityState.Added && tenantEntity.TenantId == 0)
                     {
-                        entry.Entity.BranchId = CurrentBranchId;
+                        tenantEntity.TenantId = CurrentTenantId;
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        entry.Property("TenantId").IsModified = false;
                     }
                 }
+
+                if (entry.Entity is IMustHaveBranch branchEntity)
+                {
+                    if (entry.State == EntityState.Added && branchEntity.BranchId == 0)
+                    {
+                        branchEntity.BranchId = CurrentBranchId;
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        entry.Property("BranchId").IsModified = false;
+                    }
+                }
+
+                /*
+                if (entry.Entity is IMustHaveCompany companyEntity)
+                {
+                    if (entry.State == EntityState.Added && companyEntity.CompanyId == 0)
+                    {
+                        companyEntity.CompanyId = CurrentCompanyId;
+                    }
+                }
+                */
             }
+
             return base.SaveChangesAsync(cancellationToken);
         }
     }

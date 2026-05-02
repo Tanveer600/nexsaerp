@@ -285,7 +285,9 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
         new Claim(ClaimTypes.Name, user.Name),
         new Claim(ClaimTypes.Role, user.RoleId.ToString()),
         new Claim("TenantId", user.TenantId.ToString()),
-        new Claim("BranchId", user.BranchId.ToString())  
+        new Claim("BranchId", user.BranchId.ToString()),
+        new Claim("CompanyId", user.CompanyId.ToString()),
+        new Claim("RoleId", user.RoleId.ToString()),
     };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSecret));
