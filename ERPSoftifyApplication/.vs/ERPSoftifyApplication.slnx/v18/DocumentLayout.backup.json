@@ -1,8 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\",
+  "WorkspaceRootPath": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\",
   "Documents": [
     {
+<<<<<<< Updated upstream
       "AbsoluteMoniker": "D:0:0:{962E4EE9-4D58-36E8-2F26-6E59178A6AA7}|ERPSoftifyApplication\\ERPSoftifyApplication.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication\\controllers\\rolemenucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{962E4EE9-4D58-36E8-2F26-6E59178A6AA7}|ERPSoftifyApplication\\ERPSoftifyApplication.csproj|solutionrelative:erpsoftifyapplication\\controllers\\rolemenucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -93,6 +94,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.infrastructurelayer\\repositories\\companyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|solutionrelative:erpsoftifyapplication.infrastructurelayer\\repositories\\companyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
+      "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\users\\sidra\\source\\repos\\neexaerp\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\services\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\services\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> Stashed changes
     }
   ],
   "DocumentGroupContainers": [
@@ -102,18 +107,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< Updated upstream
           "SelectedChildIndex": 6,
+=======
+          "SelectedChildIndex": 3,
+>>>>>>> Stashed changes
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
               "$type": "Document",
+<<<<<<< Updated upstream
               "DocumentIndex": 1,
               "Title": "RoleMenuPermissionRepository.cs",
               "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\Repositories\\RoleMenuPermissionRepository.cs",
@@ -392,6 +402,18 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+=======
+              "DocumentIndex": 0,
+              "Title": "EmployeeService.cs",
+              "DocumentMoniker": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\EmployeeService.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\EmployeeService.cs",
+              "ToolTip": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\EmployeeService.cs",
+              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\EmployeeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-02T16:21:35.714Z",
+              "EditorCaption": ""
+>>>>>>> Stashed changes
             }
           ]
         }

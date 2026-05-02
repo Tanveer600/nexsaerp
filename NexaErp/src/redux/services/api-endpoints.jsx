@@ -70,4 +70,23 @@ export const API_ENDPOINTS = {
     GET_ALL: '/api/RoleMenu/all-assignments',
     DELETE: (id) => `/api/RoleMenu/remove-permission/${id}`,
   },
+<<<<<<< Updated upstream
+=======
+  CUSTOMER: {
+    CREATE: '/api/Customer/createCustomer',
+    GET_ALL: (page = 1, size = 10) =>
+      `/api/Customer/getCustomer?pageNumber=${page}&pageSize=${size}`,
+    BY_ID: (id) => `/api/Customer/${id}`,
+    UPDATE: (id) => `/api/Customer/updateCustomer/${id}`,
+    DELETE: (Id) => `/api/Customer/deleteCustomer/${Id}`,
+  },
+  EMPLOYEE: {
+    CREATE: '/api/Employee/createEmployee',
+    GET_ALL: (page = 1, size = 10) =>
+      `/api/Employee/getEmployee?pageNumber=${page}&pageSize=${size}`,
+    BY_ID: (id) => `/api/Employee/${id}`,
+    UPDATE: (id) => `/api/Employee/updateEmployee/${id}`,
+    DELETE: (Id) => `/api/Employee/deleteEmployee/${Id}`,
+  },
+>>>>>>> Stashed changes
 }

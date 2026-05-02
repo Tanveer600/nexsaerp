@@ -1,5 +1,6 @@
 {
   "Version": 1,
+<<<<<<< Updated upstream
   "WorkspaceRootPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\",
   "Documents": [
     {
@@ -95,6 +96,10 @@
       "RelativeMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|solutionrelative:erpsoftifyapplication.infrastructurelayer\\repositories\\companyrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
+=======
+  "WorkspaceRootPath": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\",
+  "Documents": [],
+>>>>>>> Stashed changes
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -102,14 +107,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< Updated upstream
           "SelectedChildIndex": 6,
+=======
+          "SelectedChildIndex": -1,
+>>>>>>> Stashed changes
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
+<<<<<<< Updated upstream
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
@@ -397,6 +411,9 @@
               "ViewState": "AgIAACwAAAAAAAAAAAAYwEsAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-26T12:30:32.481Z"
+=======
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+>>>>>>> Stashed changes
             }
           ]
         }

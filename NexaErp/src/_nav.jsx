@@ -87,6 +87,31 @@ const _nav = [
       text: 'NEW',
     },
   },
+<<<<<<< Updated upstream
+=======
+
+  {
+    component: CNavTitle,
+    name: 'Stakeholders',
+  },
+  {
+    component: CNavGroup,
+    name: 'Stakeholders',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Customers',
+        to: '/stakeholders/customers',
+      },
+      {
+        component: CNavItem,
+        name: 'Employees',
+        to: '/stakeholders/employees',
+      },
+    ],
+  },
+>>>>>>> Stashed changes
   {
     component: CNavTitle,
     name: 'Setups',

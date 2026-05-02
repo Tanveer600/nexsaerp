@@ -18,6 +18,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public int CurrentTenantId => _currentUserService.TenantId;
         public int CurrentBranchId  => _currentUserService.BranchId;
 
+        public int CurrentRoleId=> _currentUserService.RoleId;
+
         #region DbSets
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
@@ -103,10 +105,26 @@ namespace ERPSoftifyApplication.InfrastructureLayer
                     var filter = Expression.Lambda(
                         Expression.Equal(
                             property,
-                            Expression.Property(Expression.Constant(this), nameof(DataContext.CurrentBranchId))
+                            Expression.Property(Expression.Constant(this), nameof(DataContext.CurrentTenantId))
                         ),
                         parameter
                     );
+
+                    modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
+                }
+                if (typeof(IMustHaveRole).IsAssignableFrom(entityType.ClrType))
+                {
+                    var parameter = Expression.Parameter(entityType.ClrType, "e");
+                    var property = Expression.Property(parameter, nameof(IMustHaveRole.RoleId));
+
+                    var filter = Expression.Lambda(
+                        Expression.Equal(
+                            property,
+                            Expression.Property(Expression.Constant(this), nameof(DataContext.CurrentRoleId))
+                        ),
+                        parameter
+                    );
+
                     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
                 }
             }
@@ -136,12 +154,18 @@ namespace ERPSoftifyApplication.InfrastructureLayer
             var branchEntries = ChangeTracker.Entries<IMustHaveBranch>();
             foreach (var entry in branchEntries)
             {
-                if (entry.State == EntityState.Added)
+                switch (entry.State)
                 {
-                    if (entry.Entity.BranchId == 0)
-                    {
-                        entry.Entity.BranchId = CurrentBranchId;
-                    }
+                    case EntityState.Added:
+                        if (entry.Entity.BranchId == 0)
+                        {
+                            entry.Entity.BranchId = CurrentTenantId;
+                        }
+                        break;
+
+                    case EntityState.Modified:
+                        entry.Property(x => x.BranchId).IsModified = false;
+                        break;
                 }
             }
             return base.SaveChangesAsync(cancellationToken);

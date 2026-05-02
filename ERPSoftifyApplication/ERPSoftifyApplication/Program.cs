@@ -64,6 +64,14 @@ builder.Services.AddScoped<ICompanySettingInterface, CompanyRepository>();
 builder.Services.AddScoped<ICompanySettingService, CompanySettingService>();
 builder.Services.AddScoped<IRoleMenuPermissionInterface, RoleMenuPermissionRepository>();
 builder.Services.AddScoped<IRoleMenuPermissionService, RoleMenuPermissionService>();
+<<<<<<< Updated upstream
+=======
+builder.Services.AddScoped<ICustomerInterface, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IEmployeeInterface, EmployeeRepository>();
+builder.Services.AddScoped<IEmployeeService,EmployeeService>();
+
+>>>>>>> Stashed changes
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",

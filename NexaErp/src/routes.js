@@ -48,6 +48,11 @@ const RoleMenuPermission=react.lazy(()=> import('./views/setups/RoleMenuPermissi
 const CompanySetting=react.lazy(()=> import('./views/setups/CompanySetting'))
 // src/routes.js
 const PermissionSetting = React.lazy(() => import('./views/PermissionSetting'))
+<<<<<<< Updated upstream
+=======
+const Customers = React.lazy(() => import('./views/stakeholders/Customers'))
+const Employees = React.lazy(() => import('./views/stakeholders/Employees'))
+>>>>>>> Stashed changes
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
 const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
@@ -150,6 +155,11 @@ export const routes = [
   { path: '/setups/users', name: 'Users', element: Users },
   { path: '/setups/tenants', name: 'Tenants', element: Tenants },
   { path: '/setups/branch', name: 'Branch', element: Branch },
+<<<<<<< Updated upstream
+=======
+  { path: '/stakeholders/customers', name: 'Customers', element: Customers },
+   { path: '/stakeholders/employees', name: 'Employees', element: Employees },
+>>>>>>> Stashed changes
   { path: '/setups/companySetting', name: 'CompanySetting', element: CompanySetting },
  { path: '/permission-settings', name: 'Permission Settings', element: PermissionSetting },
  { path: '/setups/role-menu-permission', name: 'Role Menu Permission', element: RoleMenuPermission },

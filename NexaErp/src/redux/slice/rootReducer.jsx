@@ -8,7 +8,12 @@ import companyReducer from './companySlice'
 import permissionReducer from './permissionSlice'
 import menuReducer from './menuSlice'
 import roleMenuPermissionReducer from './roleMenuPermissionSlice'
+<<<<<<< Updated upstream
 
+=======
+import customerReducer from './customerSlice'
+import employeeReducer from './employeeSlice'
+>>>>>>> Stashed changes
 const rootReducer = combineReducers({
   tenants: tenantReducer,
   users: userReducer,
@@ -19,6 +24,11 @@ const rootReducer = combineReducers({
   permissions: permissionReducer,
   menues: menuReducer,
   roleMenuPermissions: roleMenuPermissionReducer,
+<<<<<<< Updated upstream
+=======
+  customers: customerReducer,
+  employee: employeeReducer,
+>>>>>>> Stashed changes
 })
 
 export default rootReducer
