@@ -21,6 +21,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public int CurrentCompanyId => _currentUserService.CompanyId;
         public int CurrentUserId => _currentUserService.UserId;
 
+        public int CurrentRoleId => _currentUserService.RoleId;
+
         #region DbSets
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
@@ -49,6 +51,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<SalesOrder> SalesOrders { get; set; }
+        public DbSet<SalesOrderItem> SalesOrderItems { get; set; }
         public DbSet<ServiceReport> ServiceReports { get; set; }
         public DbSet<TenantSetting> TenantSettings { get; set; }
         public DbSet<Menu> Menus { get; set; }
@@ -99,6 +102,18 @@ namespace ERPSoftifyApplication.InfrastructureLayer
                         Expression.Equal(
                             Expression.Property(parameter, nameof(IMustHaveBranch.BranchId)),
                             Expression.Property(Expression.Constant(this), nameof(CurrentBranchId))
+                        ),
+                        parameter
+                    );
+                    modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
+                }
+                if (typeof(IMustHaveRole).IsAssignableFrom(entityType.ClrType))
+                {
+                    var parameter = Expression.Parameter(entityType.ClrType, "e");
+                    var filter = Expression.Lambda(
+                        Expression.Equal(
+                            Expression.Property(parameter, nameof(IMustHaveRole.RoleId)),
+                            Expression.Property(Expression.Constant(this), nameof(CurrentRoleId))
                         ),
                         parameter
                     );

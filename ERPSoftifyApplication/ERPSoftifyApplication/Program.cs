@@ -73,6 +73,8 @@ builder.Services.AddScoped<IVendorInterface, VendorRepository>();
 builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddScoped<IPurchaseOrderInterface, PurchaseOrderRepository>();
 builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+builder.Services.AddScoped<IEmployeeInterface, EmployeeRepository>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",

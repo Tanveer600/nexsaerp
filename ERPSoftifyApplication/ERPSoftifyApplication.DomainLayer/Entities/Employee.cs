@@ -1,4 +1,5 @@
-﻿using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+﻿using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplication.DomainLayer.Entities
 {
-    public class Employee: IMustHaveTenant
+    public class Employee: IMustHaveTenant,IMustHaveBranch,IMustHaveRole
     {
         public int ID { get; set; }
 

@@ -102,6 +102,11 @@ const _nav = [
         name: 'Customers',
         to: '/stakeholders/customers',
       },
+      {
+        component: CNavItem,
+        name: 'Employees',
+        to: '/stakeholders/employees',
+      },
     ],
   },
 

@@ -23,5 +23,10 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public decimal TaxAmount { get; set; } 
 
         public int TenantId { get; set; }
+
+        public int BranchId { get; set; }
+
+        public int QuotationId { get; set; }
+
     }
 }

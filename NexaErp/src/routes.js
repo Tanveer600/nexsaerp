@@ -49,6 +49,8 @@ const CompanySetting=react.lazy(()=> import('./views/setups/CompanySetting'))
 // src/routes.js
 const PermissionSetting = React.lazy(() => import('./views/PermissionSetting'))
 const Customers = React.lazy(() => import('./views/stakeholders/Customers'))
+const Employees = React.lazy(() => import('./views/stakeholders/Employees'))
+
 const Vendors = React.lazy(() => import('./views/purchaseManagement/Vendors'))
 const PurchaseOrderItems = React.lazy(() => import('./views/purchaseManagement/PurchaseOrderItem'))
 const Products = React.lazy(() => import('./views/inventoryManagement/Product'))
@@ -154,6 +156,8 @@ export const routes = [
   { path: '/setups/tenants', name: 'Tenants', element: Tenants },
   { path: '/setups/branch', name: 'Branch', element: Branch },
   { path: '/stakeholders/customers', name: 'Customers', element: Customers },
+   { path: '/stakeholders/employees', name: 'Employees', element: Employees },
+
   { path: '/inventoryManagement/product', name: 'Products', element: Products },
   { path: '/purchaseManagement/vendors', name: 'Vendors', element: Vendors },
   { path: '/purchaseManagement/purchase-order-items', name: 'Purchase Order Items', element: PurchaseOrderItems },
