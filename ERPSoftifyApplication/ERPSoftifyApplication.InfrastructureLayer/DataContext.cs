@@ -79,7 +79,14 @@ namespace ERPSoftifyApplication.InfrastructureLayer
                 .WithMany(o => o.Items)
                 .HasForeignKey(i => i.POId)
                 .OnDelete(DeleteBehavior.Cascade);
-        
+
+
+            modelBuilder.Entity<SalesOrderItem>()
+               .HasOne(i => i.SalesOrder)
+               .WithMany(o => o.Items)
+               .HasForeignKey(i => i.SOId)
+               .OnDelete(DeleteBehavior.Cascade);
+
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 if (typeof(IMustHaveTenant).IsAssignableFrom(entityType.ClrType))

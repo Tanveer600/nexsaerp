@@ -1,16 +1,19 @@
-﻿using System;
+﻿using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ERPSoftifyApplication.DomainLayer.Entities
 {
-    public class SalesOrderItem
+    public class SalesOrderItem : IMustHaveTenant, IMustHaveBranch
     {
         public int ID { get; set; }
 
-        public int SalesOrderId { get; set; } 
+        public int SOId { get; set; } 
 
         public int ProductId { get; set; }
 
@@ -27,6 +30,9 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public int BranchId { get; set; }
 
         public int QuotationId { get; set; }
+
+        [ForeignKey(nameof(SOId))]
+        public SalesOrder SalesOrder { get; set; }
 
     }
 }
