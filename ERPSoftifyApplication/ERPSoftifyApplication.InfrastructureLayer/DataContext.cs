@@ -59,6 +59,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<CompanySetting> CompanySettings { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -79,6 +81,12 @@ namespace ERPSoftifyApplication.InfrastructureLayer
                 .WithMany(o => o.Items)
                 .HasForeignKey(i => i.POId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<QuotationItem>()
+               .HasOne(i => i.Quotation)
+               .WithMany(o => o.QuotationItems)
+               .HasForeignKey(i => i.QuotationId)
+               .OnDelete(DeleteBehavior.Cascade);
 
 
             modelBuilder.Entity<SalesOrderItem>()

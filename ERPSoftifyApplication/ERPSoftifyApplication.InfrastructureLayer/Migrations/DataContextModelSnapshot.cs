@@ -832,6 +832,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -956,7 +959,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("QuotationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SalesOrderId")
+                    b.Property<int>("SOId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TaxAmount")
@@ -969,6 +972,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("SOId");
 
                     b.ToTable("SalesOrderItems");
                 });
@@ -1296,13 +1301,13 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.QuotationItem", b =>
                 {
-                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Quotation", "Quotations")
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Quotation", "Quotation")
                         .WithMany("QuotationItems")
                         .HasForeignKey("QuotationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Quotations");
+                    b.Navigation("Quotation");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.RolePermission", b =>
@@ -1322,6 +1327,17 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Navigation("Permission");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.SalesOrderItem", b =>
+                {
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.SalesOrder", "SalesOrder")
+                        .WithMany("Items")
+                        .HasForeignKey("SOId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SalesOrder");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.User", b =>
@@ -1437,6 +1453,11 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Quotation", b =>
                 {
                     b.Navigation("QuotationItems");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.SalesOrder", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

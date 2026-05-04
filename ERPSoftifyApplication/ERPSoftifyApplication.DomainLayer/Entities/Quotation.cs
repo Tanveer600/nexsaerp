@@ -1,4 +1,5 @@
-﻿using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+﻿using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplication.DomainLayer.Entities
 {
-    public class Quotation: IMustHaveTenant
+    public class Quotation: IMustHaveTenant,IMustHaveBranch
     {
         public int ID { get; set; }
 
@@ -22,6 +23,7 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public int TenantId { get; set; }
 
         public int BranchId { get; set; }
+
         public ICollection<QuotationItem> QuotationItems { get; set; } = new List<QuotationItem>();
     }
 }

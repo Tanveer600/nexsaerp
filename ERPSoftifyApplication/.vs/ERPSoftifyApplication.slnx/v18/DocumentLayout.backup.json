@@ -1,28 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\users\\sidra\\source\\repos\\neexaerp\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\dto\\purchaseoutput\\purchaseorderresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\dto\\purchaseoutput\\purchaseorderresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\users\\sidra\\source\\repos\\neexaerp\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\dto\\salesoutput\\salesoutputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\dto\\salesoutput\\salesoutputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\users\\sidra\\source\\repos\\neexaerp\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\users\\sidra\\source\\repos\\neexaerp\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\users\\sidra\\source\\repos\\neexaerp\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\salesorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\salesorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -43,71 +22,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SalesOutputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\DTO\\SalesOutput\\SalesOutputDto.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\DTO\\SalesOutput\\SalesOutputDto.cs",
-              "ToolTip": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\DTO\\SalesOutput\\SalesOutputDto.cs",
-              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\DTO\\SalesOutput\\SalesOutputDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T16:16:27.902Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Employee.cs",
-              "DocumentMoniker": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Employee.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\Employee.cs",
-              "ToolTip": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Employee.cs",
-              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\Employee.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T16:08:12.667Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Customer.cs",
-              "DocumentMoniker": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Customer.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\Customer.cs",
-              "ToolTip": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Customer.cs",
-              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\Customer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T16:08:07.374Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SalesOrder.cs",
-              "DocumentMoniker": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrder.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrder.cs",
-              "ToolTip": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrder.cs",
-              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrder.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T16:07:08.855Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PurchaseOrderResponseDto.cs",
-              "DocumentMoniker": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\DTO\\PurchaseOutput\\PurchaseOrderResponseDto.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\DTO\\PurchaseOutput\\PurchaseOrderResponseDto.cs",
-              "ToolTip": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\DTO\\PurchaseOutput\\PurchaseOrderResponseDto.cs",
-              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\DTO\\PurchaseOutput\\PurchaseOrderResponseDto.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAAAwAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T15:59:23.451Z",
-              "EditorCaption": ""
             }
           ]
         }
