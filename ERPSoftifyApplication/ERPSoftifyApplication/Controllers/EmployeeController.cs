@@ -20,7 +20,7 @@ namespace ERPSoftifyApplication.Controllers
             _Service = Service;
          
         }
-         [Authorize]
+        // [Authorize]
         [HttpPost("createEmployee")]
         public async Task<IActionResult> Create([FromBody] CreateEmployeeDto dto, CancellationToken cancellationToken)
         {

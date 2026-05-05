@@ -278,6 +278,96 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ERPSoftifyApplication.Controllers.EmployeeController",
+    "Method": "Create",
+    "RelativePath": "api/Employee/createEmployee",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.EmployeeDto.CreateEmployeeDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.EmployeeController",
+    "Method": "Delete",
+    "RelativePath": "api/Employee/deleteEmployee/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.EmployeeController",
+    "Method": "GetById",
+    "RelativePath": "api/Employee/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.EmployeeController",
+    "Method": "GetAll",
+    "RelativePath": "api/Employee/getEmployee",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.EmployeeController",
+    "Method": "Update",
+    "RelativePath": "api/Employee/updateEmployee/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.EmployeeDto.UpdateEmployeeDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ERPSoftifyApplication.Controllers.MenuController",
     "Method": "Create",
     "RelativePath": "api/Menu/create",
@@ -624,6 +714,96 @@
     "ContainingType": "ERPSoftifyApplication.Controllers.PurchaseOrderController",
     "Method": "Delete",
     "RelativePath": "api/PurchaseOrder/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.QuotationController",
+    "Method": "Create",
+    "RelativePath": "api/Quotation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.QuotationOutput.QuotationRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.QuotationController",
+    "Method": "GetAll",
+    "RelativePath": "api/Quotation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.QuotationController",
+    "Method": "GetById",
+    "RelativePath": "api/Quotation/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.QuotationController",
+    "Method": "Update",
+    "RelativePath": "api/Quotation/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.QuotationOutput.QuotationRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.QuotationController",
+    "Method": "Delete",
+    "RelativePath": "api/Quotation/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
