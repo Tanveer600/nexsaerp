@@ -34,7 +34,7 @@ import {
 const Email = () => {
   const dispatch = useDispatch()
   const { emails, isLoading } = useSelector((state) => state.emails)
-
+  console.log('>>> Emails State:', emails, 'Loading:', isLoading) // Debugging log
   const [activeTab, setActiveTab] = useState('inbox')
   const [selectedEmail, setSelectedEmail] = useState(null)
   const [syncEmail, setSyncEmail] = useState('ranatanveerranakabeer@gmail.com')
