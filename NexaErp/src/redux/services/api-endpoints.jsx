@@ -101,12 +101,17 @@ export const API_ENDPOINTS = {
     UPDATE: (id) => `/api/PurchaseOrder/${id}`,
     DELETE: (id) => `/api/PurchaseOrder/${id}`,
   },
-   EMPLOYEE: {
+  EMPLOYEE: {
     CREATE: '/api/Employee/createEmployee',
     GET_ALL: (page = 1, size = 10) =>
       `/api/Employee/getEmployee?pageNumber=${page}&pageSize=${size}`,
     BY_ID: (id) => `/api/Employee/${id}`,
     UPDATE: (id) => `/api/Employee/updateEmployee/${id}`,
     DELETE: (Id) => `/api/Employee/deleteEmployee/${Id}`,
+  },
+  EMAIL: {
+    SEND: '/api/Email',
+    SYNC: '/api/Email/inbox',
+    GET_INBOX: '/api/Email',
   },
 }

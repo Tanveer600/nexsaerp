@@ -32,6 +32,20 @@ const userService = {
     const res = await apiClient.post(API_ENDPOINTS.USERS.LOGIN, payload)
     return res?.data
   },
+  forgotPassword: async (payload) => {
+    const res = await apiClient.post(API_ENDPOINTS.USERS.FORGOT_PASSWORD, payload)
+    return res?.data
+  },
+
+  resetPassword: async (payload) => {
+    const res = await apiClient.post(API_ENDPOINTS.USERS.RESET_PASSWORD, payload)
+    return res?.data
+  },
+
+  changePassword: async (payload) => {
+    const res = await apiClient.post(API_ENDPOINTS.USERS.CHANGE_PASSWORD, payload)
+    return res?.data
+  },
 }
 
 export default userService

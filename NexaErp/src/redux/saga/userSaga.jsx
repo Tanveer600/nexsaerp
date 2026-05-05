@@ -15,6 +15,15 @@ import {
   loginRequest,
   loginSuccess,
   resetError,
+  forgotPasswordRequest,
+  forgotPasswordSuccess,
+  forgotPasswordFailure,
+  resetPasswordRequest,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+  changePasswordRequest,
+  changePasswordSuccess,
+  changePasswordFailure,
 } from '../slice/userSlice'
 
 // ================= WORKER SAGAS =================
@@ -86,7 +95,63 @@ function* loginSaga(action) {
     })
   }
 }
+function* forgotPasswordSaga(action) {
+  try {
+    const res = yield call(userService.forgotPassword, action.payload)
+    if (res?.success) {
+      console.log('>>> Saga: Forgot Password Email Sent')
+      yield put(forgotPasswordSuccess())
+    } else {
+      yield put(forgotPasswordFailure(res?.message || 'Email bhejny mein masla hua'))
+    }
+  } catch (e) {
+    yield put(forgotPasswordFailure(e.response?.data?.message || e.message))
+  }
+}
 
+function* resetPasswordSaga(action) {
+  try {
+    const res = yield call(userService.resetPassword, action.payload)
+    if (res?.success) {
+      console.log('>>> Saga: Password Reset Successful')
+      yield put(resetPasswordSuccess())
+    } else {
+      yield put(resetPasswordFailure(res?.message || 'Password reset nahi ho saka'))
+    }
+  } catch (e) {
+    yield put(resetPasswordFailure(e.response?.data?.message || e.message))
+  }
+}
+
+function* changePasswordSaga(action) {
+  try {
+    const res = yield call(userService.changePassword, action.payload)
+    if (res?.success) {
+      console.log('>>> Saga: Password Change Successful')
+      yield put(changePasswordSuccess())
+    } else {
+      yield put(changePasswordFailure(res?.message || 'Purana password galat hai'))
+    }
+  } catch (e) {
+    yield put(changePasswordFailure(e.response?.data?.message || e.message))
+  }
+}
+
+// ================= WATCHER SAGAS =================
+
+// ... (Puranay watchers: watchGetUsers, watchLoginUser etc.)
+
+function* watchForgotPassword() {
+  yield takeLatest(forgotPasswordRequest.type, forgotPasswordSaga)
+}
+
+function* watchResetPassword() {
+  yield takeLatest(resetPasswordRequest.type, resetPasswordSaga)
+}
+
+function* watchChangePassword() {
+  yield takeLatest(changePasswordRequest.type, changePasswordSaga)
+}
 function* watchGetUsers() {
   yield takeLatest(getAllUsers.type, getUsersSaga)
 }
@@ -116,5 +181,8 @@ export function* userSaga() {
     fork(watchUpdateUser),
     fork(watchDeleteUser),
     fork(watchLoginUser),
+    fork(watchForgotPassword),
+    fork(watchResetPassword),
+    fork(watchChangePassword),
   ])
 }

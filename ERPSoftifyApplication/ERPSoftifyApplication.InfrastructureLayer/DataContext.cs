@@ -59,6 +59,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<CompanySetting> CompanySettings { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<UserEmail> UserEmails { get; set; }
 
 
         #endregion

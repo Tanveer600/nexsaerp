@@ -6,6 +6,11 @@ const initialState = {
   tenants: [],
   isLoading: false,
   error: null,
+  passwordResetStatus: {
+    forgotEmailSent: false, // Kya link email ho gaya?
+    resetSuccessful: false, // Kya naya password lag gaya?
+    changeSuccessful: false, // Kya purana password update ho gaya?
+  },
 }
 
 const userSlice = createSlice({
@@ -81,6 +86,66 @@ const userSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload
     },
+    forgotPasswordRequest: (state) => {
+      state.isLoading = true
+      state.error = null
+      state.passwordResetStatus.forgotEmailSent = false // Naya request shuru
+    },
+    forgotPasswordSuccess: (state) => {
+      state.isLoading = false
+      state.error = null
+      state.passwordResetStatus.forgotEmailSent = true // Confirm mail chali gayi
+    },
+    forgotPasswordFailure: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload // Back-end error message
+      state.passwordResetStatus.forgotEmailSent = false
+    },
+
+    // 2. Reset Password (Step 2: Naya password set karna)
+    resetPasswordRequest: (state) => {
+      state.isLoading = true
+      state.error = null
+      state.passwordResetStatus.resetSuccessful = false
+    },
+    resetPasswordSuccess: (state) => {
+      state.isLoading = false
+      state.error = null
+      state.passwordResetStatus.resetSuccessful = true // Naya password set ho gaya
+      // Note: Yahan 'forgotEmailSent' ko null nahi kar rahe kyunke
+      // wo alag screen ka confirm tha.
+    },
+    resetPasswordFailure: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+      state.passwordResetStatus.resetSuccessful = false
+    },
+
+    // 3. Change Password (Jab login ho aur profile se change karein)
+    changePasswordRequest: (state) => {
+      state.isLoading = true
+      state.error = null
+      state.passwordResetStatus.changeSuccessful = false
+    },
+    changePasswordSuccess: (state) => {
+      state.isLoading = false
+      state.error = null
+      state.passwordResetStatus.changeSuccessful = true // Purana password badal gaya
+    },
+    changePasswordFailure: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+      state.passwordResetStatus.changeSuccessful = false
+    },
+
+    clearPasswordStatus: (state) => {
+      state.passwordResetStatus = {
+        forgotEmailSent: false,
+        resetSuccessful: false,
+        changeSuccessful: false,
+      }
+      state.error = null
+    },
   },
 })
 
@@ -103,6 +168,16 @@ export const {
   loginUser,
   setTenantsForLogin,
   logout,
+  forgotPasswordRequest,
+  forgotPasswordSuccess,
+  forgotPasswordFailure,
+  resetPasswordRequest,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+  changePasswordRequest,
+  changePasswordSuccess,
+  changePasswordFailure,
+  clearPasswordStatus,
 } = userSlice.actions
 
 export default userSlice.reducer

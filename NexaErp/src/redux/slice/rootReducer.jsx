@@ -13,6 +13,7 @@ import productReducer from './productSlice'
 import vendorReducer from './vendorSlice'
 import purchaseOrderItemReducer from './purchaseOrdertemSlice'
 import employeeReducer from './employeeSlice'
+import emailReducer from './emailSlice'
 
 const rootReducer = combineReducers({
   tenants: tenantReducer,
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   products: productReducer,
   vendors: vendorReducer,
   purchaseOrderItems: purchaseOrderItemReducer,
-   employee: employeeReducer,
+  employee: employeeReducer,
+  emails: emailReducer,
 })
 
 export default rootReducer

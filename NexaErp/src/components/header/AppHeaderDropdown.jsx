@@ -25,9 +25,10 @@ import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import avatar8 from './../../assets/images/avatars/8.jpg'
 import { getProfile } from '../../redux/slice/companySlice'
+import { useNavigate } from 'react-router-dom'
 const AppHeaderDropdown = () => {
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   // Redux store se profile aur loading state nikalna
   const { profile } = useSelector((state) => state.companies)
   const BASE_URL = 'https://localhost:7016'
@@ -65,7 +66,11 @@ const AppHeaderDropdown = () => {
             42
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
+        <CDropdownItem
+          component="button"
+          onClick={() => navigate('/setups/email')}
+          style={{ cursor: 'pointer' }}
+        >
           <CIcon icon={cilEnvelopeOpen} className="me-2" />
           Messages
           <CBadge color="success" className="ms-2">

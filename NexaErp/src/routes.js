@@ -50,7 +50,7 @@ const CompanySetting=react.lazy(()=> import('./views/setups/CompanySetting'))
 const PermissionSetting = React.lazy(() => import('./views/PermissionSetting'))
 const Customers = React.lazy(() => import('./views/stakeholders/Customers'))
 const Employees = React.lazy(() => import('./views/stakeholders/Employees'))
-
+const Email = React.lazy(() => import('./views/setups/Email'))
 const Vendors = React.lazy(() => import('./views/purchaseManagement/Vendors'))
 const PurchaseOrderItems = React.lazy(() => import('./views/purchaseManagement/PurchaseOrderItem'))
 const Products = React.lazy(() => import('./views/inventoryManagement/Product'))
