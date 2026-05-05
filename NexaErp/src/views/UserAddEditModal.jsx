@@ -28,9 +28,7 @@ function UserAddEditModal({
   companies = [],
   tenants = [],
 }) {
-  const { l } = useAppLanguage(); // Global Translator Hook
-
-  // Validation Schema with Translated Errors
+  const { l } = useAppLanguage(); 
   const validationSchema = Yup.object({
     name: Yup.string().min(3, l('min_3_chars')).required(l('required_field')),
     userName: Yup.string().required(l('username_required')),
