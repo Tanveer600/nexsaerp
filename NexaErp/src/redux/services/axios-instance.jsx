@@ -3,11 +3,12 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://localhost:7016',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:7016',
   timeout: Number(import.meta.env.VITE_API_TIMEOUT) || 30000,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
+    'ngrok-skip-browser-warning': 'true',
   },
 })
 // ================= REQUEST INTERCEPTOR (🔥 ADD THIS) =================

@@ -24,8 +24,9 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
         private readonly IBranchInterface _branchRepository;
         private readonly ICompanySettingInterface _companyRepository;
         private readonly string _jwtSecret;
+        private readonly IEmailService _emailService;
 
-        public UserService(IUserInterface userRepository, IConfiguration configuration, ITenantInterface tenantInterface, IBranchInterface branchInterface, ICompanySettingInterface companyRepository, ICurrentUserService currentUserService)
+        public UserService(IUserInterface userRepository, IConfiguration configuration, ITenantInterface tenantInterface, IBranchInterface branchInterface, ICompanySettingInterface companyRepository, ICurrentUserService currentUserService, IEmailService emailService)
         {
             _UserRepository = userRepository;
             _tenantsRepository = tenantInterface;
@@ -33,6 +34,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             _jwtSecret = configuration["Jwt:Key"] ?? "DefaultSuperSecretKey123";
             _companyRepository = companyRepository;
             _currentUserService = currentUserService;
+            _emailService = emailService;
         }
 
         #region Create User
@@ -47,7 +49,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     RoleId = dto.RoleId,
                     TenantId = dto.TenantId,
                     BranchId = dto.BranchId,
-                    CompanyId = dto.CompanyId,                 
+                    CompanyId = dto.CompanyId,
                     PhoneNumber = dto.PhoneNumber,
                     WebsiteUrl = dto.WebsiteUrl,
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
@@ -194,45 +196,42 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
         #endregion
         public async Task<ResponseDataModel<bool>> SignupAsync(SignupDto dto, CancellationToken cancellationToken)
         {
-            var existingUser = await _UserRepository.GetByEmailAsync(dto.Email,dto.TenantId, cancellationToken);
-            if (existingUser != null)
-                return ResponseDataModel<bool>.FailureResponse("Email already registered");
-
-            var tenant = new TenantSetting
-            {
-                Name = dto.CompanyName,
-                CreatedAt = DateTime.UtcNow
-            };
-
+            // 1. Tenant Create Karein
+            var tenant = new TenantSetting { Name = dto.CompanyName, CreatedAt = DateTime.UtcNow };
             await _tenantsRepository.CreateAsync(tenant, cancellationToken);
 
+            // 2. Branch Create aur Save Karein
             var branch = new Branch
             {
-                Name = $"{dto.CompanyName} Head Office", // optional, unique branch name
+                Name = $"{dto.CompanyName} Head Office",
                 TenantId = tenant.ID,
                 CreatedAt = DateTime.UtcNow
             };
+            await _branchRepository.CreateAsync(branch, cancellationToken); // <--- Ye Add Karein
 
+            // 3. Company settings Create aur Save Karein
+            var company = new CompanySetting
+            {
+                CompanyName = dto.CompanyName,
+                TenantId = tenant.ID,
+                Phone = dto.PhoneNumber
+            };
+            //await _companyRepository.CreateAsync(company, cancellationToken); // <--- Ye Add Karein
+
+            // 4. User Create aur Save Karein
             var user = new User
             {
-                Name = dto.OwnerName,   
+                Name = dto.OwnerName,
                 Email = dto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 TenantId = tenant.ID,
                 BranchId = branch.Id,
+                CompanyId = company.Id, 
                 RoleId = 1,
-                Status = "Active",
                 IsActive = true,
-                CreatedAt = DateTime.UtcNow
+                Status = "Active"
             };
-
-            var company = new CompanySetting
-            {
-                CompanyName = dto.CompanyName,  // display name
-                ///Address = dto.CompanyAddress,
-                TenantId = tenant.ID,
-                Phone = dto.PhoneNumber
-            };
+            await _UserRepository.CreateAsync(user, cancellationToken); 
 
             return ResponseDataModel<bool>.SuccessResponse(true, "Signup successful");
         }
@@ -265,7 +264,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     Token = token,
                     TenantId = matchedUser.TenantId,
                     CompanyId = matchedUser.CompanyId,
-                    Branchd=matchedUser.BranchId,
+                    Branchd = matchedUser.BranchId,
                 };
 
                 return ResponseDataModel<LoginResponseDto>.SuccessResponse(response, "Login successful");
@@ -319,33 +318,60 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             return ResponseDataModel<bool>.SuccessResponse(true, "Password changed successfully");
         }
 
+        #region Password Management
         public async Task<ResponseDataModel<bool>> ForgotPasswordAsync(ForgotPasswordDto dto, CancellationToken cancellationToken)
         {
-            var user = await _UserRepository.GetByEmailAsync(dto.Email,dto.TenantId, cancellationToken);
+            var user = await _UserRepository.GetByEmailAsync(dto.Email, dto.TenantId, cancellationToken);
             if (user == null)
                 return ResponseDataModel<bool>.FailureResponse("Email not found");
-
             var token = Guid.NewGuid().ToString();
             user.ResetToken = token;
             user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(30);
             await _UserRepository.UpdateAsync(user, cancellationToken);
+            var clientUrl = "https://smudgy-magical-flagstick.ngrok-free.dev";
+            var resetLink = $"{clientUrl}/#/reset-password?token={token}&email={dto.Email}";
 
-            // TODO: Send email with token
-            return ResponseDataModel<bool>.SuccessResponse(true, "Reset link sent to email");
+            string subject = "NexaErp - Password Reset Request";
+            string body = $@"
+        <div style='font-family: sans-serif; border: 1px solid #eee; padding: 20px; max-width: 600px;'>
+                <h2 style='color: #321fdb;'>NexaErp Password Reset</h2>
+                 <p>Aapne password reset karne ki request bheji hai.</p>
+                 <p>Niche diye gaye button par click karke apna naya password set karein:</p>
+            <div style='margin: 30px 0;'>
+                <a href='{resetLink}' style='background-color: #321fdb; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px;'>Reset My Password</a>
+            </div>
+            <p style='color: #666; font-size: 13px;'>Ye link 30 minute tak valid hai.</p>
+                 <p style='color: #999; font-size: 11px;'>Agar aapne ye request nahi ki to is email ko delete kar dein.</p>
+        </div>";
+
+            try
+            {
+                await _emailService.SendEmailAsync(dto.Email, subject, body);
+                return ResponseDataModel<bool>.SuccessResponse(true, "Password reset link has been sent to your email.");
+            }
+            catch (Exception ex)
+            {
+                return ResponseDataModel<bool>.FailureResponse($"Token generated but failed to send email: {ex.Message}");
+            }
         }
+        #endregion
 
         public async Task<ResponseDataModel<bool>> ResetPasswordAsync(ResetPasswordDto dto, CancellationToken cancellationToken)
         {
-            var user = await _UserRepository.GetByEmailAsync(dto.Email,dto.TenantId, cancellationToken);
-            if (user == null || user.ResetToken != dto.Token || user.ResetTokenExpiry < DateTime.UtcNow)
-                return ResponseDataModel<bool>.FailureResponse("Invalid or expired token");
+            var users = await _UserRepository.GetAllAsync(cancellationToken);
+            var user = users.FirstOrDefault(u => u.Email == dto.Email && u.ResetToken == dto.Token);
+            if (user == null || user.ResetTokenExpiry < DateTime.UtcNow)
+            {
+                return ResponseDataModel<bool>.FailureResponse("Invalid or expired reset token.");
+            }
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
             user.ResetToken = null;
             user.ResetTokenExpiry = null;
 
             await _UserRepository.UpdateAsync(user, cancellationToken);
-            return ResponseDataModel<bool>.SuccessResponse(true, "Password reset successful");
+
+            return ResponseDataModel<bool>.SuccessResponse(true, "Password has been reset successfully.");
         }
         #endregion
 
@@ -366,7 +392,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
         #region Get All Users
         public async Task<ResponseDataModel<List<UserDto>>> GetAllUsersAsync(CancellationToken cancellationToken)
         {
-            
+
             var users = await _UserRepository.GetAllAsync(cancellationToken);
             var filteredUsers = users.ToList();
 

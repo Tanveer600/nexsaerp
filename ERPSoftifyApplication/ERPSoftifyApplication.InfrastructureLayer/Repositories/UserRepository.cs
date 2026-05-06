@@ -70,14 +70,19 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
             return true;
         }
 
-        // ✅ GET BY EMAIL + TENANT 🔥 (VERY IMPORTANT)
         public async Task<User?> GetByEmailAsync(string email, int tenantId, CancellationToken cancellationToken)
         {
-            return await _context.Users
-                .FirstOrDefaultAsync(x => x.Email == email && x.TenantId == tenantId, cancellationToken);
+            var normalizedEmail = email.Trim().ToLower();
+         var emailData= await _context.Users
+                .IgnoreQueryFilters()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x =>
+                    x.Email.ToLower() == normalizedEmail &&
+                    x.TenantId == tenantId,
+                    cancellationToken);
+            return emailData;
         }
 
-        // ✅ LOGIN METHOD 🔥
         public async Task<User?> GetByLoginAsync(string email, int tenantId, CancellationToken cancellationToken)
         {
             return await _context.Users

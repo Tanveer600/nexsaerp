@@ -28,6 +28,9 @@ export default defineConfig(() => {
     },
     server: {
       port: 3000,
+      allowedHosts: [
+        'smudgy-magical-flagstick.ngrok-free.dev'
+      ],
       proxy: {
         // https://vitejs.dev/config/server-options.html
       },

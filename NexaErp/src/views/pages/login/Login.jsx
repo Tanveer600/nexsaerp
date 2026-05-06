@@ -10,6 +10,9 @@ import {
   resetError,
   forgotPasswordRequest,
   clearPasswordStatus,
+  resetPasswordRequest,
+  resetPasswordFailure,
+  resetPasswordSuccess,
 } from '../../../redux/slice/userSlice'
 import '../../../scss/Login.scss'
 

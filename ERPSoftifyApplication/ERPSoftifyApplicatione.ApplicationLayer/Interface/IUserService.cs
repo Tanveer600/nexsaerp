@@ -30,7 +30,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Interface
         Task<ResponseDataModel<bool>> ResetPasswordAsync( ResetPasswordDto dto, CancellationToken cancellationToken);
 
         Task<ResponseDataModel<bool>> UpdateEmailAsync( UpdateEmailDto dto, CancellationToken cancellationToken);
-
+       
         Task<ResponseDataModel<bool>> ActivateUserAsync(int userId,bool isActive,CancellationToken cancellationToken);
         Task<ResponseDataModel<bool>> CompanyExistsAsync(int companyId, CancellationToken cancellationToken);
         Task<ResponseDataModel<bool>> BranchExistsAsync(int branchId, CancellationToken cancellationToken);
