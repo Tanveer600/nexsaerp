@@ -1,7 +1,6 @@
 ﻿using ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto;
-using ERPSoftifyApplicatione.ApplicationLayer.DTO.QuotationOutput;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.Quotation;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSoftifyApplication.Controllers
@@ -16,9 +15,8 @@ namespace ERPSoftifyApplication.Controllers
         {
             _service = service;
         }
-
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] QuotationRequestDto request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create([FromBody] CreateQuotationRequest request, CancellationToken cancellationToken)
         {
             if (request == null) return BadRequest("Invalid request data");
 
@@ -49,9 +47,9 @@ namespace ERPSoftifyApplication.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] QuotationRequestDto request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateQuotationRequest request, CancellationToken cancellationToken)
         {
-            if (id != request.ID) return BadRequest("ID mismatch in URL and body");
+            if (id != request.QuotationId) return BadRequest("ID mismatch in URL and body");
 
             var response = await _service.UpdateQuotationAsync(request, cancellationToken);
 

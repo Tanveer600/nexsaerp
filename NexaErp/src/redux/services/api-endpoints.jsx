@@ -74,6 +74,7 @@ export const API_ENDPOINTS = {
     CREATE: '/api/Customer/createCustomer',
     GET_ALL: (page = 1, size = 10) =>
       `/api/Customer/getCustomer?pageNumber=${page}&pageSize=${size}`,
+    GET_LIST: '/api/Customer/customerList',
     BY_ID: (id) => `/api/Customer/${id}`,
     UPDATE: (id) => `/api/Customer/updateCustomer/${id}`,
     DELETE: (Id) => `/api/Customer/deleteCustomer/${Id}`,
@@ -100,6 +101,13 @@ export const API_ENDPOINTS = {
     BY_ID: (id) => `/api/PurchaseOrder/${id}`,
     UPDATE: (id) => `/api/PurchaseOrder/${id}`,
     DELETE: (id) => `/api/PurchaseOrder/${id}`,
+  },
+  QUOTATION: {
+    CREATE: '/api/Quotation',
+    GET_ALL: (page = 1, size = 10) => `/api/Quotation?pageNumber=${page}&pageSize=${size}`,
+    BY_ID: (id) => `/api/Quotation/${id}`,
+    UPDATE: (id) => `/api/Quotation/${id}`,
+    DELETE: (id) => `/api/Quotation/${id}`,
   },
   EMPLOYEE: {
     CREATE: '/api/Employee/createEmployee',

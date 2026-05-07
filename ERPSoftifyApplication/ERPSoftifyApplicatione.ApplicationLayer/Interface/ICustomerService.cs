@@ -1,6 +1,7 @@
 ﻿using ERPSoftifyApplication.DomainLayer;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.CustomerDto;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.ProductDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Interface
     public interface ICustomerService
     {
         Task<ResponseDataModel<CreateCustomerDto>> CreatecustomerAsync(CreateCustomerDto customer, CancellationToken cancellationToken);
-
+        Task<ResponseDataModel<List<CustomerDto>>> GetAllCustomerListAsync(CancellationToken cancellationToken);
         Task<ResponseDataModel<PagedResponse<CustomerDto>>> GetAllcustomerAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 
         Task<ResponseDataModel<CustomerDto>> GetcustomerByIdAsync(int id, CancellationToken cancellationToken);

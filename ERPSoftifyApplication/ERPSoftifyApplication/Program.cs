@@ -84,13 +84,22 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000","https://smudgy-magical-flagstick.ngrok-free.dev", "http://10.52.181.216:7016").AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
         });
 });
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(7016); 
-});
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowReactApp",
+//        policy =>
+//        {
+//            policy.WithOrigins("http://localhost:3000", "https://smudgy-magical-flagstick.ngrok-free.dev", "http://10.52.181.216:7016").AllowAnyHeader().AllowAnyMethod();
+//        });
+//});
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(7016); 
+//});
 var app = builder.Build();
 
 app.UseCors("AllowReactApp");
@@ -100,7 +109,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();

@@ -149,6 +149,22 @@ const _nav = [
   },
   {
     component: CNavTitle,
+    name: 'Purchase Management',
+  },
+  {
+    component: CNavGroup,
+    name: 'Quotations',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'quotations',
+        to: '/quotationManagement/quotations',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
     name: 'Setups',
   },
   {

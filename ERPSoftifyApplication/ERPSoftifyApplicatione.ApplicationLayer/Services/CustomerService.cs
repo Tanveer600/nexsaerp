@@ -4,6 +4,7 @@ using ERPSoftifyApplication.DomainLayer.Enums; // Enum ke liye
 using ERPSoftifyApplication.DomainLayer.Interface;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.CustomerDto;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.ProductDto;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 
 namespace ERPSoftifyApplicatione.ApplicationLayer.Services
@@ -38,7 +39,22 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             var result = await _customerInterface.Create(customer, cancellationToken);
             return ResponseDataModel<CreateCustomerDto>.SuccessResponse(dto, "Customer created successfully");
         }
+        public async Task<ResponseDataModel<List<CustomerDto>>> GetAllCustomerListAsync(CancellationToken cancellationToken)
+        {
+            var query = await _customerInterface.GetAll(cancellationToken);
 
+            var totalCount = query.Count();
+
+            var Products = query.Select(b => new CustomerDto
+            {
+                ID = b.ID,
+                Name = b.Name,
+            }).ToList();
+
+
+            return ResponseDataModel<List<CustomerDto>>.SuccessResponse(Products);
+
+        }
         public async Task<ResponseDataModel<PagedResponse<CustomerDto>>> GetAllcustomerAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             var query = await _customerInterface.GetAll(cancellationToken);

@@ -3,6 +3,7 @@ import customerService from '../services/customerService'
 import {
   getAllCustomers,
   setAllCustomers,
+  setCustomerList,
   createCustomer,
   deleteCustomer,
   updateCustomer,
@@ -10,6 +11,7 @@ import {
   updateCustomerCompleted,
   deleteCustomerCompleted,
   setIsLoading,
+  getCustomerList,
 } from '../slice/customerSlice'
 
 // ================= WORKER SAGAS =================
@@ -22,12 +24,20 @@ function* getcustomerSaga(action) {
     yield put(setAllCustomers({ items: [], totalCount: 0 }))
   }
 }
-
+function* getCustomerListSaga() {
+  try {
+    const data = yield call(customerService.getList)
+    console.log('>>> Saga: getCustomerListSaga Success Response:', data)
+    yield put(setCustomerList(data))
+  } catch (e) {
+    yield put(setCustomerList([]))
+  }
+}
 function* createCustomerSaga(action) {
   //console.log('>>> Saga: createCustomerSaga Triggered with:', action.payload)
   try {
     const res = yield call(customerService.create, action.payload)
-    console.log('>>> Saga: createCustomerSaga Success Response:', res)
+    //console.log('>>> Saga: createCustomerSaga Success Response:', res)
     yield put(createCustomerCompleted(res))
     yield put(getAllCustomers())
   } catch (e) {
@@ -68,7 +78,10 @@ function* watchGetCustomers() {
   // console.log('Watcher: watchGetCustomers Active', getAllCustomers.type)
   yield takeLatest(getAllCustomers.type, getcustomerSaga)
 }
-
+function* watchGetCustomerList() {
+  //console.log('Watcher: watchGetCustomerList Active', getCustomerList.type)
+  yield takeLatest(getCustomerList.type, getCustomerListSaga)
+}
 function* watchCreateCustomer() {
   //console.log('Watcher: watchCreateCustomer Active', createCustomer.type)
   yield takeLatest(createCustomer.type, createCustomerSaga)
@@ -92,5 +105,6 @@ export function* customerSaga() {
     fork(watchCreateCustomer),
     fork(watchUpdateCustomer),
     fork(watchDeleteCustomer),
+    fork(watchGetCustomerList),
   ])
 }

@@ -19,7 +19,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
         public async Task<Quotation> CreateAsync(Quotation order, CancellationToken cancellationToken)
         {
             await _context.Set<Quotation>().AddAsync(order, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync();
             return order;
         }
 
@@ -41,6 +41,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
         public async Task<List<Quotation>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _context.Set<Quotation>()
+                .Include(x=>x.Customer)
                .Include(x => x.QuotationItems)
                .AsNoTracking()
                .ToListAsync(cancellationToken);

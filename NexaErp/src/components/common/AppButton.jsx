@@ -31,13 +31,14 @@ const AppButton = ({
   variant = 'purple',
   data = null,
   fileName = 'Report',
+  className = '', // className support add ki
   ...props
 }) => {
   const styles = {
     purple: {
       background: 'linear-gradient(135deg, #7c3aed, #4c1d95)',
       border: 'none',
-      borderRadius: '14px',
+      borderRadius: '12px',
       color: '#fff',
     },
     golden: {
@@ -47,9 +48,16 @@ const AppButton = ({
       color: '#000',
       fontWeight: '600',
     },
+    // Aapka favourite mustard/gold theme
+    primary: {
+      background: '#e28a2b',
+      border: 'none',
+      borderRadius: '8px',
+      color: '#fff',
+      fontWeight: '600',
+    },
   }
 
-  // Agar 'data' prop mojood hy, to ye khud hi excel download ka function attach kr dega
   const handleClick = (e) => {
     if (data) {
       exportToExcel(data, fileName)
@@ -62,11 +70,16 @@ const AppButton = ({
   return (
     <CButton
       {...props}
+      className={`${className} shadow-sm`} // Bootstrap shadows use krne ke liye
       onClick={handleClick}
       style={{
         ...styles[variant],
-        boxShadow: 'none',
-        padding: '2px 16px'
+        padding: '8px 20px', // Width aur height ko behtar kiya
+        minWidth: '110px', // Buttons ko dabba dikhne se bachane ke liye
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        ...props.style, // Custom width bahar se bhi pass ho sakay gi
       }}
     >
       {children}

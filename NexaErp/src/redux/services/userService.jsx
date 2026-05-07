@@ -28,7 +28,7 @@ const userService = {
     return res?.data
   },
   login: async (payload) => {
-    console.log('LOGIN PAYLOAD', payload)
+    //console.log('LOGIN PAYLOAD', payload)
     const res = await apiClient.post(API_ENDPOINTS.USERS.LOGIN, payload)
     return res?.data
   },

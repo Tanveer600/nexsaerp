@@ -51,7 +51,7 @@ function* updateProductSaga(action) {
   //console.log('>>> Saga: updateProductSaga Triggered with:', action.payload)
   try {
     const res = yield call(productService.update, action.payload)
-    console.log('>>> Saga: updateProductSaga Success Response:', res)
+    //console.log('>>> Saga: updateProductSaga Success Response:', res)
     yield put(updateProductCompleted(res))
     yield put(getAllProducts())
   } catch (e) {
@@ -80,7 +80,7 @@ function* watchGetProducts() {
   yield takeLatest(getAllProducts.type, getProductSaga)
 }
 function* watchGetProductList() {
-  console.log('Watcher: watchGetProductList Active', getProductList.type)
+  //console.log('Watcher: watchGetProductList Active', getProductList.type)
   yield takeLatest(getProductList.type, getProductListSaga)
 }
 function* watchCreateProduct() {

@@ -40,7 +40,12 @@ namespace ERPSoftifyApplication.Controllers
             var result = await _Service.GetAllcustomerAsync(pageNumber, pageSize, cancellationToken);
             return Ok(result);
         }
-
+        [HttpGet("customerList")]
+        public async Task<IActionResult> GetCustomerList(CancellationToken cancellationToken = default)
+        {
+            var result = await _Service.GetAllCustomerListAsync(cancellationToken);
+            return Ok(result);
+        }
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {

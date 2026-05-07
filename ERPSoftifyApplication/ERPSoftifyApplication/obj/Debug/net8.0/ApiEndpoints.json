@@ -205,6 +205,16 @@
   },
   {
     "ContainingType": "ERPSoftifyApplication.Controllers.CustomerController",
+    "Method": "GetCustomerList",
+    "RelativePath": "api/Customer/customerList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.CustomerController",
     "Method": "Delete",
     "RelativePath": "api/Customer/deleteCustomer/{id}",
     "HttpMethod": "DELETE",
@@ -778,7 +788,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.QuotationOutput.QuotationRequestDto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.Quotation.CreateQuotationRequest",
         "IsRequired": true
       }
     ],
@@ -836,7 +846,7 @@
       },
       {
         "Name": "request",
-        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.QuotationOutput.QuotationRequestDto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.Quotation.UpdateQuotationRequest",
         "IsRequired": true
       }
     ],

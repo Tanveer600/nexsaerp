@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   result: [], // Ismein items ayenge
+  dropdownList: [],
   totalCount: 0, // Pagination ke liye
   selectedCustomer: { id: 0, name: '' },
   isLoading: false,
@@ -23,7 +24,12 @@ const customerSlice = createSlice({
     deleteCustomer: (state) => {
       state.isLoading = true
     },
-
+    getCustomerList: (state) => {
+      state.isLoading = true
+    },
+    setCustomerList: (state, action) => {
+      state.dropdownList = action.payload || []
+    },
     setAllCustomers: (state, action) => {
       state.result = action.payload.items || []
       state.totalCount = action.payload.totalCount || 0
@@ -55,6 +61,8 @@ export const {
   getAllCustomers,
   setAllCustomers,
   setCustomer,
+  getCustomerList,
+  setCustomerList,
   createCustomer,
   updateCustomer,
   deleteCustomer,

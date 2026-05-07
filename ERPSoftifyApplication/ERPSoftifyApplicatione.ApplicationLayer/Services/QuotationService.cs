@@ -1,77 +1,92 @@
 ﻿using ERPSoftifyApplication.DomainLayer;
 using ERPSoftifyApplication.DomainLayer.Entities;
 using ERPSoftifyApplication.DomainLayer.Interface;
-using ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto;
-using ERPSoftifyApplicatione.ApplicationLayer.DTO.QuotationOutput;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.Quotation;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 {
     public class QuotationService : IQuotationService
     {
-
         private readonly IQuotationInterface _repository;
         private readonly ICurrentUserService _currentUserService;
-        public QuotationService(IQuotationInterface repository, ICurrentUserService currentUserService)
+        private readonly ICustomerService _customerService;
+
+        public QuotationService(IQuotationInterface repository, ICurrentUserService currentUserService, ICustomerService customerService)
         {
             _repository = repository;
             _currentUserService = currentUserService;
+            _customerService = customerService;
         }
 
-        public  async Task<ResponseDataModel<QuotationResponseDto>> CreateQuotationAsync(QuotationRequestDto request, CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<QuotationViewDto>> CreateQuotationAsync(CreateQuotationRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                var tenantId = _currentUserService.TenantId;
-                var branchId = _currentUserService.BranchId;
+
+
                 var orderEntity = new Quotation
                 {
-                   CustomerId=request.CustomerId,
-                     Status = request.Status,
+                    CustomerId = request.CustomerId,
+                    Status = request.Status,
+                    Date = request.QuotationDate,
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
-                    QuotationItems = request.QuotationItems.Select(i => new QuotationItem
+                    SubTotal = request.SubTotal,
+                    TotalDiscount = request.TotalDiscount,
+                    TotalTax = request.TotalTax,
+                    NetAmount = request.NetAmount,
+
+                    QuotationItems = request.Items.Select(i => new QuotationItem
                     {
                         ProductId = i.ProductId,
                         Quantity = i.Quantity,
-                        UnitPrice = i.UnitPrice,                       
-                        TenantId = tenantId,
-                        BranchId = branchId,
-
+                        UnitPrice = i.UnitPrice,
+                        DiscountAmount = i.DiscountAmount,
+                        TaxAmount = i.TaxAmount,
+                        DiscountPercentage = i.DiscountPercentage,
+                        TaxPercentage = i.TaxPercentage,
+                        LineTotal = (i.Quantity * i.UnitPrice - i.Discount) + i.TaxAmount,
+                        TenantId = _currentUserService.TenantId,
+                        BranchId = _currentUserService.BranchId,
                     }).ToList()
                 };
 
                 var result = await _repository.CreateAsync(orderEntity, cancellationToken);
 
-                var responseDto = new QuotationResponseDto
+                var responseDto = new QuotationViewDto
                 {
-                    ID = result.ID,
-                   CustomerId = result.CustomerId,                                    
+                    QuotationId = result.ID,
+                    CustomerId = result.CustomerId,
+                    QuotationDate = result.Date,
+                    CustomerName = result.Customer?.Name,
                     Status = result.Status,
-                    QuotationItems = result.QuotationItems.Select(item => new QuotationItemResponseDto
+                    Items = result.QuotationItems.Select(item => new QuotationItemViewDto
                     {
-                        ID = item.ID,
+                        ItemId = item.ID,
                         ProductId = item.ProductId,
-                        ProductName = "Product-" + item.ProductId,
+                        ProductName = item.Product?.Name,
                         Quantity = item.Quantity,
-                        UnitPrice = item.UnitPrice,                      
+                        UnitPrice = item.UnitPrice,
+                        DiscountAmount = item.DiscountAmount,
+                        TaxAmount = item.TaxAmount
                     }).ToList()
                 };
 
-                return ResponseDataModel<QuotationResponseDto>.SuccessResponse(responseDto, "Created Successfully");
+                return ResponseDataModel<QuotationViewDto>.SuccessResponse(responseDto, "Created Successfully");
             }
             catch (Exception ex)
             {
-                return ResponseDataModel<QuotationResponseDto>.FailureResponse(ex.Message);
+                return ResponseDataModel<QuotationViewDto>.FailureResponse(ex.Message);
             }
         }
 
-        public  async Task<ResponseDataModel<bool>> DeleteQuotationAsync(int id, CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<bool>> DeleteQuotationAsync(int id, CancellationToken cancellationToken)
         {
             try
             {
@@ -85,34 +100,41 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 return ResponseDataModel<bool>.FailureResponse(ex.Message);
             }
         }
-      
 
-        public async Task<ResponseDataModel<PagedResponse<QuotationResponseDto>>> GetAllQuotationsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<PagedResponse<QuotationViewDto>>> GetAllQuotationsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             try
             {
                 var allOrders = await _repository.GetAllAsync(cancellationToken);
-
                 var totalCount = allOrders.Count();
+
                 var paginatedOrders = allOrders
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
                     .ToList();
-                var mappedItems = paginatedOrders.Select(o => new QuotationResponseDto
+                var mappedItems = paginatedOrders.Select(o => new QuotationViewDto
                 {
-                    ID = o.ID,                   
+
+                    QuotationId = o.ID,
+                    CustomerId = o.CustomerId,
+                    CustomerName = o.Customer.Name,
                     Status = o.Status,
-                    QuotationItems = o.QuotationItems.Select(i => new QuotationItemResponseDto
+                    QuotationDate = o.Date,
+                    Items = o.QuotationItems.Select(i => new QuotationItemViewDto
                     {
-                        ID = i.ID,
+                        ItemId = i.ID,
                         ProductId = i.ProductId,
-                        ProductName = "Product-" + i.ProductId,
+                        ProductName = i.Product?.Name,
                         Quantity = i.Quantity,
-                        UnitPrice = i.UnitPrice,                        
+                        UnitPrice = i.UnitPrice,
+                        DiscountAmount = i.DiscountAmount,
+                        TaxAmount = i.TaxAmount,
+                        DiscountPercentage = i.DiscountPercentage,
+                        TaxPercentage = i.TaxPercentage,
                     }).ToList()
                 }).ToList();
 
-                var pagedData = new PagedResponse<QuotationResponseDto>
+                var pagedData = new PagedResponse<QuotationViewDto>
                 {
                     TotalCount = totalCount,
                     Page = pageNumber,
@@ -120,84 +142,113 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     Items = mappedItems
                 };
 
-                return ResponseDataModel<PagedResponse<QuotationResponseDto>>.SuccessResponse(pagedData);
+                return ResponseDataModel<PagedResponse<QuotationViewDto>>.SuccessResponse(pagedData);
             }
             catch (Exception ex)
             {
-                return ResponseDataModel<PagedResponse<QuotationResponseDto>>.FailureResponse(ex.Message);
+                return ResponseDataModel<PagedResponse<QuotationViewDto>>.FailureResponse(ex.Message);
             }
         }
 
-        public async Task<ResponseDataModel<QuotationResponseDto>> GetQuotationByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<QuotationViewDto>> GetQuotationByIdAsync(int id, CancellationToken cancellationToken)
         {
             try
             {
                 var order = await _repository.GetByIdAsync(id, cancellationToken);
-                if (order == null) return ResponseDataModel<QuotationResponseDto>.FailureResponse("Not Found");
-                var responseDto = new QuotationResponseDto
+                if (order == null) return ResponseDataModel<QuotationViewDto>.FailureResponse("Not Found");
+
+                var responseDto = new QuotationViewDto
                 {
-                    ID = order.ID,                 
+                    QuotationId = order.ID,
+                    CustomerId = order.CustomerId,
+                    CustomerName = order.Customer?.Name,
                     Status = order.Status,
-                    QuotationItems = order.QuotationItems.Select(i => new QuotationItemResponseDto
+                    QuotationDate = order.Date,
+                    TotalDiscount = order.TotalDiscount,
+                    SubTotal = order.SubTotal,
+                    TotalTax = order.TotalTax,
+                    NetAmount = order.NetAmount,
+                    Items = order.QuotationItems.Select(i => new QuotationItemViewDto
                     {
-                        ID = i.ID,
+                        ItemId = i.ID,
                         ProductId = i.ProductId,
-                        ProductName = "Product-" + i.ProductId,
+                        ProductName = i.Product?.Name,
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
-                      
+                        DiscountAmount = i.DiscountAmount,
+                        TaxAmount = i.TaxAmount
                     }).ToList()
                 };
 
-                return ResponseDataModel<QuotationResponseDto>.SuccessResponse(responseDto);
+                return ResponseDataModel<QuotationViewDto>.SuccessResponse(responseDto);
             }
             catch (Exception ex)
             {
-                return ResponseDataModel<QuotationResponseDto>.FailureResponse(ex.Message);
+                return ResponseDataModel<QuotationViewDto>.FailureResponse(ex.Message);
             }
         }
 
-        public async Task<ResponseDataModel<QuotationResponseDto>> UpdateQuotationAsync(QuotationRequestDto request, CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<QuotationViewDto>> UpdateQuotationAsync(UpdateQuotationRequest request, CancellationToken cancellationToken)
         {
             try
             {
                 var orderToUpdate = new Quotation
                 {
-                    ID = request.ID,                   
+                    ID = request.QuotationId,
+                    CustomerId = request.CustomerId,
                     Status = request.Status,
-                    QuotationItems = request.QuotationItems.Select(i => new QuotationItem
+                    Date = request.QuotationDate,
+                    BranchId = _currentUserService.BranchId,
+                    TenantId = _currentUserService.TenantId,
+                    SubTotal = request.SubTotal,
+                    TotalDiscount = request.TotalDiscount,
+                    TotalTax = request.TotalTax,
+                    NetAmount = request.NetAmount,
+
+                    QuotationItems = request.Items.Select(i => new QuotationItem
                     {
-                        ID = i.ID ?? 0,                       
+                        ID = i.ID ?? 0,
+                        QuotationId = request.QuotationId,
                         ProductId = i.ProductId,
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
-                      
+                        DiscountAmount = i.DiscountAmount,
+                        DiscountPercentage = i.DiscountPercentage,
+                        TaxPercentage = i.TaxPercentage,
+                        TaxAmount = i.TaxAmount,
+                        BranchId = _currentUserService.BranchId,
+                        TenantId = _currentUserService.TenantId,
                     }).ToList()
                 };
 
                 var result = await _repository.UpdateAsync(orderToUpdate, cancellationToken);
 
-                var responseDto = new QuotationResponseDto
+                var responseDto = new QuotationViewDto
                 {
-                    ID = result.ID,                
-                     Status = result.Status,
-                    QuotationItems = result.QuotationItems.Select(item => new QuotationItemResponseDto
+                    QuotationId = result.ID,
+                    CustomerId = result.CustomerId,
+                    Status = result.Status,
+                    QuotationDate = result.Date,
+                    Items = result.QuotationItems.Select(item => new QuotationItemViewDto
                     {
-                        ID = item.ID,
+                        ItemId = item.ID,
                         ProductId = item.ProductId,
-                        ProductName = "Product-" + item.ProductId,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
-                       
+                        DiscountAmount = item.DiscountAmount,
+                        TaxAmount = item.TaxAmount
                     }).ToList()
                 };
 
-                return ResponseDataModel<QuotationResponseDto>.SuccessResponse(responseDto, "Updated Successfully");
+
+                return ResponseDataModel<QuotationViewDto>.SuccessResponse(responseDto, "Updated Successfully");
             }
             catch (Exception ex)
             {
-                return ResponseDataModel<QuotationResponseDto>.FailureResponse(ex.Message);
+                return ResponseDataModel<QuotationViewDto>.FailureResponse(ex.Message);
             }
         }
+
+
     }
 }

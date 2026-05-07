@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260502201145_AddNewTable")]
-    partial class AddNewTable
+    [Migration("20260506170338_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -812,17 +812,28 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("NetAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("SubTotal")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalAmount")
+                    b.Property<decimal>("TotalDiscount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalTax")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Quotations");
                 });
@@ -835,6 +846,18 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("LineTotal")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -844,6 +867,12 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("QuotationId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("TaxAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TaxPercentage")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
@@ -851,6 +880,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("QuotationId");
 
@@ -959,7 +990,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("QuotationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SalesOrderId")
+                    b.Property<int>("SOId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TaxAmount")
@@ -972,6 +1003,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("SOId");
 
                     b.ToTable("SalesOrderItems");
                 });
@@ -1152,6 +1185,44 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.UserEmail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FromEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ReceivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ToEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserEmails");
+                });
+
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.UserProfile", b =>
                 {
                     b.Property<int>("Id")
@@ -1297,15 +1368,34 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Navigation("PurchaseOrder");
                 });
 
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Quotation", b =>
+                {
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.QuotationItem", b =>
                 {
-                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Quotation", "Quotations")
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Quotation", "Quotation")
                         .WithMany("QuotationItems")
                         .HasForeignKey("QuotationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Quotations");
+                    b.Navigation("Product");
+
+                    b.Navigation("Quotation");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.RolePermission", b =>
@@ -1325,6 +1415,17 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Navigation("Permission");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.SalesOrderItem", b =>
+                {
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.SalesOrder", "SalesOrder")
+                        .WithMany("Items")
+                        .HasForeignKey("SOId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SalesOrder");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.User", b =>
@@ -1440,6 +1541,11 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Quotation", b =>
                 {
                     b.Navigation("QuotationItems");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.SalesOrder", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
