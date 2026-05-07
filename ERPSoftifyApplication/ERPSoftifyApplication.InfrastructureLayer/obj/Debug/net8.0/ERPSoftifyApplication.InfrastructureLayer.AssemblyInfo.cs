@@ -15,9 +15,13 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab9f69d7c0f7ac5679f762d60db2483380a09802")]
 =======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fb1e43930b673a2279adc8350558f09c15fedf25")]
+>>>>>>> Stashed changes
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95f79ae1eeaf49ed6b7b7cfc522ca2ab9b8e71a9")]
 >>>>>>> Stashed changes
 [assembly: System.Reflection.AssemblyProductAttribute("ERPSoftifyApplication.InfrastructureLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERPSoftifyApplication.InfrastructureLayer")]
