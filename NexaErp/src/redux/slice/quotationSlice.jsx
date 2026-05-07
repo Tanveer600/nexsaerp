@@ -17,6 +17,9 @@ const quotationSlice = createSlice({
     createQuotation: (state) => {
       state.isLoading = true
     },
+    approveQuotation: (state) => {
+      state.isLoading = true
+    },
     updateQuotation: (state) => {
       state.isLoading = true
     },
@@ -31,6 +34,14 @@ const quotationSlice = createSlice({
     },
     setQuotation: (state, action) => {
       state.selectedQuotation = action.payload
+    },
+    approveQuotationCompleted: (state, action) => {
+      const id = action.payload.id || action.payload.quotationId
+      const index = state.result.findIndex((x) => (x.id || x.quotationId) === id)
+      if (index !== -1) {
+        state.result[index] = action.payload
+      }
+      state.isLoading = false
     },
     createQuotationCompleted: (state, action) => {
       state.result.unshift(action.payload)
@@ -58,6 +69,8 @@ export const {
   createQuotation,
   updateQuotation,
   deleteQuotation,
+  approveQuotation,
+  approveQuotationCompleted,
   createQuotationCompleted,
   updateQuotationCompleted,
   deleteQuotationCompleted,

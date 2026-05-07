@@ -14,6 +14,7 @@ import { purchaseItemOrderSaga } from './saga/purchaseItemOrderSaga'
 import { employeeSaga } from './saga/employeeSaga'
 import { emailSaga } from './saga/emailSaga'
 import { quotationSaga } from './saga/quotationSaga'
+import { saleSaga } from './saga/saleSaga'
 export default function* rootSaga() {
   yield all([
     fork(tenantSaga),
@@ -31,5 +32,6 @@ export default function* rootSaga() {
     fork(employeeSaga),
     fork(emailSaga),
     fork(quotationSaga),
+    fork(saleSaga),
   ])
 }

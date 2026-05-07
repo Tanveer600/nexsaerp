@@ -15,13 +15,17 @@ import {
 import TableHeader from '../../components/common/TableHeader'
 import AppButton from '../../components/common/AppButton'
 import { useToast } from '../../components/common/ToastContext'
-import { getAllQuotations, deleteQuotation } from '../../redux/slice/quotationSlice'
+import {
+  getAllQuotations,
+  deleteQuotation,
+  approveQuotation,
+} from '../../redux/slice/quotationSlice'
 import { toNumber, formatDate } from '../../components/common/formatter'
 import QuotationAddEditModel from './QuotationAddEditModel'
 
 const EditIcon = () => <span style={{ marginRight: '5px' }}>✎</span>
 const DeleteIcon = () => <span style={{ marginRight: '5px' }}>🗑</span>
-
+const ApproveIcon = () => <span style={{ marginRight: '5px' }}>✔</span> // Naya icon
 function Quotation() {
   const dispatch = useDispatch()
   const { result: orders } = useSelector((state) => state.quotations)
@@ -53,7 +57,14 @@ function Quotation() {
         return 'secondary'
     }
   }
-
+  const handleApprove = (id) => {
+    if (
+      window.confirm(`Are you sure you want to approve Quotation #${id} and convert it to a Sale?`)
+    ) {
+      dispatch(approveQuotation(id))
+      addToast('Processing', 'Converting quotation to sale...', 'info')
+    }
+  }
   return (
     <CRow>
       <CCol xs={12}>
@@ -115,6 +126,16 @@ function Quotation() {
                         </CTableDataCell>
                         <CTableDataCell>
                           <div className="d-flex gap-2">
+                            {status.toLowerCase() === 'pending' && (
+                              <AppButton
+                                size="sm"
+                                variant="purple"
+                                style={{ background: '#10b981', border: 'none' }}
+                                onClick={() => handleApprove(id)}
+                              >
+                                <ApproveIcon /> Approve
+                              </AppButton>
+                            )}
                             <AppButton
                               size="sm"
                               variant="golden"

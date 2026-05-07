@@ -78,7 +78,9 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IQuotationInterface, QuotationRepository>();
 builder.Services.AddScoped<IQuotationService, QuotationService>();
 builder.Services.AddScoped<IEmailInterfcae, EmailRepository>();
+builder.Services.AddScoped<ISaleInterface, SaleRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ISaleService, Saleervice>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",

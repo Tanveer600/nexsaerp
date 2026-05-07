@@ -248,7 +248,5 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 return ResponseDataModel<QuotationViewDto>.FailureResponse(ex.Message);
             }
         }
-
-
     }
 }

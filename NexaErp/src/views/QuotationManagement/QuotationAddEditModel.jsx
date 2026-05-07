@@ -334,7 +334,7 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                                     value={item.discP}
                                     onChange={(e) => {
                                       const val = Number(e.target.value)
-                                      setFieldValue(`items.${index}.discP`, val) // State update
+                                      setFieldValue(`items.${index}.discP`, val)
                                       const updatedItems = [...values.items]
                                       updatedItems[index] = { ...updatedItems[index], discP: val }
                                       updateRowCalculations(index, updatedItems)
@@ -381,7 +381,7 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                                     className="p-1 border-0 shadow-sm"
                                     onClick={() => values.items.length > 1 && remove(index)}
                                     style={{
-                                      backgroundColor: '#fff1f1', // Halka sa red background
+                                      backgroundColor: '#fff1f1',
                                       borderRadius: '8px',
                                       display: 'flex',
                                       alignItems: 'center',

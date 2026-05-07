@@ -109,6 +109,14 @@ export const API_ENDPOINTS = {
     UPDATE: (id) => `/api/Quotation/${id}`,
     DELETE: (id) => `/api/Quotation/${id}`,
   },
+  SALE: {
+    CREATE: '/api/Sale',
+    GET_ALL: (page = 1, size = 10) => `/api/Sale?pageNumber=${page}&pageSize=${size}`,
+    BY_ID: (id) => `/api/Sale/${id}`,
+    UPDATE: (id) => `/api/Sale/${id}`,
+    DELETE: (id) => `/api/Sale/${id}`,
+    APPROVE_QUOTATION: (id) => `/api/Sale/convert-to-sale/${id}`,
+  },
   EMPLOYEE: {
     CREATE: '/api/Employee/createEmployee',
     GET_ALL: (page = 1, size = 10) =>

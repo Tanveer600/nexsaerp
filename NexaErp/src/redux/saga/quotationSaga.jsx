@@ -1,5 +1,6 @@
 import { all, call, fork, put, takeLatest } from 'redux-saga/effects'
 import quotationService from '../services/quotationService'
+import saleService from '../services/saleService'
 import {
   getAllQuotations,
   setAllQuotations,
@@ -7,6 +8,8 @@ import {
   createQuotation,
   updateQuotation,
   deleteQuotation,
+  approveQuotation,
+  approveQuotationCompleted,
   createQuotationCompleted,
   updateQuotationCompleted,
   deleteQuotationCompleted,
@@ -60,7 +63,18 @@ function* deleteQuotationSaga(action) {
     yield put(setIsLoading(false))
   }
 }
-
+function* approveQuotationSaga(action) {
+  console.log('>>> Saga: approveQuotationSaga Triggered for ID:', action.payload)
+  try {
+    const res = yield call(saleService.convertToSale, action.payload)
+    console.log('>>> Saga: approveQuotationSaga Success Response:', res)
+    yield put(approveQuotationCompleted(res.data || res))
+    yield put(getAllQuotations())
+  } catch (e) {
+    console.error('>>> Saga: Approve Quotation Error:', e)
+    yield put(setIsLoading(false))
+  }
+}
 function* watchGetQuotations() {
   console.log('Watcher: watchGetQuotations Active', getAllQuotations.type)
   yield takeLatest(getAllQuotations.type, getQuotationsSaga)
@@ -70,7 +84,10 @@ function* watchCreateQuotation() {
   console.log('Watcher: watchCreateQuotation Active', createQuotation.type)
   yield takeLatest(createQuotation.type, createQuotationSaga)
 }
-
+function* watchApproveQuotation() {
+  console.log('Watcher: watchApproveQuotation Active', approveQuotation.type)
+  yield takeLatest(approveQuotation.type, approveQuotationSaga)
+}
 function* watchUpdateQuotation() {
   console.log('Watcher: watchUpdateQuotation Active', updateQuotation.type)
   yield takeLatest(updateQuotation.type, updateQuotationSaga)
@@ -87,5 +104,6 @@ export function* quotationSaga() {
     fork(watchCreateQuotation),
     fork(watchUpdateQuotation),
     fork(watchDeleteQuotation),
+    fork(watchApproveQuotation),
   ])
 }
