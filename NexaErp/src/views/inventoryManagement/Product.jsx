@@ -8,10 +8,6 @@ import AppButton from '../../components/common/AppButton'
 import AppPagination from '../../components/common/AppPagination'
 import ProductAddEditModelForm from './ProductAddEditModelForm'
 
-// Icons (Assuming you use CoreUI icons or similar)
-import CIcon from '@coreui/icons-react'
-import { cilPencil, cilTrash, cilOptions } from '@coreui/icons'
-
 import '../../scss/permissingSetting.scss'
 import '../../scss/pagination.scss'
 
@@ -34,12 +30,25 @@ function Product() {
   const [pageSize, setPageSize] = useState(10)
   const [activeColumn, setActiveColumn] = useState(l('name'))
   const [visible, setVisible] = useState(false)
-  const [form, setForm] = useState({ id: 0, name: '', unitPrice: '', description: '' })
 
-  // Clean Grid Layout for Professional Look
+  // Sync keys with Model inputs (Capital Letters)
+  const [form, setForm] = useState({
+    id: 0,
+    Name: '',
+    UnitPrice: 0,
+    Description: '',
+    SKU: '',
+    Barcode: '',
+    VatPercentage: 5,
+    ReorderLevel: 0,
+    ManageStock: true,
+    UOM: '',
+    CategoryId: 0,
+  })
+
   const gridLayout = {
     display: 'grid',
-    gridTemplateColumns: '1.5fr 2fr 1fr 0.8fr',
+    gridTemplateColumns: '1.5fr 1fr 1fr 0.8fr 0.8fr 0.5fr',
     alignItems: 'center',
     gap: '15px',
   }
@@ -51,7 +60,12 @@ function Product() {
   const totalPages = Math.ceil(totalCount / pageSize)
 
   const handleSave = () => {
-    if (!form.name) return
+    // Validation check uses 'Name' (Capital N)
+    if (!form.Name) {
+      addToast(l('error'), 'Product Name is required', 'danger')
+      return
+    }
+
     if (form.id === 0) {
       dispatch(createProduct(form))
       addToast(l('success'), l('product_created'), 'success')
@@ -70,11 +84,23 @@ function Product() {
     }
   }
 
-  const resetForm = () => setForm({ id: 0, name: '', unitPrice: '', description: '' })
+  const resetForm = () =>
+    setForm({
+      id: 0,
+      Name: '',
+      UnitPrice: 0,
+      Description: '',
+      SKU: '',
+      Barcode: '',
+      VatPercentage: 5,
+      ReorderLevel: 0,
+      ManageStock: true,
+      UOM: '',
+      CategoryId: 0,
+    })
 
   return (
     <div className="product-page-container px-3 py-2">
-      {/* Professional Header Section */}
       <div className="d-flex justify-content-between align-items-end mb-4 bg-white p-3 rounded shadow-sm border-top border-warning border-4">
         <div>
           <h4 className="mb-1 text-dark fw-bold" style={{ letterSpacing: '-0.5px' }}>
@@ -108,23 +134,24 @@ function Product() {
         </AppButton>
       </div>
 
-      {/* Table Header Wrapper */}
       <div
         className="table-header px-4 py-2 d-none d-md-grid text-uppercase fw-bold text-secondary border-bottom mb-2 bg-light rounded"
         style={gridLayout}
       >
         <TableHeader
-          col={l('name')}
+          col={l('Product')}
           activeColumn={activeColumn}
           setActiveColumn={setActiveColumn}
         />
         <TableHeader
-          col={l('description')}
+          col={l('Price')}
           activeColumn={activeColumn}
           setActiveColumn={setActiveColumn}
         />
+        <TableHeader col={l('VAT')} activeColumn={activeColumn} setActiveColumn={setActiveColumn} />
+        <TableHeader col={l('UOM')} activeColumn={activeColumn} setActiveColumn={setActiveColumn} />
         <TableHeader
-          col={l('unit_price')}
+          col={l('Stock')}
           activeColumn={activeColumn}
           setActiveColumn={setActiveColumn}
         />
@@ -136,7 +163,6 @@ function Product() {
         />
       </div>
 
-      {/* Product List with Hover Effects */}
       <div className="product-list">
         {productsData.length > 0 ? (
           productsData.map((p) => (
@@ -148,17 +174,10 @@ function Product() {
               onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'white')}
             >
               <div>
-                <span className="text-dark fw-bold d-block">{p.name}</span>
-                <small className="text-muted text-uppercase" style={{ fontSize: '10px' }}>
-                  SKU: {p.id + 1000}
+                <span className="text-dark fw-bold d-block">{p.name || p.Name}</span>
+                <small className="text-muted" style={{ fontSize: '10px' }}>
+                  SKU: {p.sku || p.SKU || p.id + 1000}
                 </small>
-              </div>
-
-              <div
-                className="text-muted small pe-3 border-start ps-3"
-                style={{ lineHeight: '1.4' }}
-              >
-                {p.description || '---'}
               </div>
 
               <div>
@@ -167,7 +186,19 @@ function Product() {
                   className="text-success p-2 px-3 border border-success border-opacity-25"
                   style={{ backgroundColor: '#e8f5e9' }}
                 >
-                  ${Number(p.unitPrice).toLocaleString()}
+                  ${Number(p.unitPrice || p.UnitPrice).toLocaleString()}
+                </CBadge>
+              </div>
+
+              <div className="text-muted small">{p.vatPercentage || p.VatPercentage}%</div>
+              <div className="text-muted small">{p.uom || p.UOM || '---'}</div>
+
+              <div>
+                <CBadge
+                  color={p.manageStock || p.ManageStock ? 'info' : 'secondary'}
+                  className="small"
+                >
+                  {p.manageStock || p.ManageStock ? 'TRACKED' : 'NO TRACK'}
                 </CBadge>
               </div>
 
@@ -180,7 +211,18 @@ function Product() {
                     <CDropdownItem
                       className="py-2"
                       onClick={() => {
-                        setForm(p)
+                        // Crucial: Map backend keys to form keys for the modal
+                        setForm({
+                          ...p,
+                          Name: p.name || p.Name,
+                          UnitPrice: p.unitPrice || p.UnitPrice,
+                          Description: p.description || p.Description,
+                          SKU: p.sku || p.SKU,
+                          VatPercentage: p.vatPercentage || p.VatPercentage,
+                          ManageStock: p.manageStock || p.ManageStock,
+                          UOM: p.uom || p.UOM,
+                          CategoryId: p.categoryId || p.CategoryId,
+                        })
                         setVisible(true)
                       }}
                     >

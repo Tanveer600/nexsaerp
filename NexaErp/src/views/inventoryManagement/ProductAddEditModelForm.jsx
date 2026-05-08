@@ -9,17 +9,16 @@ import {
   CRow,
   CCol,
   CFormLabel,
-  CFormTextarea,
+  CFormSwitch,
 } from '@coreui/react'
 import AppButton from '../../components/common/AppButton'
 
 const ProductAddEditModelForm = ({ visible, setVisible, form, setForm, handleSave }) => {
-  // Handlers (Consistent with Permission Modal)
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value, type, checked } = e.target
     setForm({
       ...form,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : type === 'number' ? parseFloat(value) || 0 : value,
     })
   }
 
@@ -39,36 +38,83 @@ const ProductAddEditModelForm = ({ visible, setVisible, form, setForm, handleSav
 
       <CModalBody className="py-4">
         <CRow className="g-3">
-          {/* Row 1: Name and Phone */}
           <CCol md={6}>
-            <CFormLabel className="fw-semibold small"> Product Name</CFormLabel>
+            <CFormLabel className="fw-semibold small">Product Name</CFormLabel>
             <CFormInput
-              name="name"
-              value={form.name}
+              name="Name"
+              value={form.Name || ''}
               onChange={handleChange}
               placeholder="Enter product name"
             />
           </CCol>
           <CCol md={6}>
-            <CFormLabel className="fw-semibold small">Description</CFormLabel>
+            <CFormLabel className="fw-semibold small">SKU</CFormLabel>
             <CFormInput
-              name="description"
-              value={form.description}
+              name="SKU"
+              value={form.SKU || ''}
               onChange={handleChange}
-              placeholder="Enter product description"
+              placeholder="e.g. PROD-001"
             />
           </CCol>
 
-          {/* Row 2: Contact Person */}
+          <CCol md={6}>
+            <CFormLabel className="fw-semibold small">Category ID</CFormLabel>
+            <CFormInput
+              type="number"
+              name="CategoryId"
+              value={form.CategoryId || 0}
+              onChange={handleChange}
+            />
+          </CCol>
+          <CCol md={6}>
+            <CFormLabel className="fw-semibold small">Barcode</CFormLabel>
+            <CFormInput name="Barcode" value={form.Barcode || ''} onChange={handleChange} />
+          </CCol>
 
-          <CCol md={12}>
+          <CCol md={6}>
             <CFormLabel className="fw-semibold small">Unit Price</CFormLabel>
             <CFormInput
-              name="unitPrice"
-              value={form.unitPrice}
+              type="number"
+              name="UnitPrice"
+              value={form.UnitPrice || 0}
               onChange={handleChange}
-              placeholder="e.g. 100.00"
             />
+          </CCol>
+          <CCol md={6}>
+            <CFormLabel className="fw-semibold small">VAT (%)</CFormLabel>
+            <CFormInput
+              type="number"
+              name="VatPercentage"
+              value={form.VatPercentage || 0}
+              onChange={handleChange}
+            />
+          </CCol>
+
+          <CCol md={4}>
+            <CFormLabel className="fw-semibold small">UOM</CFormLabel>
+            <CFormInput name="UOM" value={form.UOM || ''} onChange={handleChange} />
+          </CCol>
+          <CCol md={4}>
+            <CFormLabel className="fw-semibold small">Reorder Level</CFormLabel>
+            <CFormInput
+              type="number"
+              name="ReorderLevel"
+              value={form.ReorderLevel || 0}
+              onChange={handleChange}
+            />
+          </CCol>
+          <CCol md={4} className="d-flex align-items-end pb-2">
+            <CFormSwitch
+              label="Manage Stock"
+              name="ManageStock"
+              checked={form.ManageStock}
+              onChange={handleChange}
+            />
+          </CCol>
+
+          <CCol md={12}>
+            <CFormLabel className="fw-semibold small">Description</CFormLabel>
+            <CFormInput name="Description" value={form.Description || ''} onChange={handleChange} />
           </CCol>
         </CRow>
       </CModalBody>

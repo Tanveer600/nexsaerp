@@ -2900,9 +2900,40 @@
             "type": "string",
             "nullable": true
           },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "barcode": {
+            "type": "string",
+            "nullable": true
+          },
           "unitPrice": {
             "type": "number",
             "format": "double"
+          },
+          "vatPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "reorderLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manageStock": {
+            "type": "boolean"
+          },
+          "uom": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenantId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -3619,9 +3650,40 @@
             "type": "string",
             "nullable": true
           },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "barcode": {
+            "type": "string",
+            "nullable": true
+          },
           "unitPrice": {
             "type": "number",
             "format": "double"
+          },
+          "vatPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "reorderLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manageStock": {
+            "type": "boolean"
+          },
+          "uom": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenantId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

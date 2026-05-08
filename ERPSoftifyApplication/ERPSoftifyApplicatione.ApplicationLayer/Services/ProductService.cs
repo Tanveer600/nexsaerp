@@ -27,7 +27,14 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                UnitPrice = dto.UnitPrice,               
+                UnitPrice = dto.UnitPrice, 
+                VatPercentage=dto.VatPercentage,
+                CategoryId=dto.CategoryId,
+                SKU=dto.SKU,
+                ManageStock=dto.ManageStock,
+                Barcode=dto.Barcode,
+                ReorderLevel=dto.ReorderLevel,
+                UOM=dto.UOM,
                 TenantId = _currentUserService.TenantId,
             };
 
@@ -42,12 +49,19 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             var totalCount = query.Count();
 
             var Products = query.OrderByDescending(x => x.ID).Skip((pageNumber - 1) * pageSize).Take(pageSize)
-                           .Select(b => new ProductDto
+                           .Select(dto => new ProductDto
                            {
-                               ID = b.ID,
-                               Name = b.Name,
-                               Description = b.Description,
-                               UnitPrice = b.UnitPrice,
+                               ID = dto.ID,
+                               Name = dto.Name,
+                               Description = dto.Description,
+                               UnitPrice = dto.UnitPrice,
+                               VatPercentage = dto.VatPercentage,
+                               CategoryId = dto.CategoryId,
+                               SKU = dto.SKU,
+                               ManageStock = dto.ManageStock,
+                               Barcode = dto.Barcode,
+                               ReorderLevel = dto.ReorderLevel,
+                               UOM = dto.UOM,
                            }).ToList();
 
             var pagedData = new PagedResponse<ProductDto>
@@ -88,9 +102,15 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             {
                 ID = Product.ID,
                 Name = Product.Name,
-                UnitPrice = Product.UnitPrice,
                 Description = Product.Description,
-                // TenantId = Product.TenantId,
+                UnitPrice = Product.UnitPrice,
+                VatPercentage = Product.VatPercentage,
+                CategoryId = Product.CategoryId,
+                SKU = Product.SKU,
+                ManageStock = Product.ManageStock,
+                Barcode = Product.Barcode,
+                ReorderLevel = Product.ReorderLevel,
+                UOM = Product.UOM,
 
             };
 
@@ -108,6 +128,13 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             existing.Name = dto.Name;
             existing.UnitPrice = dto.UnitPrice;
             existing.Description = dto.Description;
+            existing.VatPercentage = dto.VatPercentage;
+            existing.CategoryId = dto.CategoryId;
+            existing.SKU = dto.SKU;
+            existing.ManageStock = dto.ManageStock;
+            existing.Barcode = dto.Barcode;
+            existing.ReorderLevel = dto.ReorderLevel;
+            existing.UOM = dto.UOM;
 
             await _productInterface.UpDateProduct(existing, cancellationToken);
 
