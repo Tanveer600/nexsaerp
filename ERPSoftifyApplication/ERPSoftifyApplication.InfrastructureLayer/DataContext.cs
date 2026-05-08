@@ -60,6 +60,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public DbSet<CompanySetting> CompanySettings { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<UserEmail> UserEmails { get; set; }
+        public DbSet<Category> Categorys { get; set; }
 
 
         #endregion

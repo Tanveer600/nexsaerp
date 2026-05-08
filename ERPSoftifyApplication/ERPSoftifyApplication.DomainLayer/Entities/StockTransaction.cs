@@ -1,28 +1,33 @@
-﻿using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+﻿using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ERPSoftifyApplication.DomainLayer.Entities
 {
-    public class StockTransaction: IMustHaveTenant
+    public class StockTransaction : IMustHaveTenant, IMustHaveBranch
     {
         public int ID { get; set; }
 
         public int ProductId { get; set; }
 
-        public int WarehouseId { get; set; }
+        public string TransactionType { get; set; }
 
-        public string Type { get; set; }  // e.g., "IN" or "OUT"
+        public int ReferenceId { get; set; }
 
         public int Quantity { get; set; }
 
-        public DateTime Date { get; set; }
+        public decimal UnitPrice { get; set; }
+
+        public DateTime TransactionDate { get; set; }
+
+        public string Remarks { get; set; }
+
+        public int BranchId { get; set; }
 
         public int TenantId { get; set; }
 
-        public int BranchId { get; set; }
+        [ForeignKey(nameof(ProductId))]
+        public Product Product { get; set; }
     }
 }

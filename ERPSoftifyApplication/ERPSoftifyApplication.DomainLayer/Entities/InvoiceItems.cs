@@ -23,6 +23,6 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         {
             get; set;
         }
-        public Invoice Invoices { get; set; }
+        public Invoice Invoice { get; set; }
     }
 }

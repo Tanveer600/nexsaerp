@@ -1,4 +1,5 @@
-﻿using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+﻿using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplication.DomainLayer.Entities
 {
-    public class Payment: IMustHaveTenant
+    public class Payment: IMustHaveTenant,IMustHaveBranch
     {
         public int ID { get; set; }
 
@@ -17,9 +18,9 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
 
         public DateTime Date { get; set; }
 
-        public string Mode { get; set; }    // e.g., "Cash", "Bank", "Card"
+        public string Mode { get; set; }   
 
-        public string Status { get; set; }  // e.g., "Paid", "Pending"
+        public string Status { get; set; }  
 
         public int TenantId { get; set; }
 

@@ -3,6 +3,7 @@ using ERPSoftifyApplication.DomainLayer.Entities;
 using ERPSoftifyApplication.DomainLayer.Interface;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.SalesOutput;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 {
-    public class Saleervice:ISaleService
+    public class Saleervice : ISaleService
     {
         private readonly ISaleInterface _repository;
         private readonly ICurrentUserService _currentUserService;
@@ -23,6 +24,28 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             _currentUserService = currentUserService;
             _customerService = customerService;
             _quotationRepository = quotationRepository;
+        }
+        public async Task<string> GenerateNextSaleNumberAsync(CancellationToken cancellationToken)
+        {
+            var allQuotations = await _repository.GetAllAsync(cancellationToken);
+            string prefix = $"SO-{DateTime.Now.Year}-";
+            int nextNumber = 1;
+
+            var lastQuotation = allQuotations
+                .Where(q => q.SONumber != null && q.SONumber.StartsWith(prefix))
+                .OrderByDescending(q => q.SONumber)
+                .FirstOrDefault();
+
+            if (lastQuotation != null)
+            {
+                string lastPart = lastQuotation.SONumber.Replace(prefix, "");
+                if (int.TryParse(lastPart, out int lastVal))
+                {
+                    nextNumber = lastVal + 1;
+                }
+            }
+
+            return $"{prefix}{nextNumber:D4}";
         }
         public async Task<ResponseDataModel<SaleViewDto>> ConvertQuotationToSaleAsync(int quotationId, CancellationToken cancellationToken)
         {
@@ -40,6 +63,8 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     QuotationId = quotation.ID,
                     OrderDate = DateTime.Now,
                     Status = "Ordered",
+                    TotalTax= quotation.TotalTax,
+                    TotalDiscount= quotation.TotalDiscount, 
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
                     Items = quotation.QuotationItems.Select(qItem => new SalesOrderItem
@@ -51,7 +76,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                         TaxAmount = qItem.TaxAmount,
                         TenantId = _currentUserService.TenantId,
                         BranchId = _currentUserService.BranchId,
-                        QuotationId = quotation.ID 
+                        
                     }).ToList()
                 };
                 var result = await _repository.CreateAsync(saleOrder, cancellationToken);
@@ -65,23 +90,27 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 return ResponseDataModel<SaleViewDto>.FailureResponse(ex.Message);
             }
         }
-        public Task<ResponseDataModel<SaleViewDto>> CreateQuotationAsync(CreateSaleRequest request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public async Task<ResponseDataModel<SaleViewDto>> CreateSaleAsync(CreateSaleRequest request, CancellationToken cancellationToken)
         {
+
             try
             {
+                string nextSaleNumber = await GenerateNextSaleNumberAsync(cancellationToken);
                 var orderEntity = new SalesOrder
                 {
                     QuotationId = request.QuotationId,
+                    SONumber = nextSaleNumber,
+                    CustomerId = request.CustomerId,
+                    TotalAmount = request.TotalAmount,
+                    TotalDiscount = request.TotalDiscount,
+                    TotalTax = request.TotalTax,
                     Status = request.Status,
                     OrderDate = request.OrderDate,
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
-                    
+
                     Items = request.Items.Select(i => new SalesOrderItem
                     {
                         ProductId = i.ProductId,
@@ -101,20 +130,29 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     ID = result.ID,
                     QuotationId = result.QuotationId,
                     OrderDate = result.OrderDate,
-                   // CustomerName = result.Customer?.Name,
+                    SONumber = result.SONumber,
+                    //CustomerName = result.Customer?.Name,
+                    CustomerId = result.CustomerId,
+                    TotalAmount = result.TotalAmount,
+                    TotalDiscount = result.TotalDiscount,
+                    TotalTax = result.TotalTax,
                     Status = result.Status,
                     Items = result.Items.Select(item => new SaleItemViewDto
                     {
                         SOId = item.ID,
                         ProductId = item.ProductId,
-                        //ProductName = item.Product?.Name,
+                        ProductName = item.Product?.Name,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
+                        TaxPercentage = item.TaxPercentage,
+                        LineTotal = item.LineTotal,
+                        DeliveredQuantity = item.DeliveredQuantity,
                         Discount = item.Discount,
-                        TaxAmount = item.TaxAmount
+                        TaxAmount = item.TaxAmount,
+
                     }).ToList()
                 };
-
+ 
                 return ResponseDataModel<SaleViewDto>.SuccessResponse(responseDto, "Created Successfully");
             }
             catch (Exception ex)
@@ -143,10 +181,6 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             }
         }
 
-        public Task<ResponseDataModel<PagedResponse<SaleViewDto>>> GetAllQuotationsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<ResponseDataModel<PagedResponse<SaleViewDto>>> GetAllSalesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
@@ -165,15 +199,23 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     ID = o.ID,
                     QuotationId = o.QuotationId,
                     Status = o.Status,
+                    SONumber=o.SONumber,
+                    CustomerId = o.CustomerId,
+                    TotalAmount = o.TotalAmount,
+                    TotalDiscount = o.TotalDiscount,
+                    TotalTax = o.TotalTax,
                     OrderDate = o.OrderDate,
                     Items = o.Items.Select(i => new SaleItemViewDto
                     {
                         SOId = i.ID,
                         ProductId = i.ProductId,
-                       // ProductName = i.Product?.Name,
+                         ProductName = i.Product?.Name,
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
                         TaxAmount = i.TaxAmount,
+                        TaxPercentage = i.TaxPercentage,
+                        LineTotal = i.LineTotal,
+                        DeliveredQuantity = i.DeliveredQuantity,
                     }).ToList()
                 }).ToList();
 
@@ -210,19 +252,27 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     ID = order.ID,
                     QuotationId = order.QuotationId,
                     Status = order.Status,
+                    SONumber=order.SONumber,
+                    TotalDiscount = order.TotalDiscount,    
+                    TotalTax = order.TotalTax,  
+                    TotalAmount = order.TotalAmount,
                     OrderDate = order.OrderDate,
                     TenantId = order.TenantId,
                     BranchId = order.BranchId,
-                  
+
                     Items = order.Items.Select(i => new SaleItemViewDto
                     {
                         SOId = i.ID,
                         ProductId = i.ProductId,
-                        //ProductName = i.Product?.Name,
+                        ProductName = i.Product?.Name,
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
                         Discount = i.Discount,
-                        TaxAmount = i.TaxAmount
+                        TaxAmount = i.TaxAmount,
+                        TaxPercentage = i.TaxPercentage,
+                        LineTotal = i.LineTotal,
+                        DeliveredQuantity = i.DeliveredQuantity,
+
                     }).ToList()
                 };
 
@@ -245,17 +295,20 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             {
                 var orderToUpdate = new SalesOrder
                 {
-                    
+
                     QuotationId = request.QuotationId,
-                    Status = request.Status,
-                    OrderDate = request.OrderDate,
-                    BranchId = _currentUserService.BranchId,
-                    TenantId = _currentUserService.TenantId,
-
-
+                    Status = request.Status,             
+                    SONumber = request.SONumber,
+                    TotalDiscount = request.TotalDiscount,
+                    TotalTax = request.TotalTax,
+                    TotalAmount = request.TotalAmount,
+                    OrderDate =     request.OrderDate,
+                    TenantId = request.TenantId,
+                    BranchId = request.BranchId,
+                    CustomerId= request.CustomerId,
                     Items = request.Items.Select(i => new SalesOrderItem
                     {
-                       
+
                         SOId = request.ID,
                         ProductId = i.ProductId,
                         Quantity = i.Quantity,
@@ -274,11 +327,11 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     QuotationId = result.QuotationId,
                     Status = result.Status,
                     OrderDate = result.OrderDate,
-                    TenantId= result.TenantId,
-                    BranchId= result.BranchId,
+                    TenantId = result.TenantId,
+                    BranchId = result.BranchId,
                     Items = result.Items.Select(item => new SaleItemViewDto
                     {
-                       
+
                         ProductId = item.ProductId,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,

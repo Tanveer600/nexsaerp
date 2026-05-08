@@ -23,17 +23,40 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             _currentUserService = currentUserService;
             _customerService = customerService;
         }
+        public async Task<string> GenerateNextQuotationNumberAsync(CancellationToken cancellationToken)
+        {
+            var allQuotations = await _repository.GetAllAsync(cancellationToken);
+            string prefix = $"QT-{DateTime.Now.Year}-";
+            int nextNumber = 1;
+
+            var lastQuotation = allQuotations
+                .Where(q => q.QuotationNumber != null && q.QuotationNumber.StartsWith(prefix))
+                .OrderByDescending(q => q.QuotationNumber)
+                .FirstOrDefault();
+
+            if (lastQuotation != null)
+            {
+                string lastPart = lastQuotation.QuotationNumber.Replace(prefix, "");
+                if (int.TryParse(lastPart, out int lastVal))
+                {
+                    nextNumber = lastVal + 1;
+                }
+            }
+
+            return $"{prefix}{nextNumber:D4}";
+        }
 
         public async Task<ResponseDataModel<QuotationViewDto>> CreateQuotationAsync(CreateQuotationRequest request, CancellationToken cancellationToken)
         {
             try
             {
 
-
+                string nextQuoNumber = await GenerateNextQuotationNumberAsync(cancellationToken);
                 var orderEntity = new Quotation
                 {
                     CustomerId = request.CustomerId,
                     Status = request.Status,
+                    QuotationNumber = nextQuoNumber,
                     Date = request.QuotationDate,
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
@@ -118,6 +141,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     QuotationId = o.ID,
                     CustomerId = o.CustomerId,
                     CustomerName = o.Customer.Name,
+                    ValidUntil=o.ValidUntil,
                     Status = o.Status,
                     QuotationDate = o.Date,
                     Items = o.QuotationItems.Select(i => new QuotationItemViewDto
@@ -164,6 +188,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     CustomerName = order.Customer?.Name,
                     Status = order.Status,
                     QuotationDate = order.Date,
+                    ValidUntil= order.ValidUntil,
                     TotalDiscount = order.TotalDiscount,
                     SubTotal = order.SubTotal,
                     TotalTax = order.TotalTax,
@@ -187,7 +212,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 return ResponseDataModel<QuotationViewDto>.FailureResponse(ex.Message);
             }
         }
-
+       
         public async Task<ResponseDataModel<QuotationViewDto>> UpdateQuotationAsync(UpdateQuotationRequest request, CancellationToken cancellationToken)
         {
             try
@@ -198,6 +223,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     CustomerId = request.CustomerId,
                     Status = request.Status,
                     Date = request.QuotationDate,
+                    ValidUntil = request.ValidUntil,
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
                     SubTotal = request.SubTotal,
@@ -228,6 +254,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     QuotationId = result.ID,
                     CustomerId = result.CustomerId,
                     Status = result.Status,
+                    ValidUntil= result.ValidUntil,
                     QuotationDate = result.Date,
                     Items = result.QuotationItems.Select(item => new QuotationItemViewDto
                     {

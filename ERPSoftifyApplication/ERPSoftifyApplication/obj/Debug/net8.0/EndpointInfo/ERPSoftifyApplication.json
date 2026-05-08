@@ -2960,6 +2960,14 @@
             "type": "string",
             "format": "date-time"
           },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "quotationNumber": {
+            "type": "string",
+            "nullable": true
+          },
           "status": {
             "type": "string",
             "nullable": true
@@ -3017,15 +3025,23 @@
             "type": "number",
             "format": "double"
           },
+          "taxPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "lineTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "deliveredQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
           "tenantId": {
             "type": "integer",
             "format": "int32"
           },
           "branchId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "quotationId": {
             "type": "integer",
             "format": "int32"
           }
@@ -3035,6 +3051,14 @@
       "CreateSaleRequest": {
         "type": "object",
         "properties": {
+          "soNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "quotationId": {
             "type": "integer",
             "format": "int32"
@@ -3046,6 +3070,18 @@
           "status": {
             "type": "string",
             "nullable": true
+          },
+          "totalDiscount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
           },
           "tenantId": {
             "type": "integer",
@@ -3258,6 +3294,19 @@
           "taxAmount": {
             "type": "number",
             "format": "double"
+          },
+          "lineTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "receivedQuantity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "taxPercentage": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -3276,6 +3325,14 @@
           "orderDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "poNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
           },
           "status": {
             "type": "string",
@@ -3631,6 +3688,14 @@
             "type": "string",
             "format": "date-time"
           },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "quotationNumber": {
+            "type": "string",
+            "nullable": true
+          },
           "status": {
             "type": "string",
             "nullable": true
@@ -3696,15 +3761,23 @@
             "type": "number",
             "format": "double"
           },
+          "taxPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "lineTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "deliveredQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
           "tenantId": {
             "type": "integer",
             "format": "int32"
           },
           "branchId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "quotationId": {
             "type": "integer",
             "format": "int32"
           }
@@ -3715,6 +3788,14 @@
         "type": "object",
         "properties": {
           "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "soNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
             "type": "integer",
             "format": "int32"
           },
@@ -3729,6 +3810,18 @@
           "status": {
             "type": "string",
             "nullable": true
+          },
+          "totalDiscount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
           },
           "tenantId": {
             "type": "integer",

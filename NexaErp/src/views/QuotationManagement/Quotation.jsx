@@ -91,6 +91,7 @@ function Quotation() {
                   <TableHeader col="ID" />
                   <TableHeader col="Customer" />
                   <TableHeader col="Date" />
+                  <TableHeader col="Expiry Date" />
                   <TableHeader col="Grand Total" />
                   <TableHeader col="Status" />
                   <TableHeader col="Action" />
@@ -100,11 +101,12 @@ function Quotation() {
                 {Array.isArray(orders) &&
                   orders.map((order) => {
                     const id = order.quotationId || order.QuotationId
+                    const id = order.quotationNumber || order.QuotationNumber
                     const customer = order.customerName || order.CustomerName || 'N/A'
                     const date = order.quotationDate || order.QuotationDate
+                    const date = order.validUntil || order.validUntil
                     const total = order.grandTotal || order.GrandTotal || 0
                     const status = order.status || order.Status || 'Pending'
-
                     return (
                       <CTableRow key={id} className="align-middle">
                         <CTableDataCell className="fw-bold text-muted">

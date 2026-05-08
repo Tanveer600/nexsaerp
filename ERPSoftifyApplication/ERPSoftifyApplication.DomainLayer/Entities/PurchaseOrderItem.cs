@@ -16,10 +16,11 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public int POId { get; set; }
 
         public int ProductId { get; set; }
-
         public int Quantity { get; set; }
         public decimal Discount { get; set; }
-
+        public decimal TaxPercentage { get; set; } 
+        public decimal LineTotal { get; set; } 
+        public int ReceivedQuantity { get; set; }
         public decimal TaxAmount { get; set; }
         public decimal UnitPrice { get; set; }
         public int BranchId { get; set; }

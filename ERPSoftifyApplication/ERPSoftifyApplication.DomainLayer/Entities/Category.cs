@@ -1,6 +1,4 @@
-﻿using ERPSoftifyApplication.DomainLayer.Interface;
-using ERPSoftifyApplicatione.ApplicationLayer.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplication.DomainLayer.Entities
 {
-    public class Warehouse: IMustHaveTenant,IMustHaveBranch
+    public class Category
     {
         public int ID { get; set; }
-
         public string Name { get; set; }
-
-        public string Location { get; set; }
-
+        public string Code { get; set; }
+        public bool IsActive { get; set; } = true;
         public int TenantId { get; set; }
 
-        public int BranchId { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

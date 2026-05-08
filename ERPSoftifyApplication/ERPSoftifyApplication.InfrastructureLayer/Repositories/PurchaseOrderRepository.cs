@@ -29,6 +29,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
         public async Task<PurchaseOrder?> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.Set<PurchaseOrder>()
+                .Include(x=>x.Vendor)
                 .Include(x => x.Items)
                 .FirstOrDefaultAsync(x => x.ID == id, cancellationToken);
         }
@@ -36,6 +37,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
         public async Task<List<PurchaseOrder>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _context.Set<PurchaseOrder>()
+              
                 .Include(x => x.Items)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);

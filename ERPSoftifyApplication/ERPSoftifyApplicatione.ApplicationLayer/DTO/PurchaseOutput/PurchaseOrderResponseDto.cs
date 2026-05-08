@@ -1,8 +1,7 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto
 {
@@ -10,7 +9,9 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto
     {
         public int ID { get; set; }
         public int VendorId { get; set; }
-        public string VendorName { get; set; } 
+        public string PONumber { get; set; }
+        public string CurrencyCode { get; set; }
+        public string VendorName { get; set; }
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }
 
@@ -26,31 +27,38 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto
     {
         public int ID { get; set; }
         public int ProductId { get; set; }
-        public string ProductName { get; set; } 
+        public string ProductName { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Discount { get; set; }
+        public decimal TaxPercentage { get; set; } // Added missing property
         public decimal TaxAmount { get; set; }
-        public decimal LineTotal => (Quantity * UnitPrice - Discount) + TaxAmount;
+        public decimal LineTotal { get; set; } // Manual set in mapping or calculated
+        public int ReceivedQuantity { get; set; } // Added to match service mapping
     }
-
 
     public class PurchaseOrderRequestDto
     {
-        public int ID { get; set; } 
+        public int ID { get; set; }
         public int VendorId { get; set; }
         public DateTime OrderDate { get; set; }
+        public string PONumber { get; set; }
+        public string CurrencyCode { get; set; }
         public string Status { get; set; }
         public List<PurchaseOrderItemRequestDto> Items { get; set; } = new();
     }
 
     public class PurchaseOrderItemRequestDto
     {
-        public int? ID { get; set; } 
+        public int? ID { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Discount { get; set; }
         public decimal TaxAmount { get; set; }
+        public decimal LineTotal { get; set; }
+        public int? ReceivedQuantity { get; set; }
+        public decimal TaxPercentage { get; set; }
     }
 }
+

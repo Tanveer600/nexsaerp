@@ -21,10 +21,13 @@ const Login = () => {
   const navigate = useNavigate()
   const { addToast } = useToast()
 
+  // Dynamic Theme Variable
+  const dynamicPrimary = 'var(--cui-primary)'
+
   const tenants = useSelector((state) => state.tenants?.result || [])
   const { isLoading, currentUser, error, passwordResetStatus } = useSelector((state) => state.users)
 
-  const [isForgotMode, setIsForgotMode] = useState(false) // Form switch karne ke liye
+  const [isForgotMode, setIsForgotMode] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedTenant, setSelectedTenant] = useState({ id: 0, name: 'Select Tenant / Company' })
   const [loginData, setLoginData] = useState({ email: '', password: '', tenantId: 0 })
@@ -47,12 +50,11 @@ const Login = () => {
     }
   }, [error, dispatch, addToast])
 
-  // Email send hone ka success message
   useEffect(() => {
     if (passwordResetStatus?.forgotEmailSent) {
       addToast('Sent', 'Password reset link has been sent to your email.', 'success')
       dispatch(clearPasswordStatus())
-      setIsForgotMode(false) // Wapis login par le jao
+      setIsForgotMode(false)
     }
   }, [passwordResetStatus?.forgotEmailSent, dispatch, addToast])
 
@@ -85,14 +87,14 @@ const Login = () => {
       <div className="login-card-group">
         <div className="form-section">
           {!isForgotMode ? (
-            /* ================= LOGIN FORM ================= */
             <>
-              <h1>Welcome to Nexa</h1>
+              {/* Heading Color Link */}
+              <h1 style={{ color: dynamicPrimary }}>Welcome to Nexa</h1>
               <p className="text-muted small mb-4">Enter credentials to access account</p>
 
               <div className="custom-select-wrapper">
                 <div className="input-group-custom" onClick={() => setIsOpen(!isOpen)}>
-                  <div className="input-group-text">
+                  <div className="input-group-text" style={{ color: dynamicPrimary }}>
                     <CIcon icon={cilHome} />
                   </div>
                   <div className="selected-value">
@@ -119,7 +121,7 @@ const Login = () => {
               </div>
 
               <div className="standard-input-group">
-                <div className="input-group-text">
+                <div className="input-group-text" style={{ color: dynamicPrimary }}>
                   <CIcon icon={cilUser} />
                 </div>
                 <CFormInput
@@ -131,7 +133,7 @@ const Login = () => {
               </div>
 
               <div className="standard-input-group">
-                <div className="input-group-text">
+                <div className="input-group-text" style={{ color: dynamicPrimary }}>
                   <CIcon icon={cilLockLocked} />
                 </div>
                 <CFormInput
@@ -153,25 +155,31 @@ const Login = () => {
                 </button>
               </div>
 
-              <CButton className="btn-access w-100" onClick={handleLogin} disabled={isLoading}>
+              {/* Button Background Link */}
+              <CButton
+                className="btn-access w-100"
+                onClick={handleLogin}
+                disabled={isLoading}
+                style={{ backgroundColor: dynamicPrimary, borderColor: dynamicPrimary }}
+              >
                 {isLoading ? <CSpinner size="sm" /> : 'ACCESS ACCOUNT'}
               </CButton>
             </>
           ) : (
-            /* ================= FORGOT PASSWORD FORM ================= */
             <>
               <div className="d-flex align-items-center mb-3">
                 <button className="btn btn-link p-0 me-2" onClick={() => setIsForgotMode(false)}>
-                  <CIcon icon={cilArrowLeft} />
+                  <CIcon icon={cilArrowLeft} style={{ color: dynamicPrimary }} />
                 </button>
-                <h2 className="mb-0 h4">Reset Password</h2>
+                <h2 className="mb-0 h4" style={{ color: dynamicPrimary }}>
+                  Reset Password
+                </h2>
               </div>
               <p className="text-muted small mb-4">We'll send a reset link to your email</p>
 
-              {/* Company Selection (Required for Multi-tenant) */}
               <div className="custom-select-wrapper">
                 <div className="input-group-custom" onClick={() => setIsOpen(!isOpen)}>
-                  <div className="input-group-text">
+                  <div className="input-group-text" style={{ color: dynamicPrimary }}>
                     <CIcon icon={cilHome} />
                   </div>
                   <div className="selected-value">
@@ -198,7 +206,7 @@ const Login = () => {
               </div>
 
               <div className="standard-input-group">
-                <div className="input-group-text">
+                <div className="input-group-text" style={{ color: dynamicPrimary }}>
                   <CIcon icon={cilUser} />
                 </div>
                 <CFormInput
@@ -212,6 +220,7 @@ const Login = () => {
                 className="btn-access w-100 mt-3"
                 onClick={handleForgotSubmit}
                 disabled={isLoading}
+                style={{ backgroundColor: dynamicPrimary, borderColor: dynamicPrimary }}
               >
                 {isLoading ? <CSpinner size="sm" /> : 'SEND RESET LINK'}
               </CButton>
@@ -219,8 +228,9 @@ const Login = () => {
           )}
         </div>
 
-        <div className="banner-section">
-          <div className="icon-circle">
+        {/* Banner Section Background Link */}
+        <div className="banner-section" style={{ backgroundColor: dynamicPrimary }}>
+          <div className="icon-circle" style={{ color: dynamicPrimary }}>
             <CIcon icon={cilHome} size="xl" />
           </div>
           <h2 className="fw-bold">NexaErp</h2>

@@ -6,6 +6,8 @@
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public DateTime QuotationDate { get; set; }
+        public DateTime ValidUntil { get; set; }
+        public string QuotationNumber { get; set; }
         public string Status { get; set; }
         public List<QuotationItemViewDto> Items { get; set; } = new();
         public decimal TotalDiscount { get; set; }
@@ -33,6 +35,8 @@
     {
         public int CustomerId { get; set; }
         public DateTime QuotationDate { get; set; }
+        public DateTime ValidUntil { get; set; }
+        public string QuotationNumber { get; set; }
         public string Status { get; set; }
         public decimal SubTotal { get; set; }
         public decimal TotalDiscount { get; set; }
@@ -52,8 +56,7 @@
         public decimal LineTotal { get; set; }
         public decimal DiscountPercentage { get; set; }
         public decimal TaxPercentage { get; set; }
-        public decimal DiscountAmount { get; set; }
-       
+        public decimal DiscountAmount { get; set; }      
        
     }
 
@@ -62,6 +65,8 @@
         public int QuotationId { get; set; }
         public int CustomerId { get; set; }
         public DateTime QuotationDate { get; set; }
+        public DateTime ValidUntil { get; set; }
+        public string QuotationNumber { get; set; }
         public string Status { get; set; }
         public decimal SubTotal { get; set; }
         public decimal TotalDiscount { get; set; }

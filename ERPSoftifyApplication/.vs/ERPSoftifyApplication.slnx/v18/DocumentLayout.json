@@ -3,36 +3,88 @@
   "WorkspaceRootPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{962E4EE9-4D58-36E8-2F26-6E59178A6AA7}|ERPSoftifyApplication\\ERPSoftifyApplication.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{962E4EE9-4D58-36E8-2F26-6E59178A6AA7}|ERPSoftifyApplication\\ERPSoftifyApplication.csproj|solutionrelative:erpsoftifyapplication\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\auditlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\auditlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.infrastructurelayer\\repositories\\purchaseorderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|solutionrelative:erpsoftifyapplication.infrastructurelayer\\repositories\\purchaseorderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.infrastructurelayer\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|solutionrelative:erpsoftifyapplication.infrastructurelayer\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\invoiceitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\invoiceitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\stocktransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\stocktransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\dto\\purchaseoutput\\purchaseorderresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\dto\\purchaseoutput\\purchaseorderresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\services\\purchaseorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\services\\purchaseorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\purchaseorderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\purchaseorderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\quotationitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\quotationitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\salesorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\salesorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\quotation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\quotation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\goodsreceived.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\goodsreceived.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\salesorderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\salesorderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\entities\\purchaseorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\entities\\purchaseorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\services\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\services\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\interface\\isaleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\interface\\isaleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{962E4EE9-4D58-36E8-2F26-6E59178A6AA7}|ERPSoftifyApplication\\ERPSoftifyApplication.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication\\controllers\\quotationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{962E4EE9-4D58-36E8-2F26-6E59178A6AA7}|ERPSoftifyApplication\\ERPSoftifyApplication.csproj|solutionrelative:erpsoftifyapplication\\controllers\\quotationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\services\\quotationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\services\\quotationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplicatione.applicationlayer\\dto\\saleviewdto\\saleviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8A0BE9F3-4341-44E7-AFCE-D26F81CDB74E}|ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj|solutionrelative:erpsoftifyapplicatione.applicationlayer\\dto\\saleviewdto\\saleviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.domainlayer\\interface\\isaleinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40A1C95C-2358-42B5-8F27-49865A21CCD2}|ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj|solutionrelative:erpsoftifyapplication.domainlayer\\interface\\isaleinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|c:\\nexa\\nexsaerp\\erpsoftifyapplication\\erpsoftifyapplication.infrastructurelayer\\repositories\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35649425-4EB9-4CCC-B983-64079776742A}|ERPSoftifyApplication.InfrastructureLayer\\ERPSoftifyApplication.InfrastructureLayer.csproj|solutionrelative:erpsoftifyapplication.infrastructurelayer\\repositories\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +94,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -53,106 +105,281 @@
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "QuotationController.cs",
-              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\Controllers\\QuotationController.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplication\\Controllers\\QuotationController.cs",
-              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\Controllers\\QuotationController.cs",
-              "RelativeToolTip": "ERPSoftifyApplication\\Controllers\\QuotationController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T13:26:24.515Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SaleController.cs",
-              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\Controllers\\SaleController.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplication\\Controllers\\SaleController.cs",
-              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication\\Controllers\\SaleController.cs",
-              "RelativeToolTip": "ERPSoftifyApplication\\Controllers\\SaleController.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAYwCUAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Category.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\Category.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Category.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\Category.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAUwBMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T13:26:03.626Z",
+              "WhenOpened": "2026-05-08T14:18:12.23Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "QuotationService.cs",
-              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\QuotationService.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\QuotationService.cs",
-              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\QuotationService.cs",
-              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\QuotationService.cs",
-              "ViewState": "AgIAALQAAAAAAAAAAAAAALQAAAAQAAAAAAAAAA==",
+              "Title": "DataContext.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\DataContext.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.InfrastructureLayer\\DataContext.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\DataContext.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.InfrastructureLayer\\DataContext.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAADwvzwAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T12:32:21.459Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ISaleInterface.cs",
-              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Interface\\ISaleInterface.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Interface\\ISaleInterface.cs",
-              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Interface\\ISaleInterface.cs",
-              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Interface\\ISaleInterface.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T12:19:37.688Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SaleService.cs",
-              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\SaleService.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\SaleService.cs",
-              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\SaleService.cs",
-              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\SaleService.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T12:18:48.987Z",
+              "WhenOpened": "2026-05-08T14:08:08.511Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ISaleService.cs",
-              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Interface\\ISaleService.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\Interface\\ISaleService.cs",
-              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Interface\\ISaleService.cs",
-              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\Interface\\ISaleService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "PurchaseOrderRepository.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\Repositories\\PurchaseOrderRepository.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.InfrastructureLayer\\Repositories\\PurchaseOrderRepository.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\Repositories\\PurchaseOrderRepository.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.InfrastructureLayer\\Repositories\\PurchaseOrderRepository.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAewB8AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T12:17:59.808Z"
+              "WhenOpened": "2026-05-08T14:07:50.719Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Product.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\Product.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Product.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\Product.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAA2wB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T14:07:42.108Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "SaleRepository.cs",
-              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\Repositories\\SaleRepository.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplication.InfrastructureLayer\\Repositories\\SaleRepository.cs",
-              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.InfrastructureLayer\\Repositories\\SaleRepository.cs",
-              "RelativeToolTip": "ERPSoftifyApplication.InfrastructureLayer\\Repositories\\SaleRepository.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAWwA0AAAAuAAAAAAAAAA==",
+              "Title": "PurchaseOrderResponseDto.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\DTO\\PurchaseOutput\\PurchaseOrderResponseDto.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\DTO\\PurchaseOutput\\PurchaseOrderResponseDto.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\DTO\\PurchaseOutput\\PurchaseOrderResponseDto.cs",
+              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\DTO\\PurchaseOutput\\PurchaseOrderResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T12:20:33.112Z"
+              "WhenOpened": "2026-05-08T14:01:15.494Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "SaleViewDto.cs",
-              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\DTO\\SaleViewDto\\SaleViewDto.cs",
-              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\DTO\\SaleViewDto\\SaleViewDto.cs",
-              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\DTO\\SaleViewDto\\SaleViewDto.cs",
-              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\DTO\\SaleViewDto\\SaleViewDto.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAA3wCAAAAAVAAAAAAAAAA==",
+              "Title": "InvoiceItems.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\InvoiceItems.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\InvoiceItems.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\InvoiceItems.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\InvoiceItems.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAiwBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T11:55:19.897Z"
+              "WhenOpened": "2026-05-08T13:52:40.805Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuditLog.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\AuditLog.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\AuditLog.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\AuditLog.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\AuditLog.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAA0wBYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:32:41.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StockTransaction.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\StockTransaction.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\StockTransaction.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\StockTransaction.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\StockTransaction.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:48:25.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Invoice.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Invoice.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\Invoice.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Invoice.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\Invoice.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:52:25.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Payment.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\Payment.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Payment.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\Payment.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABYAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:50:34.615Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Quotation.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Quotation.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\Quotation.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Quotation.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\Quotation.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAYwBgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:37:17.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PurchaseOrderService.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\PurchaseOrderService.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\PurchaseOrderService.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\PurchaseOrderService.cs",
+              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\PurchaseOrderService.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAewMAAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T12:27:22.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PurchaseOrderItem.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\PurchaseOrderItem.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\PurchaseOrderItem.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\PurchaseOrderItem.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\PurchaseOrderItem.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAA2wCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:37:36.779Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "GoodsReceived.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\GoodsReceived.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\GoodsReceived.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\GoodsReceived.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\GoodsReceived.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAkwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:47:46.963Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "QuotationItem.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\QuotationItem.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\QuotationItem.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\QuotationItem.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\QuotationItem.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAA3wBkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:37:15.177Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SalesOrder.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrder.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrder.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrder.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrder.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA3wBIAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:37:12.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Warehouse.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Warehouse.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\Warehouse.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\Warehouse.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\Warehouse.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAIwAwAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:35:07.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PurchaseOrder.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\PurchaseOrder.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\PurchaseOrder.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\PurchaseOrder.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\PurchaseOrder.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAkwCEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:37:20.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "SalesOrderItem.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrderItem.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrderItem.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrderItem.cs",
+              "RelativeToolTip": "ERPSoftifyApplication.DomainLayer\\Entities\\SalesOrderItem.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA7wBsAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T13:37:10.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "SaleService.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\SaleService.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\SaleService.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\SaleService.cs",
+              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\SaleService.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAuwIIAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T12:27:29.877Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "QuotationService.cs",
+              "DocumentMoniker": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\QuotationService.cs",
+              "RelativeDocumentMoniker": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\QuotationService.cs",
+              "ToolTip": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\Services\\QuotationService.cs",
+              "RelativeToolTip": "ERPSoftifyApplicatione.ApplicationLayer\\Services\\QuotationService.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAqwDYAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T12:27:19.516Z",
+              "EditorCaption": ""
             }
           ]
         }

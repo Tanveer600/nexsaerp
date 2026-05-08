@@ -45,6 +45,7 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
   const validationSchema = Yup.object().shape({
     customerId: Yup.string().required('Required'),
     quotationDate: Yup.date().required('Required'),
+    validUntil: Yup.date().required('Required'), // Naya Validation
     status: Yup.string().required('Required'),
     items: Yup.array().of(
       Yup.object().shape({
@@ -59,9 +60,11 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
     if (!editData) {
       return {
         id: 0,
+        quotationNumber: 'Auto-Generated', // Readonly placeholder
         customerId: '',
         status: 'Pending',
         quotationDate: new Date().toISOString().split('T')[0],
+        validUntil: '', // Khali date field
         items: [
           {
             productId: '',
@@ -77,8 +80,10 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
     }
     return {
       id: editData.quotationId || editData.QuotationId || 0,
+      quotationNumber: editData.quotationNumber || editData.QuotationNumber || 'N/A',
       customerId: editData.customerId || editData.CustomerId || '',
       quotationDate: formatDateForInput(editData.quotationDate || editData.QuotationDate),
+      validUntil: formatDateForInput(editData.validUntil || editData.ValidUntil || ''),
       status: editData.status || editData.Status || 'Pending',
       items: (editData.items || editData.Items || []).map((item) => {
         const qty = item.quantity || item.Quantity || 0
@@ -111,6 +116,7 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
       QuotationId: Number(values.id),
       CustomerId: Number(values.customerId),
       QuotationDate: values.quotationDate,
+      ValidUntil: values.validUntil, // Payload mein add kar diya
       Status: values.status,
       SubTotal: subTotal,
       TotalDiscount: totalDiscount,
@@ -159,7 +165,7 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
       <style>{`
           .custom-input:focus { border-color: #2563eb !important; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important; }
           .table td { vertical-align: middle !important; padding: 8px 4px !important; }
-          .read-only-input { background-color: #f8f9fa !important; font-weight: 600; }
+          .read-only-input { background-color: #f1f5f9 !important; font-weight: 600; color: #475569; }
         `}</style>
 
       <CModalHeader className="bg-light">
@@ -193,7 +199,19 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
             <Form>
               <CModalBody className="p-4">
                 <CRow className="mb-4">
-                  <CCol md={4}>
+                  {/* --- Quotation Number ReadOnly --- */}
+                  <CCol md={3}>
+                    <label className="form-label fw-semibold text-muted">Quotation #</label>
+                    <CFormInput
+                      name="quotationNumber"
+                      style={inputStyle}
+                      className="read-only-input"
+                      value={values.quotationNumber}
+                      readOnly
+                    />
+                  </CCol>
+
+                  <CCol md={3}>
                     <label className="form-label fw-semibold">Customer</label>
                     <CFormSelect
                       name="customerId"
@@ -209,8 +227,9 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                       ))}
                     </CFormSelect>
                   </CCol>
-                  <CCol md={4}>
-                    <label className="form-label fw-semibold">Quotation Date</label>
+
+                  <CCol md={3}>
+                    <label className="form-label fw-semibold">Date</label>
                     <CFormInput
                       name="quotationDate"
                       type="date"
@@ -219,7 +238,22 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                       onChange={handleChange}
                     />
                   </CCol>
-                  <CCol md={4}>
+
+                  {/* --- Valid Until Date Input --- */}
+                  <CCol md={3}>
+                    <label className="form-label fw-semibold">Valid Until</label>
+                    <CFormInput
+                      name="validUntil"
+                      type="date"
+                      style={inputStyle}
+                      value={values.validUntil}
+                      onChange={handleChange}
+                    />
+                  </CCol>
+                </CRow>
+
+                <CRow className="mb-4">
+                  <CCol md={3}>
                     <label className="form-label fw-semibold">Status</label>
                     <CFormSelect
                       name="status"
