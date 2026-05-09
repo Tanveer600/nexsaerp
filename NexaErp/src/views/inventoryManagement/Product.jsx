@@ -220,6 +220,7 @@ function Product() {
                           SKU: p.sku || p.SKU,
                           VatPercentage: p.vatPercentage || p.VatPercentage,
                           ManageStock: p.manageStock || p.ManageStock,
+                          Barcode :p.barcode || p.barcode, 
                           UOM: p.uom || p.UOM,
                           CategoryId: p.categoryId || p.CategoryId,
                         })

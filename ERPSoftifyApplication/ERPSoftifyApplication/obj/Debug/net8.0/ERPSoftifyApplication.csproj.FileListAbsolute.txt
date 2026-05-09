@@ -753,3 +753,8 @@ C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\re
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ERPSoftifyApplication.pdb
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ERPSoftifyApplication.genruntimeconfig.cache
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ref\ERPSoftifyApplication.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\MailKit.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\MimeKit.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

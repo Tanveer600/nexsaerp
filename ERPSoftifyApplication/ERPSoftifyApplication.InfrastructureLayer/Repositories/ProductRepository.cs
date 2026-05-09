@@ -19,7 +19,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
         public async Task<Product> CreateProduct(Product model, CancellationToken can)
         {
             await _dbcontext.Products.AddAsync(model);
-            await _dbcontext.SaveChangesAsync(can);
+            await _dbcontext.SaveChangesAsync();
             return model;
         }
 

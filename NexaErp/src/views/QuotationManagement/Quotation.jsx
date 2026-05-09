@@ -101,10 +101,10 @@ function Quotation() {
                 {Array.isArray(orders) &&
                   orders.map((order) => {
                     const id = order.quotationId || order.QuotationId
-                    const id = order.quotationNumber || order.QuotationNumber
+                    const quotationNumber = order.quotationNumber || order.QuotationNumber
                     const customer = order.customerName || order.CustomerName || 'N/A'
                     const date = order.quotationDate || order.QuotationDate
-                    const date = order.validUntil || order.validUntil
+                    const validUntil = order.validUntil || order.validUntil
                     const total = order.grandTotal || order.GrandTotal || 0
                     const status = order.status || order.Status || 'Pending'
                     return (

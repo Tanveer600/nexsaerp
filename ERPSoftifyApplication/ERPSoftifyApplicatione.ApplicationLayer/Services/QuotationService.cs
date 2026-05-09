@@ -57,6 +57,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     CustomerId = request.CustomerId,
                     Status = request.Status,
                     QuotationNumber = nextQuoNumber,
+                    ValidUntil = request.ValidUntil,
                     Date = request.QuotationDate,
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
@@ -68,6 +69,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     QuotationItems = request.Items.Select(i => new QuotationItem
                     {
                         ProductId = i.ProductId,
+                        QuotationId = i.Quantity,
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
                         DiscountAmount = i.DiscountAmount,
@@ -86,7 +88,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 {
                     QuotationId = result.ID,
                     CustomerId = result.CustomerId,
-                    QuotationDate = result.Date,
+                    QuotationDate = result.Date,                    
                     CustomerName = result.Customer?.Name,
                     Status = result.Status,
                     Items = result.QuotationItems.Select(item => new QuotationItemViewDto
@@ -96,8 +98,10 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                         ProductName = item.Product?.Name,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
+                        DiscountPercentage=item.DiscountPercentage,
                         DiscountAmount = item.DiscountAmount,
-                        TaxAmount = item.TaxAmount
+                        TaxAmount = item.TaxAmount,
+                        TaxPercentage=item.TaxPercentage
                     }).ToList()
                 };
 
