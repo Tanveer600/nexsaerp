@@ -1,6 +1,3 @@
-/**
- * Formats numbers based on locale and decimal requirements.
- */
 export const toNumber = (value, minimumFractionDigits = 2) => {
   if (value === null || value === undefined || value === '') return '-'
   let minDigits = minimumFractionDigits
@@ -14,7 +11,23 @@ export const toNumber = (value, minimumFractionDigits = 2) => {
 
   return formatter.format(value)
 }
+export const sortData = (data, key, direction = 'asc') => {
+  return [...data].sort((a, b) => {
+    let valA = a[key] ?? a[key.charAt(0).toUpperCase() + key.slice(1)] ?? ''
+    let valB = b[key] ?? b[key.charAt(0).toUpperCase() + key.slice(1)] ?? ''
+    if (typeof valA === 'string') valA = valA.toLowerCase()
+    if (typeof valB === 'string') valB = valB.toLowerCase()
 
+    if (!isNaN(valA) && !isNaN(valB) && typeof valA !== 'boolean' && valA !== '') {
+      valA = Number(valA)
+      valB = Number(valB)
+    }
+
+    if (valA < valB) return direction === 'asc' ? -1 : 1
+    if (valA > valB) return direction === 'asc' ? 1 : -1
+    return 0
+  })
+}
 export const toNumberOrWhole = (value, minimumFractionDigits = 2) => {
   if (value === null || value === undefined || value === '') return '-'
   if (value % 1 !== 0) return toNumber(value, minimumFractionDigits)

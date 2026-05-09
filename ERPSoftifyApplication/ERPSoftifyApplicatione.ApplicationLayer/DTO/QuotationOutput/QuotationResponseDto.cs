@@ -56,8 +56,8 @@
         public decimal LineTotal { get; set; }
         public decimal DiscountPercentage { get; set; }
         public decimal TaxPercentage { get; set; }
-        public decimal DiscountAmount { get; set; }      
-       
+        public decimal DiscountAmount { get; set; }
+
     }
 
     public class UpdateQuotationRequest
@@ -89,6 +89,6 @@
         public decimal DiscountPercentage { get; set; }
         public decimal DiscountAmount { get; set; }
         public decimal TaxPercentage { get; set; }
-      
+
     }
 }

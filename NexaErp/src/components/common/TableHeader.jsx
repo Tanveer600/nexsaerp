@@ -1,29 +1,54 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { CTableHeaderCell } from '@coreui/react' // CoreUI ka component import karein
+import { CTableHeaderCell } from '@coreui/react'
 
-const TableHeader = ({ col, activeColumn, setActiveColumn }) => {
+const TableHeader = ({ col, sortKey, onSort, currentSort }) => {
   const { t } = useTranslation()
 
-  // Safety Check
   const columnValue = col || ''
-
-  // Translation Logic
   const translationKey = columnValue.toLowerCase().replace(/ /g, '_')
   const translatedLabel = t(translationKey, { defaultValue: columnValue })
+
+  const isSorted = sortKey && currentSort?.key === sortKey
+  const direction = isSorted ? currentSort?.direction : null
+
+  const handleClick = () => {
+    if (sortKey && onSort) {
+      onSort(sortKey)
+    }
+  }
 
   return (
     <CTableHeaderCell
       className="position-relative"
-      style={{ cursor: 'pointer', paddingBottom: '12px' }}
-      onClick={() => setActiveColumn && setActiveColumn(col)}
+      style={{
+        cursor: sortKey ? 'pointer' : 'default',
+        paddingBottom: '12px',
+        userSelect: 'none',
+        backgroundColor: '#f8f9fa',
+        minWidth: sortKey === 'quotationNumber' ? '140px' : 'auto',
+      }}
+      onClick={handleClick}
     >
       <div className="d-flex align-items-center justify-content-between">
-        <span>{translatedLabel}</span>
+        <span className="fw-bold text-dark" style={{ fontSize: '0.85rem' }}>
+          {translatedLabel}
+        </span>
+        {sortKey && (
+          <span
+            className="ms-2"
+            style={{
+              fontSize: '12px',
+              color: isSorted ? '#6f42c1' : '#adb5bd',
+              opacity: isSorted ? 1 : 0.5,
+            }}
+          >
+            {direction === 'asc' ? '▲' : direction === 'desc' ? '▼' : '↕️'}
+          </span>
+        )}
       </div>
 
-      {/* Purple Active Bar Logic */}
-      {activeColumn === col && (
+      {isSorted && (
         <div
           className="position-absolute bottom-0 start-0 w-100"
           style={{

@@ -3,6 +3,7 @@ using ERPSoftifyApplication.DomainLayer.Entities;
 using ERPSoftifyApplication.DomainLayer.Interface;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.Quotation;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,11 +58,11 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     CustomerId = request.CustomerId,
                     Status = request.Status,
                     QuotationNumber = nextQuoNumber,
-                    ValidUntil = request.ValidUntil,
                     Date = request.QuotationDate,
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
                     SubTotal = request.SubTotal,
+                    ValidUntil = request.ValidUntil,
                     TotalDiscount = request.TotalDiscount,
                     TotalTax = request.TotalTax,
                     NetAmount = request.NetAmount,
@@ -69,7 +70,6 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     QuotationItems = request.Items.Select(i => new QuotationItem
                     {
                         ProductId = i.ProductId,
-                        QuotationId = i.Quantity,
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
                         DiscountAmount = i.DiscountAmount,
@@ -88,7 +88,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 {
                     QuotationId = result.ID,
                     CustomerId = result.CustomerId,
-                    QuotationDate = result.Date,                    
+                    QuotationDate = result.Date,
                     CustomerName = result.Customer?.Name,
                     Status = result.Status,
                     Items = result.QuotationItems.Select(item => new QuotationItemViewDto
@@ -98,10 +98,8 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                         ProductName = item.Product?.Name,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
-                        DiscountPercentage=item.DiscountPercentage,
                         DiscountAmount = item.DiscountAmount,
-                        TaxAmount = item.TaxAmount,
-                        TaxPercentage=item.TaxPercentage
+                        TaxAmount = item.TaxAmount
                     }).ToList()
                 };
 
@@ -145,9 +143,15 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     QuotationId = o.ID,
                     CustomerId = o.CustomerId,
                     CustomerName = o.Customer.Name,
-                    ValidUntil=o.ValidUntil,
+                    QuotationNumber = o.QuotationNumber,
+                    SubTotal = o.SubTotal,
+                    ValidUntil = o.ValidUntil,
+                    TotalDiscount = o.TotalDiscount,
+                    TotalTax = o.TotalTax,
+                    NetAmount = o.NetAmount,
                     Status = o.Status,
                     QuotationDate = o.Date,
+                    GrandTotal = o.SubTotal - o.TotalDiscount + o.TotalTax,
                     Items = o.QuotationItems.Select(i => new QuotationItemViewDto
                     {
                         ItemId = i.ID,
@@ -192,7 +196,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     CustomerName = order.Customer?.Name,
                     Status = order.Status,
                     QuotationDate = order.Date,
-                    ValidUntil= order.ValidUntil,
+                    ValidUntil = order.ValidUntil,
                     TotalDiscount = order.TotalDiscount,
                     SubTotal = order.SubTotal,
                     TotalTax = order.TotalTax,
@@ -216,7 +220,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 return ResponseDataModel<QuotationViewDto>.FailureResponse(ex.Message);
             }
         }
-       
+
         public async Task<ResponseDataModel<QuotationViewDto>> UpdateQuotationAsync(UpdateQuotationRequest request, CancellationToken cancellationToken)
         {
             try
@@ -226,6 +230,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     ID = request.QuotationId,
                     CustomerId = request.CustomerId,
                     Status = request.Status,
+                    QuotationNumber = request.QuotationNumber,
                     Date = request.QuotationDate,
                     ValidUntil = request.ValidUntil,
                     BranchId = _currentUserService.BranchId,
@@ -258,7 +263,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     QuotationId = result.ID,
                     CustomerId = result.CustomerId,
                     Status = result.Status,
-                    ValidUntil= result.ValidUntil,
+                    ValidUntil = result.ValidUntil,
                     QuotationDate = result.Date,
                     Items = result.QuotationItems.Select(item => new QuotationItemViewDto
                     {

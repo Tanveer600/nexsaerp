@@ -28,6 +28,7 @@ import { createQuotation, updateQuotation } from '../../redux/slice/quotationSli
 import { getProductList } from '../../redux/slice/productSlice'
 import { getCustomerList } from '../../redux/slice/customerSlice'
 import { formatDateForInput } from '../../components/common/formatter'
+import ValidationError from '../../components/common/ValidationError'
 
 const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
   const dispatch = useDispatch()
@@ -35,17 +36,21 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
   const productlist = useSelector((state) => state.products.dropdownList) || []
   const customerList = useSelector((state) => state.customers.dropdownList) || []
 
-  const inputStyle = {
-    borderColor: '#3b82f6',
-    boxShadow: 'none',
-    borderRadius: '6px',
-    height: '38px',
+  const getFieldStyle = (errors, touched, name) => {
+    const hasError = touched[name] && errors[name]
+    return {
+      borderColor: hasError ? '#7c3aed' : '#dee2e6',
+      boxShadow: hasError ? '0 0 0 0.2rem rgba(124, 58, 237, 0.15)' : 'none',
+      transition: 'border-color 0.2s, box-shadow 0.2s',
+      borderRadius: '6px',
+      height: '38px',
+    }
   }
 
   const validationSchema = Yup.object().shape({
     customerId: Yup.string().required('Required'),
     quotationDate: Yup.date().required('Required'),
-    validUntil: Yup.date().required('Required'), // Naya Validation
+    validUntil: Yup.date().required('Required'),
     status: Yup.string().required('Required'),
     items: Yup.array().of(
       Yup.object().shape({
@@ -60,11 +65,11 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
     if (!editData) {
       return {
         id: 0,
-        quotationNumber: 'Auto-Generated', // Readonly placeholder
+        quotationNumber: 'Auto-Generated',
         customerId: '',
         status: 'Pending',
         quotationDate: new Date().toISOString().split('T')[0],
-        validUntil: '', // Khali date field
+        validUntil: '',
         items: [
           {
             productId: '',
@@ -88,16 +93,22 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
       items: (editData.items || editData.Items || []).map((item) => {
         const qty = item.quantity || item.Quantity || 0
         const price = item.unitPrice || item.UnitPrice || 0
-        const discAmt = item.discountAmount || item.discountAmount || 0
+        const discAmt = item.discountAmount || item.DiscountAmount || 0
         const taxAmt = item.taxAmount || item.TaxAmount || 0
 
         return {
           productId: item.productId || item.ProductId || '',
           quantity: qty,
           unitPrice: price,
-          discP: price > 0 ? (discAmt / (qty * price)) * 100 : 0,
+          discP:
+            item.discountPercentage ||
+            item.DiscountPercentage ||
+            (price > 0 ? (discAmt / (qty * price)) * 100 : 0),
           discountAmount: discAmt,
-          taxP: price * qty - discAmt > 0 ? (taxAmt / (qty * price - discAmt)) * 100 : 0,
+          taxP:
+            item.taxPercentage ||
+            item.TaxPercentage ||
+            (price * qty - discAmt > 0 ? (taxAmt / (qty * price - discAmt)) * 100 : 0),
           taxAmount: taxAmt,
         }
       }),
@@ -105,36 +116,43 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
   }, [editData])
 
   const handleSubmit = (values) => {
+    const mappedItems = values.items.map((item) => {
+      const qty = Number(item.quantity)
+      const price = Number(item.unitPrice)
+      const dAmount = Number(item.discountAmount)
+      const tAmount = Number(item.taxAmount)
+      return {
+        ProductId: Number(item.productId),
+        Quantity: qty,
+        UnitPrice: price,
+        DiscountPercentage: Number(item.discP),
+        TaxPercentage: Number(item.taxP),
+        DiscountAmount: dAmount,
+        TaxAmount: tAmount,
+        LineTotal: qty * price - dAmount + tAmount,
+      }
+    })
+
     const subTotal = values.items.reduce(
       (sum, i) => sum + Number(i.quantity) * Number(i.unitPrice),
       0,
     )
-    const totalDiscount = values.items.reduce((sum, i) => sum + Number(i.discountAmount), 0)
-    const totalTax = values.items.reduce((sum, i) => sum + Number(i.taxAmount), 0)
+    const totalDiscount = mappedItems.reduce((sum, i) => sum + i.DiscountAmount, 0)
+    const totalTax = mappedItems.reduce((sum, i) => sum + i.TaxAmount, 0)
+    const netAmount = subTotal - totalDiscount + totalTax
 
     const payload = {
       QuotationId: Number(values.id),
       CustomerId: Number(values.customerId),
       QuotationDate: values.quotationDate,
-      ValidUntil: values.validUntil, // Payload mein add kar diya
+      ValidUntil: values.validUntil,
+      QuotationNumber: values.quotationNumber === 'Auto-Generated' ? '' : values.quotationNumber,
       Status: values.status,
       SubTotal: subTotal,
       TotalDiscount: totalDiscount,
       TotalTax: totalTax,
-      NetAmount: subTotal - totalDiscount + totalTax,
-      Items: values.items.map((item) => ({
-        ProductId: Number(item.productId),
-        Quantity: Number(item.quantity),
-        DiscountPercentage: Number(item.discP),
-        TaxPercentage: Number(item.taxP),
-        UnitPrice: Number(item.unitPrice),
-        DiscountAmount: Number(item.discountAmount),
-        TaxAmount: Number(item.taxAmount),
-        LineTotal:
-          Number(item.quantity) * Number(item.unitPrice) -
-          Number(item.discountAmount) +
-          Number(item.taxAmount),
-      })),
+      NetAmount: netAmount,
+      Items: mappedItems,
     }
 
     if (payload.QuotationId > 0) {
@@ -163,14 +181,15 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
       alignment="center"
     >
       <style>{`
-          .custom-input:focus { border-color: #2563eb !important; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important; }
+          .custom-input:focus { border-color: #7c3aed !important; box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15) !important; outline: 0 none !important; }
+          .custom-input:hover { border-color: #b5b5b5; }
           .table td { vertical-align: middle !important; padding: 8px 4px !important; }
           .read-only-input { background-color: #f1f5f9 !important; font-weight: 600; color: #475569; }
         `}</style>
 
       <CModalHeader className="bg-light">
         <CModalTitle className="mb-0 fw-bold text-primary">
-          {initialValues.id > 0 ? 'Edit' : 'Add'} Quotation
+          {editData ? 'Edit' : 'Add'} Quotation
         </CModalTitle>
       </CModalHeader>
 
@@ -190,7 +209,6 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
             const rowSubTotal = qty * price
             const discAmount = (rowSubTotal * discP) / 100
             const taxAmount = ((rowSubTotal - discAmount) * taxP) / 100
-
             setFieldValue(`items.${index}.discountAmount`, discAmount.toFixed(2))
             setFieldValue(`items.${index}.taxAmount`, taxAmount.toFixed(2))
           }
@@ -199,13 +217,12 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
             <Form>
               <CModalBody className="p-4">
                 <CRow className="mb-4">
-                  {/* --- Quotation Number ReadOnly --- */}
                   <CCol md={3}>
                     <label className="form-label fw-semibold text-muted">Quotation #</label>
                     <CFormInput
                       name="quotationNumber"
-                      style={inputStyle}
                       className="read-only-input"
+                      style={{ borderRadius: '6px', height: '38px' }}
                       value={values.quotationNumber}
                       readOnly
                     />
@@ -215,9 +232,11 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                     <label className="form-label fw-semibold">Customer</label>
                     <CFormSelect
                       name="customerId"
-                      style={inputStyle}
+                      className="custom-input"
+                      style={getFieldStyle(errors, touched, 'customerId')}
                       value={values.customerId}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     >
                       <option value="">Select Customer</option>
                       {customerList.map((c) => (
@@ -226,6 +245,7 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                         </option>
                       ))}
                     </CFormSelect>
+                    <ValidationError message={touched.customerId && errors.customerId} />
                   </CCol>
 
                   <CCol md={3}>
@@ -233,38 +253,27 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                     <CFormInput
                       name="quotationDate"
                       type="date"
-                      style={inputStyle}
+                      className="custom-input"
+                      style={getFieldStyle(errors, touched, 'quotationDate')}
                       value={values.quotationDate}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
+                    <ValidationError message={touched.quotationDate && errors.quotationDate} />
                   </CCol>
 
-                  {/* --- Valid Until Date Input --- */}
                   <CCol md={3}>
                     <label className="form-label fw-semibold">Valid Until</label>
                     <CFormInput
                       name="validUntil"
                       type="date"
-                      style={inputStyle}
+                      className="custom-input"
+                      style={getFieldStyle(errors, touched, 'validUntil')}
                       value={values.validUntil}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                  </CCol>
-                </CRow>
-
-                <CRow className="mb-4">
-                  <CCol md={3}>
-                    <label className="form-label fw-semibold">Status</label>
-                    <CFormSelect
-                      name="status"
-                      style={inputStyle}
-                      value={values.status}
-                      onChange={handleChange}
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Approved">Approved</option>
-                      <option value="Cancelled">Cancelled</option>
-                    </CFormSelect>
+                    <ValidationError message={touched.validUntil && errors.validUntil} />
                   </CCol>
                 </CRow>
 
@@ -277,6 +286,7 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                           size="sm"
                           variant="ghost"
                           color="primary"
+                          type="button"
                           onClick={() =>
                             push({
                               productId: '',
@@ -312,122 +322,141 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                           </CTableHead>
                           <CTableBody>
                             {values.items.map((item, index) => (
-                              <CTableRow key={index}>
-                                <CTableDataCell>
-                                  <CFormSelect
-                                    name={`items.${index}.productId`}
-                                    style={inputStyle}
-                                    value={item.productId}
-                                    onChange={handleChange}
-                                  >
-                                    <option value="">Select Product</option>
-                                    {productlist.map((p) => (
-                                      <option key={p.id} value={p.id}>
-                                        {p.name}
-                                      </option>
-                                    ))}
-                                  </CFormSelect>
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  <CFormInput
-                                    type="number"
-                                    style={inputStyle}
-                                    value={item.quantity}
-                                    onChange={(e) => {
-                                      handleChange(e)
-                                      const newItems = [...values.items]
-                                      newItems[index].quantity = e.target.value
-                                      updateRowCalculations(index, newItems)
-                                    }}
-                                    name={`items.${index}.quantity`}
-                                  />
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  <CFormInput
-                                    type="number"
-                                    style={inputStyle}
-                                    value={item.unitPrice}
-                                    onChange={(e) => {
-                                      const val = Number(e.target.value)
-                                      setFieldValue(`items.${index}.unitPrice`, val)
-                                      const updatedItems = [...values.items]
-                                      updatedItems[index] = {
-                                        ...updatedItems[index],
-                                        unitPrice: val,
-                                      }
-                                      updateRowCalculations(index, updatedItems)
-                                    }}
-                                    name={`items.${index}.unitPrice`}
-                                  />
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  <CFormInput
-                                    type="number"
-                                    style={inputStyle}
-                                    name={`items.${index}.discP`}
-                                    value={item.discP}
-                                    onChange={(e) => {
-                                      const val = Number(e.target.value)
-                                      setFieldValue(`items.${index}.discP`, val)
-                                      const updatedItems = [...values.items]
-                                      updatedItems[index] = { ...updatedItems[index], discP: val }
-                                      updateRowCalculations(index, updatedItems)
-                                    }}
-                                  />
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  <CFormInput
-                                    className="read-only-input"
-                                    style={inputStyle}
-                                    value={item.discountAmount}
-                                    readOnly
-                                  />
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  <CFormInput
-                                    type="number"
-                                    style={inputStyle}
-                                    placeholder="%"
-                                    value={item.taxP}
-                                    onChange={(e) => {
-                                      handleChange(e)
-                                      const newItems = [...values.items]
-                                      newItems[index].taxP = e.target.value
-                                      updateRowCalculations(index, newItems)
-                                    }}
-                                    name={`items.${index}.taxP`}
-                                  />
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  <CFormInput
-                                    className="read-only-input"
-                                    style={inputStyle}
-                                    value={item.taxAmount}
-                                    readOnly
-                                  />
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  <CButton
-                                    type="button"
-                                    color="danger"
-                                    variant="ghost"
-                                    size="sm"
-                                    className="p-1 border-0 shadow-sm"
-                                    onClick={() => values.items.length > 1 && remove(index)}
-                                    style={{
-                                      backgroundColor: '#fff1f1',
-                                      borderRadius: '8px',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '32px',
-                                      height: '32px',
-                                    }}
-                                  >
-                                    <CIcon icon={cilTrash} size="sm" style={{ color: '#e55353' }} />
-                                  </CButton>
-                                </CTableDataCell>
-                              </CTableRow>
+                              <React.Fragment key={index}>
+                                <CTableRow>
+                                  <CTableDataCell>
+                                    <CFormSelect
+                                      name={`items.${index}.productId`}
+                                      className="custom-input"
+                                      style={getFieldStyle(
+                                        errors,
+                                        touched,
+                                        `items.${index}.productId`,
+                                      )}
+                                      value={item.productId}
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                    >
+                                      <option value="">Select Product</option>
+                                      {productlist.map((p) => (
+                                        <option key={p.id} value={p.id}>
+                                          {p.name}
+                                        </option>
+                                      ))}
+                                    </CFormSelect>
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    <CFormInput
+                                      type="number"
+                                      className="custom-input"
+                                      style={getFieldStyle(
+                                        errors,
+                                        touched,
+                                        `items.${index}.quantity`,
+                                      )}
+                                      value={item.quantity}
+                                      onChange={(e) => {
+                                        handleChange(e)
+                                        const newItems = [...values.items]
+                                        newItems[index].quantity = e.target.value
+                                        updateRowCalculations(index, newItems)
+                                      }}
+                                      onBlur={handleBlur}
+                                      name={`items.${index}.quantity`}
+                                    />
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    <CFormInput
+                                      type="number"
+                                      className="custom-input"
+                                      style={getFieldStyle(
+                                        errors,
+                                        touched,
+                                        `items.${index}.unitPrice`,
+                                      )}
+                                      value={item.unitPrice}
+                                      onChange={(e) => {
+                                        const val = Number(e.target.value)
+                                        setFieldValue(`items.${index}.unitPrice`, val)
+                                        const updatedItems = [...values.items]
+                                        updatedItems[index].unitPrice = val
+                                        updateRowCalculations(index, updatedItems)
+                                      }}
+                                      onBlur={handleBlur}
+                                      name={`items.${index}.unitPrice`}
+                                    />
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    <CFormInput
+                                      type="number"
+                                      className="custom-input"
+                                      style={{ height: '38px' }}
+                                      name={`items.${index}.discP`}
+                                      value={item.discP}
+                                      onChange={(e) => {
+                                        const val = Number(e.target.value)
+                                        setFieldValue(`items.${index}.discP`, val)
+                                        const updatedItems = [...values.items]
+                                        updatedItems[index].discP = val
+                                        updateRowCalculations(index, updatedItems)
+                                      }}
+                                    />
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    <CFormInput
+                                      className="read-only-input"
+                                      style={{ height: '38px' }}
+                                      value={item.discountAmount}
+                                      readOnly
+                                    />
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    <CFormInput
+                                      type="number"
+                                      className="custom-input"
+                                      style={{ height: '38px' }}
+                                      name={`items.${index}.taxP`}
+                                      value={item.taxP}
+                                      onChange={(e) => {
+                                        const val = Number(e.target.value)
+                                        setFieldValue(`items.${index}.taxP`, val)
+                                        const newItems = [...values.items]
+                                        newItems[index].taxP = val
+                                        updateRowCalculations(index, newItems)
+                                      }}
+                                    />
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    <CFormInput
+                                      className="read-only-input"
+                                      style={{ height: '38px' }}
+                                      value={item.taxAmount}
+                                      readOnly
+                                    />
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    <CButton
+                                      type="button"
+                                      color="danger"
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => values.items.length > 1 && remove(index)}
+                                      style={{
+                                        backgroundColor: '#fff1f1',
+                                        borderRadius: '8px',
+                                        width: '32px',
+                                        height: '32px',
+                                      }}
+                                    >
+                                      <CIcon
+                                        icon={cilTrash}
+                                        size="sm"
+                                        style={{ color: '#e55353' }}
+                                      />
+                                    </CButton>
+                                  </CTableDataCell>
+                                </CTableRow>
+                              </React.Fragment>
                             ))}
                           </CTableBody>
                         </CTable>
@@ -448,18 +477,18 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                         </span>
                       </div>
                       <div className="d-flex justify-content-between mb-2">
-                        <span className="text-muted">Discount Amount:</span>
+                        <span className="text-muted">Total Discount:</span>
                         <span className="fw-bold text-danger">
-                          -
+                          -{' '}
                           {values.items
                             .reduce((sum, i) => sum + Number(i.discountAmount), 0)
                             .toLocaleString()}
                         </span>
                       </div>
                       <div className="d-flex justify-content-between mb-2">
-                        <span className="text-muted">Tax:</span>
+                        <span className="text-muted">Total Tax:</span>
                         <span className="fw-bold text-success">
-                          +
+                          +{' '}
                           {values.items
                             .reduce((sum, i) => sum + Number(i.taxAmount), 0)
                             .toLocaleString()}
@@ -467,7 +496,7 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                       </div>
                       <hr />
                       <div className="d-flex justify-content-between align-items-center">
-                        <span className="h6 mb-0 fw-bold">Grand Total:</span>
+                        <span className="h6 mb-0 fw-bold">Grand Total (Net):</span>
                         <span className="h5 mb-0 fw-bold text-primary">
                           {(
                             values.items.reduce((sum, i) => sum + i.quantity * i.unitPrice, 0) -
@@ -481,11 +510,11 @@ const QuotationAddEditModel = ({ visible, setVisible, editData }) => {
                 </CRow>
               </CModalBody>
 
-              <CModalFooter variant="ghost" className="border-0 px-4">
-                <AppButton color="secondary" onClick={() => setVisible(false)}>
+              <CModalFooter className="border-0 px-4 pb-4">
+                <CButton color="secondary" variant="ghost" onClick={() => setVisible(false)}>
                   Cancel
-                </AppButton>
-                <AppButton type="submit" size="sm" variant="ghost" color="primary">
+                </CButton>
+                <AppButton type="submit">
                   {values.id > 0 ? 'Update Quotation' : 'Save Quotation'}
                 </AppButton>
               </CModalFooter>
