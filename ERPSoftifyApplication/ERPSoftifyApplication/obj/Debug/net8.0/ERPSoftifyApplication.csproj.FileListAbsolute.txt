@@ -598,6 +598,12 @@ C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyAp
 C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ERPSoftifyApplication.pdb
 C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ERPSoftifyApplication.genruntimeconfig.cache
 C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ref\ERPSoftifyApplication.dll
+C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\MailKit.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\MimeKit.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\appsettings.Development.json
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\appsettings.json
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\ERPSoftifyApplication.staticwebassets.runtime.json
@@ -710,7 +716,6 @@ C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\tr
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
@@ -753,8 +758,3 @@ C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\re
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ERPSoftifyApplication.pdb
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ERPSoftifyApplication.genruntimeconfig.cache
 C:\nexa\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\obj\Debug\net8.0\ref\ERPSoftifyApplication.dll
-C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
-C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\MailKit.dll
-C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\MimeKit.dll
-C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
-C:\Users\Sidra\source\repos\neexaerp\nexsaerp\ERPSoftifyApplication\ERPSoftifyApplication\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   result: [],
+  dropdownList: [],
   totalCount: 0,
   selectedSale: { id: 0, name: '' },
   isLoading: false,
@@ -13,6 +14,12 @@ const saleSlice = createSlice({
   reducers: {
     getAllSales: (state) => {
       state.isLoading = true
+    },
+    getSaleList: (state) => {
+      state.isLoading = true
+    },
+    setSaleList: (state, action) => {
+      state.dropdownList = action.payload || []
     },
     createSale: (state) => {
       state.isLoading = true
@@ -54,6 +61,8 @@ const saleSlice = createSlice({
 export const {
   getAllSales,
   setAllSales,
+  getSaleList,
+  setSaleList,
   setSale,
   createSale,
   updateSale,

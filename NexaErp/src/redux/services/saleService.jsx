@@ -11,7 +11,10 @@ const saleService = {
     const res = await apiClient.get(url)
     return res.data
   },
-
+  getList: async () => {
+    const res = await apiClient.get(API_ENDPOINTS.SALE.GET_List)
+    return res?.data?.data || res?.data
+  },
   getById: async (id) => {
     const res = await apiClient.get(API_ENDPOINTS.SALE.BY_ID(id))
     return res?.data?.data || res?.data

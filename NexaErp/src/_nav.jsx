@@ -141,77 +141,11 @@ const _nav = [
         name: 'Purchase Order Items',
         to: '/purchaseManagement/purchase-order-items',
       },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Quotations',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />, // Document/Paper icon
-    items: [
+
       {
         component: CNavItem,
-        name: 'Quotations',
-        to: '/quotationManagement/quotations',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Quotations',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />, // Document/Paper icon
-    items: [
-      {
-        component: CNavItem,
-        name: 'Quotations',
-        to: '/quotationManagement/quotations',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Quotations',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />, // Document/Paper icon
-    items: [
-      {
-        component: CNavItem,
-        name: 'Quotations',
-        to: '/quotationManagement/quotations',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Quotations',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />, // Document/Paper icon
-    items: [
-      {
-        component: CNavItem,
-        name: 'Quotations',
-        to: '/quotationManagement/quotations',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Quotations',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />, // Document/Paper icon
-    items: [
-      {
-        component: CNavItem,
-        name: 'Quotations',
-        to: '/quotationManagement/quotations',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Quotations',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />, // Document/Paper icon
-    items: [
-      {
-        component: CNavItem,
-        name: 'Quotations',
-        to: '/quotationManagement/quotations',
+        name: 'Delivery Notes',
+        to: '/purchaseManagement/deliverynotes',
       },
     ],
   },

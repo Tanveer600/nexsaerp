@@ -11,6 +11,8 @@ import {
   updateSaleCompleted,
   deleteSaleCompleted,
   setIsLoading,
+  setSaleList,
+  getSaleList,
 } from '../slice/saleSlice'
 
 function* getSalesSaga(action) {
@@ -21,63 +23,76 @@ function* getSalesSaga(action) {
     yield put(setAllSales({ items: [], totalCount: 0 }))
   }
 }
+function* getSaleListSaga() {
+  try {
+    const data = yield call(saleService.getList)
+    // console.log('>>> Saga: getsaleListSaga Success Response:', data)
+    yield put(setSaleList(data))
+  } catch (e) {
+    yield put(setSaleList([]))
+  }
+}
 
 function* createSaleSaga(action) {
-  console.log('>>> Saga: createSaleSaga Triggered with:', action.payload)
+  //console.log('>>> Saga: createSaleSaga Triggered with:', action.payload)
   try {
     const res = yield call(saleService.create, action.payload)
-    console.log('>>> Saga: createSaleSaga Success Response:', res)
+    // console.log('>>> Saga: createSaleSaga Success Response:', res)
     yield put(createSaleCompleted(res))
     yield put(getAllSales())
   } catch (e) {
-    console.error('FULL ERROR:', e)
-    console.error('RESPONSE:', e?.response?.data)
+    //console.error('FULL ERROR:', e)
+    //console.error('RESPONSE:', e?.response?.data)
     yield put(setIsLoading(false))
   }
 }
 
 function* updateSaleSaga(action) {
-  console.log('>>> Saga: updateSaleSaga Triggered with:', action.payload)
+  // console.log('>>> Saga: updateSaleSaga Triggered with:', action.payload)
   try {
     const res = yield call(saleService.update, action.payload)
-    console.log('>>> Saga: updateSaleSaga Success Response:', res)
+    // console.log('>>> Saga: updateSaleSaga Success Response:', res)
     yield put(updateSaleCompleted(res))
     yield put(getAllSales())
   } catch (e) {
-    console.error('>>> Saga: Update Sale Error:', e)
+    //console.error('>>> Saga: Update Sale Error:', e)
     yield put(setIsLoading(false))
   }
 }
 
 function* deleteSaleSaga(action) {
-  console.log('>>> Saga: deleteSaleSaga Triggered for ID:', action.payload)
+  //console.log('>>> Saga: deleteSaleSaga Triggered for ID:', action.payload)
   try {
     yield call(saleService.delete, action.payload)
     yield put(deleteSaleCompleted(action.payload))
     yield put(getAllSales())
   } catch (e) {
-    console.error('>>> Saga: Delete Sale Error:', e)
+    // console.error('>>> Saga: Delete Sale Error:', e)
     yield put(setIsLoading(false))
   }
 }
 
 function* watchGetSales() {
-  console.log('Watcher: watchGetSales Active', getAllSales.type)
+  // console.log('Watcher: watchGetSales Active', getAllSales.type)
   yield takeLatest(getAllSales.type, getSalesSaga)
+}
+function* watchGetSaleList() {
+  //console.log('Watcher: watchGetSaleList Active', getSaleList.type)
+  yield takeLatest(getSaleList.type, getSaleListSaga)
 }
 
 function* watchCreateSale() {
-  console.log('Watcher: watchCreateSale Active', createSale.type)
+  //console.log('Watcher: watchCreateSale Active', createSale.type)
   yield takeLatest(createSale.type, createSaleSaga)
 }
 
 function* watchUpdateSale() {
-  console.log('Watcher: watchUpdateSale Active', updateSale.type)
+  // console.log('Watcher: watchUpdateSale Active', updateSale.type)
   yield takeLatest(updateSale.type, updateSaleSaga)
 }
 
 function* watchDeleteSale() {
-  console.log('Watcher: watchDeleteSale Active', deleteSale.type)
+  // console.log('Watcher: watchDeleteSale Active', deleteSale.type)
   yield takeLatest(deleteSale.type, deleteSaleSaga)
 }
 
@@ -87,5 +102,6 @@ export function* saleSaga() {
     fork(watchCreateSale),
     fork(watchUpdateSale),
     fork(watchDeleteSale),
+    fork(watchGetSaleList),
   ])
 }

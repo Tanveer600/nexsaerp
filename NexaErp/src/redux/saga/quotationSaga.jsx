@@ -40,10 +40,10 @@ function* createQuotationSaga(action) {
 }
 
 function* updateQuotationSaga(action) {
-  console.log('>>> Saga: updateQuotationSaga Triggered with:', action.payload)
+  // console.log('>>> Saga: updateQuotationSaga Triggered with:', action.payload)
   try {
     const res = yield call(quotationService.update, action.payload)
-    console.log('>>> Saga: updateQuotationSaga Success Response:', res)
+    //  console.log('>>> Saga: updateQuotationSaga Success Response:', res)
     yield put(updateQuotationCompleted(res))
     yield put(getAllQuotations())
   } catch (e) {
@@ -53,48 +53,48 @@ function* updateQuotationSaga(action) {
 }
 
 function* deleteQuotationSaga(action) {
-  console.log('>>> Saga: deleteQuotationSaga Triggered for ID:', action.payload)
+  // console.log('>>> Saga: deleteQuotationSaga Triggered for ID:', action.payload)
   try {
     yield call(quotationService.delete, action.payload)
     yield put(deleteQuotationCompleted(action.payload))
     yield put(getAllQuotations())
   } catch (e) {
-    console.error('>>> Saga: Delete Quotation Error:', e)
+    // console.error('>>> Saga: Delete Quotation Error:', e)
     yield put(setIsLoading(false))
   }
 }
 function* approveQuotationSaga(action) {
-  console.log('>>> Saga: approveQuotationSaga Triggered for ID:', action.payload)
+  // console.log('>>> Saga: approveQuotationSaga Triggered for ID:', action.payload)
   try {
     const res = yield call(saleService.convertToSale, action.payload)
-    console.log('>>> Saga: approveQuotationSaga Success Response:', res)
+    // console.log('>>> Saga: approveQuotationSaga Success Response:', res)
     yield put(approveQuotationCompleted(res.data || res))
     yield put(getAllQuotations())
   } catch (e) {
-    console.error('>>> Saga: Approve Quotation Error:', e)
+    //console.error('>>> Saga: Approve Quotation Error:', e)
     yield put(setIsLoading(false))
   }
 }
 function* watchGetQuotations() {
-  console.log('Watcher: watchGetQuotations Active', getAllQuotations.type)
+  //console.log('Watcher: watchGetQuotations Active', getAllQuotations.type)
   yield takeLatest(getAllQuotations.type, getQuotationsSaga)
 }
 
 function* watchCreateQuotation() {
-  console.log('Watcher: watchCreateQuotation Active', createQuotation.type)
+  // console.log('Watcher: watchCreateQuotation Active', createQuotation.type)
   yield takeLatest(createQuotation.type, createQuotationSaga)
 }
 function* watchApproveQuotation() {
-  console.log('Watcher: watchApproveQuotation Active', approveQuotation.type)
+  // console.log('Watcher: watchApproveQuotation Active', approveQuotation.type)
   yield takeLatest(approveQuotation.type, approveQuotationSaga)
 }
 function* watchUpdateQuotation() {
-  console.log('Watcher: watchUpdateQuotation Active', updateQuotation.type)
+  // console.log('Watcher: watchUpdateQuotation Active', updateQuotation.type)
   yield takeLatest(updateQuotation.type, updateQuotationSaga)
 }
 
 function* watchDeleteQuotation() {
-  console.log('Watcher: watchDeleteQuotation Active', deleteQuotation.type)
+  //console.log('Watcher: watchDeleteQuotation Active', deleteQuotation.type)
   yield takeLatest(deleteQuotation.type, deleteQuotationSaga)
 }
 

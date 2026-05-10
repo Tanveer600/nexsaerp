@@ -1,6 +1,7 @@
 ﻿using ERPSoftifyApplication.DomainLayer;
 using ERPSoftifyApplication.DomainLayer.Entities;
 using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.ProductDto;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.SalesOutput;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -47,6 +48,28 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
             return $"{prefix}{nextNumber:D4}";
         }
+        public async Task<ResponseDataModel<List<SaleViewDto>>> GetAllSaleListAsync(CancellationToken cancellationToken)
+        {
+            var query = await _repository.GetAllAsync(cancellationToken);
+
+            var Products = query.Select(b => new SaleViewDto
+            {
+                ID = b.ID,
+                SONumber = b.SONumber,
+                CustomerId = b.CustomerId, 
+                OrderDate = b.OrderDate,
+                Items = b.Items.Select(i => new SaleItemViewDto
+                {
+                    ID = i.ID, 
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity,
+                    UnitPrice = i.UnitPrice,
+                    ProductName = i.Product?.Name
+                }).ToList()
+            }).ToList();
+
+            return ResponseDataModel<List<SaleViewDto>>.SuccessResponse(Products);
+        }
         public async Task<ResponseDataModel<SaleViewDto>> ConvertQuotationToSaleAsync(int quotationId, CancellationToken cancellationToken)
         {
             try
@@ -61,19 +84,27 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 var saleOrder = new SalesOrder
                 {
                     QuotationId = quotation.ID,
+                    CustomerId= quotation.CustomerId,
                     OrderDate = DateTime.Now,
                     Status = "Ordered",
+                    SONumber=quotation.QuotationNumber,
                     TotalTax= quotation.TotalTax,
-                    TotalDiscount= quotation.TotalDiscount, 
+                    TotalDiscount= quotation.TotalDiscount,
+                    TotalAmount=quotation.NetAmount,
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
                     Items = quotation.QuotationItems.Select(qItem => new SalesOrderItem
                     {
                         ProductId = qItem.ProductId,
+                        SOId=qItem.QuotationId,
                         Quantity = qItem.Quantity,
                         UnitPrice = qItem.UnitPrice,
+                        TaxPercentage=qItem.TaxPercentage,
+                        LineTotal= qItem.LineTotal, 
+                        DeliveredQuantity=0,
                         Discount = qItem.DiscountAmount,
                         TaxAmount = qItem.TaxAmount,
+                        //DeliveredQuantity = 0,
                         TenantId = _currentUserService.TenantId,
                         BranchId = _currentUserService.BranchId,
                         

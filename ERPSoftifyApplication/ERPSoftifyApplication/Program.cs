@@ -79,6 +79,12 @@ builder.Services.AddScoped<IQuotationInterface, QuotationRepository>();
 builder.Services.AddScoped<IQuotationService, QuotationService>();
 builder.Services.AddScoped<IEmailInterfcae, EmailRepository>();
 builder.Services.AddScoped<ISaleInterface, SaleRepository>();
+builder.Services.AddScoped<IStockTransactionInterface, StockTransactionRepository>();
+builder.Services.AddScoped<IDeliveryNoteInterface, DeliveryNoteRepository>();
+builder.Services.AddScoped<IStockTransactionService, StockTransactionService>();
+builder.Services.AddScoped<ISalesOrderItemInterface, SaleOrderItemRepository>();
+builder.Services.AddScoped<IDeliveryNoteService, DeliveryNoteService>();
+//builder.Services.AddScoped<ISaleord, DeliveryNoteService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ISaleService, Saleervice>();
 builder.Services.AddCors(options =>

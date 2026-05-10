@@ -288,6 +288,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ERPSoftifyApplication.Controllers.DeliveryNoteController",
+    "Method": "GetDeliveryNoteById",
+    "RelativePath": "api/DeliveryNote/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.DeliveryNoteDto.DeliveryNoteRequestDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.DeliveryNoteController",
+    "Method": "DeleteDeliveryNote",
+    "RelativePath": "api/DeliveryNote/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.DeliveryNoteController",
+    "Method": "GetAll",
+    "RelativePath": "api/DeliveryNote/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.DeliveryNoteController",
+    "Method": "CreateDeliveryNote",
+    "RelativePath": "api/DeliveryNote/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.DeliveryNoteDto.DeliveryNoteRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ERPSoftifyApplication.Controllers.EmailController",
     "Method": "SendEmail",
     "RelativePath": "api/Email",
@@ -1106,6 +1185,106 @@
       {
         "Name": "quotationId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.SaleController",
+    "Method": "GetProductList",
+    "RelativePath": "api/Sale/saletList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.StockTransactionController",
+    "Method": "GetById",
+    "RelativePath": "api/StockTransaction/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.StockTransactionController",
+    "Method": "UpdateTransaction",
+    "RelativePath": "api/StockTransaction/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.StockTransactionDto.UpdateStockTransactionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.StockTransactionController",
+    "Method": "DeleteTransaction",
+    "RelativePath": "api/StockTransaction/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.StockTransactionController",
+    "Method": "GetAll",
+    "RelativePath": "api/StockTransaction/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.StockTransactionController",
+    "Method": "CreateTransaction",
+    "RelativePath": "api/StockTransaction/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.StockTransactionDto.StockTransactionDto",
         "IsRequired": true
       }
     ],

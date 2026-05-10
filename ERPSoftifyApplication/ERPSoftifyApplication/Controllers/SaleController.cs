@@ -30,6 +30,12 @@ namespace ERPSoftifyApplication.Controllers
 
             return BadRequest(response);
         }
+        [HttpGet("saletList")]
+        public async Task<IActionResult> GetProductList(CancellationToken cancellationToken = default)
+        {
+            var result = await _service.GetAllSaleListAsync(cancellationToken);
+            return Ok(result);
+        }
         [HttpPost("convert-to-sale/{quotationId}")]
         public async Task<IActionResult> ConvertQuotationToSale(int quotationId, CancellationToken cancellationToken)
         {

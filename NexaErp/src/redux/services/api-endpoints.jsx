@@ -111,6 +111,7 @@ export const API_ENDPOINTS = {
   },
   SALE: {
     CREATE: '/api/Sale',
+    GET_List: '/api/Sale/saletList',
     GET_ALL: (page = 1, size = 10) => `/api/Sale?pageNumber=${page}&pageSize=${size}`,
     BY_ID: (id) => `/api/Sale/${id}`,
     UPDATE: (id) => `/api/Sale/${id}`,
@@ -129,5 +130,20 @@ export const API_ENDPOINTS = {
     SEND: '/api/Email',
     SYNC: '/api/Email/inbox',
     GET_INBOX: '/api/Email',
+  },
+
+  DELIVERY_NOTE: {
+    CREATE: '/api/DeliveryNote/create',
+    GET_ALL: (page = 1, size = 10) => `/api/DeliveryNote/all?pageNumber=${page}&pageSize=${size}`,
+    GET_BY_ID: (id) => `/api/DeliveryNote/${id}`,
+    DELETE: (id) => `/api/DeliveryNote/${id}`,
+  },
+
+  STOCK_TRANSACTION: {
+    GET_ALL: '/api/StockTransaction/all',
+    GET_BY_ID: (id) => `/api/StockTransaction/${id}`,
+    CREATE: '/api/StockTransaction/create',
+    // UPDATE: (id) => `/api/StockTransaction/${id}`,
+    DELETE: (id) => `/api/StockTransaction/${id}`,
   },
 }

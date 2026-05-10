@@ -13,7 +13,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Interface
         Task<ResponseDataModel<SaleViewDto>> CreateSaleAsync(CreateSaleRequest request, CancellationToken cancellationToken);
 
         Task<ResponseDataModel<PagedResponse<SaleViewDto>>> GetAllSalesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
-
+        Task<ResponseDataModel<List<SaleViewDto>>> GetAllSaleListAsync(CancellationToken cancellationToken);
         Task<ResponseDataModel<SaleViewDto>> GetSaleByIdAsync(int id, CancellationToken cancellationToken);
 
 

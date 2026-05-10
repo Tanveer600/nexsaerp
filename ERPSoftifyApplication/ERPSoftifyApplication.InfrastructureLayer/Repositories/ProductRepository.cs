@@ -62,7 +62,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
 
                 throw;
             }
-
         }
     }
 }

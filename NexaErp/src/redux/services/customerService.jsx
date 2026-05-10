@@ -7,7 +7,7 @@ const customerService = {
   getAll: async (params) => {
     const { page, size } = params || { page: 1, size: 10 }
     const res = await apiClient.get(API_ENDPOINTS.CUSTOMER.GET_ALL(page, size))
-    console.log('API Response for getAll Customers:', res)
+    //console.log('API Response for getAll Customers:', res)
     return res?.data?.data || res?.data
   },
   getList: async () => {
