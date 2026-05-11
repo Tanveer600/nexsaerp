@@ -20,6 +20,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.DeliveryNoteDto
         public int SalesOrderItemId { get; set; }
         public int ProductId { get; set; }
         public int CurrentQty { get; set; }
+        public decimal QuantityDelivered { get; set; }
     }
     public class UpdateDeliveryNoteRequestDto
     {

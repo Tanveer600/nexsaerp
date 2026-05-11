@@ -47,5 +47,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
             await _context.SaveChangesAsync(ct);
             return existing;
         }
+        public async Task SaveChangesAsync(CancellationToken ct)
+        {
+            await _context.SaveChangesAsync(ct);
+        }
     }
 }

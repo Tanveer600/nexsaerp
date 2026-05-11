@@ -291,6 +291,69 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.DeliveryNote", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SaleOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DeliveryNotes");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.DeliveryNoteItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("DeliveryNoteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("QuantityDelivered")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SalesOrderItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DeliveryNoteId");
+
+                    b.ToTable("DeliveryNoteItems");
+                });
+
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Employee", b =>
                 {
                     b.Property<int>("ID")
@@ -1544,6 +1607,17 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Navigation("ParentBranch");
                 });
 
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.DeliveryNoteItem", b =>
+                {
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.DeliveryNote", "DeliveryNote")
+                        .WithMany("DeliveryNoteItems")
+                        .HasForeignKey("DeliveryNoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DeliveryNote");
+                });
+
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.GoodsReceived", b =>
                 {
                     b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.PurchaseOrder", "PurchaseOrder")
@@ -1821,6 +1895,11 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.CompanySetting", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.DeliveryNote", b =>
+                {
+                    b.Navigation("DeliveryNoteItems");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.GoodsReceived", b =>

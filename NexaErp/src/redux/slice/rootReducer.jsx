@@ -16,6 +16,7 @@ import employeeReducer from './employeeSlice'
 import emailReducer from './emailSlice'
 import quotationReducer from './quotationSlice'
 import saleReducer from './saleSlice'
+import deliveryNotesReducer from './deliveryNotesSlice'
 
 const rootReducer = combineReducers({
   tenants: tenantReducer,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   emails: emailReducer,
   quotations: quotationReducer,
   sales: saleReducer,
+  deliveryNotes: deliveryNotesReducer,
 })
 
 export default rootReducer

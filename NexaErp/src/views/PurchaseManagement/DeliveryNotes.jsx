@@ -6,12 +6,13 @@ import {
   CCard,
   CCardBody,
   CTable,
+  CSpinner,
   CTableHead,
   CTableRow,
   CTableBody,
   CTableDataCell,
 } from '@coreui/react'
-import { Truck, Plus, FileText, Trash2, Download } from 'lucide-react'
+import { Truck, Plus, FileText, Trash2 } from 'lucide-react'
 import { useToast } from '../../components/common/ToastContext'
 import { useAppLanguage } from '../../components/common/LanguageContext'
 import TableHeader from '../../components/common/TableHeader'
@@ -28,7 +29,9 @@ function DeliveryNotes() {
   const { addToast } = useToast()
   const { l } = useAppLanguage()
 
-  const deliveryData = useSelector((state) => state.DeliveryNotes?.result || [])
+  const deliveryData = useSelector((state) => state.deliveryNotes?.result || [])
+  const isLoading = useSelector((state) => state.deliveryNotes?.isLoading)
+
   const [visible, setVisible] = useState(false)
   const [activeColumn, setActiveColumn] = useState('Delivery Date')
   const [form, setForm] = useState({ id: 0, saleOrderId: '', remarks: '', items: [] })
@@ -38,15 +41,16 @@ function DeliveryNotes() {
   }, [dispatch])
 
   const handleSave = (payload) => {
-    console.info('deliverdata', payload)
-    dispatch(createDeliveryNote(payload))
-    addToast('Success', 'Delivery Note Processed!', 'success')
-    setVisible(false)
+    dispatch(createDeliveryNote(payload)).then((res) => {
+      if (res.meta.requestStatus === 'fulfilled') {
+        addToast('Success', 'Delivery Note Processed!', 'success')
+        setVisible(false)
+      }
+    })
   }
 
   return (
     <div className="delivery-page">
-      {/* Top Stat Bar */}
       <CRow className="mb-4">
         <CCol md={4}>
           <CCard className="border-0 shadow-sm rounded-4 overflow-hidden">
@@ -73,7 +77,7 @@ function DeliveryNotes() {
       <CRow>
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm rounded-4 overflow-hidden">
-            <CCardBody className="p-4">
+            <CCardBody className="p-4 position-relative">
               {/* Toolbar */}
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <div>
@@ -83,12 +87,21 @@ function DeliveryNotes() {
                   <span className="text-muted small">Manage all warehouse dispatches</span>
                 </div>
                 <div className="d-flex gap-2">
-                  <AppButton variant="ghost" className="border">
-                    <Download size={16} className="me-2" /> {l('export')}
-                  </AppButton>
                   <AppButton
-                    color="primary"
-                    className="shadow-sm px-3 fw-bold"
+                    variant="golden"
+                    data={deliveryData}
+                    fileName="Delivery_Note_Report"
+                    size="sm"
+                  >
+                    {l('download_xls')}
+                  </AppButton>
+
+                  <AppButton
+                    style={{
+                      backgroundColor: 'var(--cui-primary)',
+                      borderColor: 'var(--cui-primary)',
+                    }}
+                    className="shadow-sm px-3 fw-bold text-white"
                     onClick={() => {
                       setForm({ id: 0, items: [] })
                       setVisible(true)
@@ -98,9 +111,16 @@ function DeliveryNotes() {
                   </AppButton>
                 </div>
               </div>
+              <div className="table-responsive" style={{ minHeight: '150px' }}>
+                {isLoading && (
+                  <div
+                    className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center bg-white opacity-75"
+                    style={{ zIndex: 10, top: 0, left: 0 }}
+                  >
+                    <CSpinner color="primary" />
+                  </div>
+                )}
 
-              {/* Data Table */}
-              <div className="table-responsive">
                 <CTable hover align="middle" className="mb-0 border-top">
                   <CTableHead style={{ backgroundColor: 'var(--cui-light)' }}>
                     <CTableRow>
@@ -125,35 +145,45 @@ function DeliveryNotes() {
                     </CTableRow>
                   </CTableHead>
                   <CTableBody>
-                    {deliveryData.map((item) => (
-                      <CTableRow key={item.id} className="border-bottom">
-                        <CTableDataCell>
-                          <div className="d-flex align-items-center">
-                            <div
-                              className="p-2 rounded-circle me-3"
-                              style={{ backgroundColor: 'var(--cui-light)' }}
-                            >
-                              <FileText size={14} className="text-muted" />
-                            </div>
-                            <span className="fw-bold">SO-{item.saleOrderId}</span>
-                          </div>
-                        </CTableDataCell>
-                        <CTableDataCell className="text-muted fw-medium">
-                          {new Date(item.deliveryDate).toLocaleDateString()}
-                        </CTableDataCell>
-                        <CTableDataCell>
-                          <span className="text-muted small">{item.remarks || '-'}</span>
-                        </CTableDataCell>
-                        <CTableDataCell className="text-end pe-4">
-                          <button
-                            className="btn btn-link text-danger p-0"
-                            onClick={() => dispatch(deleteDeliveryNote(item.id))}
-                          >
-                            <Trash2 size={18} />
-                          </button>
-                        </CTableDataCell>
-                      </CTableRow>
-                    ))}
+                    {deliveryData.length > 0
+                      ? deliveryData.map((item) => (
+                          <CTableRow key={item.id} className="border-bottom">
+                            <CTableDataCell>
+                              <div className="d-flex align-items-center">
+                                <div
+                                  className="p-2 rounded-circle me-3"
+                                  style={{ backgroundColor: 'var(--cui-light)' }}
+                                >
+                                  <FileText size={14} className="text-muted" />
+                                </div>
+                                <span className="fw-bold" style={{ color: 'var(--cui-primary)' }}>
+                                  SO-{item.saleOrderId}
+                                </span>
+                              </div>
+                            </CTableDataCell>
+                            <CTableDataCell className="text-muted fw-medium">
+                              {new Date(item.deliveryDate).toLocaleDateString()}
+                            </CTableDataCell>
+                            <CTableDataCell>
+                              <span className="text-muted small">{item.remarks || '-'}</span>
+                            </CTableDataCell>
+                            <CTableDataCell className="text-end pe-4">
+                              <button
+                                className="btn btn-link text-danger p-0"
+                                onClick={() => dispatch(deleteDeliveryNote(item.id))}
+                              >
+                                <Trash2 size={18} />
+                              </button>
+                            </CTableDataCell>
+                          </CTableRow>
+                        ))
+                      : !isLoading && (
+                          <CTableRow>
+                            <CTableDataCell colSpan={4} className="text-center py-4 text-muted">
+                              {l('no_data_found')}
+                            </CTableDataCell>
+                          </CTableRow>
+                        )}
                   </CTableBody>
                 </CTable>
               </div>

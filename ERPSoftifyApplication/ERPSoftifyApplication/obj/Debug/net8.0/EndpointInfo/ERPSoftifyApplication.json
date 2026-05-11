@@ -3511,6 +3511,10 @@
           "currentQty": {
             "type": "integer",
             "format": "int32"
+          },
+          "quantityDelivered": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

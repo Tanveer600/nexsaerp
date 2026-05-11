@@ -122,7 +122,6 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 {
                     var soItem = await _soItemRepo.GetByIdAsync(item.SalesOrderItemId, ct);
                     if (soItem == null) continue;
-
                     if ((soItem.DeliveredQuantity + item.CurrentQty) > soItem.Quantity)
                     {
                         return ResponseDataModel<string>.FailureResponse($"Over-delivery for Product ID {item.ProductId} not allowed!");
@@ -149,11 +148,13 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                         TenantId = _currentUser.TenantId,
                         BranchId = _currentUser.BranchId
                     };
-
                     await _stockTransactionRepo.CreateStockTransaction(stockLog, ct);
                 }
 
+                await _deliveryRepo.SaveChangesAsync(ct);
+                await _soItemRepo.SaveChangesAsync(ct);
                 await _stockTransactionRepo.SaveChangesAsync(ct);
+
                 return ResponseDataModel<string>.SuccessResponse("Success", "Delivery processed successfully!");
             }
             catch (Exception ex)

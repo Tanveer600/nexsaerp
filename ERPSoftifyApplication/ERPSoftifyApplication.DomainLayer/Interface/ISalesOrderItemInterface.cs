@@ -14,5 +14,6 @@ namespace ERPSoftifyApplication.DomainLayer.Interface
         void Update(SalesOrderItem entity);
         Task<List<SalesOrderItem>> GetPendingItemsByOrderIdAsync(int saleOrderId, CancellationToken ct);
         Task<SalesOrderItem> UpdateFullOrderAsync(SalesOrderItem model, CancellationToken ct);
+        Task SaveChangesAsync(CancellationToken ct);
     }
 }

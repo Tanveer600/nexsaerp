@@ -17,6 +17,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public async Task AddAsync(DeliveryNote entity, CancellationToken ct)
         {
             await _dbcontext.DeliveryNotes.AddAsync(entity, ct);
+            await _dbcontext.SaveChangesAsync();
         }
 
         public async Task<DeliveryNote> GetByIdAsync(int id, CancellationToken ct)
@@ -64,6 +65,10 @@ namespace ERPSoftifyApplication.InfrastructureLayer
 
                 throw;
             }
+        }
+        public async Task SaveChangesAsync(CancellationToken ct)
+        {
+            await _dbcontext.SaveChangesAsync(ct);
         }
     }
 }

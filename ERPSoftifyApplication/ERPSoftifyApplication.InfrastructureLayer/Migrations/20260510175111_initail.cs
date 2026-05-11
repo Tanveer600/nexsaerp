@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class initail : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -150,6 +150,24 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DeliveryNotes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleOrderId = table.Column<int>(type: "int", nullable: false),
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    BranchId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryNotes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -573,6 +591,29 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DeliveryNoteItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DeliveryNoteId = table.Column<int>(type: "int", nullable: false),
+                    SalesOrderItemId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    QuantityDelivered = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryNoteItems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_DeliveryNoteItems_DeliveryNotes_DeliveryNoteId",
+                        column: x => x.DeliveryNoteId,
+                        principalTable: "DeliveryNotes",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "invoiceitems",
                 columns: table => new
                 {
@@ -944,6 +985,11 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 column: "ParentBranchId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DeliveryNoteItems_DeliveryNoteId",
+                table: "DeliveryNoteItems",
+                column: "DeliveryNoteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GoodsReceivedItem_GoodsReceivedId",
                 table: "GoodsReceivedItem",
                 column: "GoodsReceivedId");
@@ -1097,6 +1143,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 name: "AuditLogs");
 
             migrationBuilder.DropTable(
+                name: "DeliveryNoteItems");
+
+            migrationBuilder.DropTable(
                 name: "Expenses");
 
             migrationBuilder.DropTable(
@@ -1152,6 +1201,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "DeliveryNotes");
 
             migrationBuilder.DropTable(
                 name: "GoodsReceiveds");

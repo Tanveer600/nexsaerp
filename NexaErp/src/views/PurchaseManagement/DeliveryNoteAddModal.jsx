@@ -68,6 +68,7 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave, form }) {
         }),
       ),
     }),
+
     onSubmit: (values) => {
       const payload = {
         ...values,
@@ -79,10 +80,12 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave, form }) {
           currentQty: Number(item.currentQty),
         })),
       }
+
+      console.log('Final Payload before dispatch:', payload)
       handleSave(payload)
     },
   })
-  console.info('paylaod data', payload)
+
   const handleSOChange = (e) => {
     const selectedSOId = e.target.value
     formik.setFieldValue('saleOrderId', selectedSOId)
@@ -95,7 +98,6 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave, form }) {
       console.log('Full SO Object Found:', selectedSO)
 
       if (selectedSO) {
-        // Check 1: Items array backend se aa raha hai ya nahi
         if (selectedSO.items && selectedSO.items.length > 0) {
           console.log('Items found in SO:', selectedSO.items)
 
@@ -103,14 +105,12 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave, form }) {
             console.log(`Mapping Item - ProductID: ${item.productId}, SOItemID: ${item.id}`)
             return {
               salesOrderItemId: item.id,
-              productId: item.productId, // Ensure this matches productList IDs
+              productId: item.productId,
               currentQty: item.quantity || 1,
             }
           })
           formik.setFieldValue('items', mappedItems)
-        }
-        // Check 2: Agar items empty hain lekin direct productId bhej raha hai
-        else if (selectedSO.productId) {
+        } else if (selectedSO.productId) {
           console.log('No items array, but found direct ProductID:', selectedSO.productId)
           formik.setFieldValue('items', [
             {
