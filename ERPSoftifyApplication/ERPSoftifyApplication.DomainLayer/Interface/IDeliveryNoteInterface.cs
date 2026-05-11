@@ -15,6 +15,7 @@ namespace ERPSoftifyApplication.DomainLayer.Interface
         Task<bool> DeleteDeliveryNote(int Id, CancellationToken can);
         Task<DeliveryNote> UpDateDeliveryNote(DeliveryNote model, CancellationToken can);
         Task<DeliveryNote> CreateDeliveryNote(DeliveryNote model, CancellationToken can);
+        Task<object> BeginTransactionAsync(CancellationToken ct);
         Task SaveChangesAsync(CancellationToken ct);
     }
 }

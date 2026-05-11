@@ -17,6 +17,7 @@ import { useToast } from '../../components/common/ToastContext'
 import { useAppLanguage } from '../../components/common/LanguageContext'
 import TableHeader from '../../components/common/TableHeader'
 import AppButton from '../../components/common/AppButton'
+import { getSaleList } from '../../redux/slice/saleSlice'
 import {
   getAllDeliveryNotes,
   createDeliveryNote,
@@ -40,13 +41,19 @@ function DeliveryNotes() {
     dispatch(getAllDeliveryNotes({ page: 1, size: 10 }))
   }, [dispatch])
 
-  const handleSave = (payload) => {
-    dispatch(createDeliveryNote(payload)).then((res) => {
-      if (res.meta.requestStatus === 'fulfilled') {
+  const handleSave = async (payload) => {
+    try {
+      dispatch(createDeliveryNote(payload))
+      setTimeout(() => {
+        dispatch(getSaleList())
+        dispatch(getAllDeliveryNotes({ page: 1, size: 10 }))
         addToast('Success', 'Delivery Note Processed!', 'success')
-        setVisible(false)
-      }
-    })
+      }, 500)
+
+      setVisible(false)
+    } catch (error) {
+      console.error('Save Error:', error)
+    }
   }
 
   return (

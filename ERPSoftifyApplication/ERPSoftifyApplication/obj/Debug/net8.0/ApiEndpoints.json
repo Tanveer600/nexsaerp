@@ -1192,7 +1192,7 @@
   },
   {
     "ContainingType": "ERPSoftifyApplication.Controllers.SaleController",
-    "Method": "GetProductList",
+    "Method": "GetSaleList",
     "RelativePath": "api/Sale/saletList",
     "HttpMethod": "GET",
     "IsController": true,

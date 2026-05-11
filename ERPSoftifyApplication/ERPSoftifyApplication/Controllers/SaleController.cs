@@ -31,7 +31,7 @@ namespace ERPSoftifyApplication.Controllers
             return BadRequest(response);
         }
         [HttpGet("saletList")]
-        public async Task<IActionResult> GetProductList(CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetSaleList(CancellationToken cancellationToken = default)
         {
             var result = await _service.GetAllSaleListAsync(cancellationToken);
             return Ok(result);
@@ -56,6 +56,13 @@ namespace ERPSoftifyApplication.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
+         
+            
+            
+            
+            
+            
+            
             var response = await _service.GetSaleByIdAsync(id, cancellationToken);
 
             if (response.Success)

@@ -1558,6 +1558,7 @@
           "ERPSoftifyApplication.DomainLayer": "1.0.0",
           "MailKit": "4.16.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.3.9",
+          "Microsoft.EntityFrameworkCore": "8.0.0",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "MimeKit": "4.16.0",
           "System.IdentityModel.Tokens.Jwt": "8.0.1"

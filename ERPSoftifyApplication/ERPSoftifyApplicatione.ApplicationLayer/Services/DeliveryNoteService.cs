@@ -4,6 +4,7 @@ using ERPSoftifyApplication.DomainLayer.Interface;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.DeliveryNoteDto;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.ProductDto;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,7 +95,6 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             return dto;
         }
 
-        // DELETE
         public async Task<bool> DeleteDeliveryNote(int id, CancellationToken ct)
         {
             var result = await _deliveryRepo.DeleteDeliveryNote(id, ct);
@@ -103,6 +103,11 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
         public async Task<ResponseDataModel<string>> CreateDeliveryNote(DeliveryNoteRequestDto request, CancellationToken ct)
         {
+            using var transaction = await _deliveryRepo.BeginTransactionAsync(ct) as IDbContextTransaction;
+
+            if (transaction == null)
+                return ResponseDataModel<string>.FailureResponse("Database transaction could not be started.");
+
             try
             {
                 var delivery = new DeliveryNote
@@ -124,7 +129,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     if (soItem == null) continue;
                     if ((soItem.DeliveredQuantity + item.CurrentQty) > soItem.Quantity)
                     {
-                        return ResponseDataModel<string>.FailureResponse($"Over-delivery for Product ID {item.ProductId} not allowed!");
+                        return ResponseDataModel<string>.FailureResponse($"Over-delivery for Product {item.ProductId} not allowed!");
                     }
 
                     delivery.DeliveryNoteItems.Add(new DeliveryNoteItem
@@ -137,7 +142,6 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
                     soItem.DeliveredQuantity += item.CurrentQty;
                     _soItemRepo.Update(soItem);
-
                     var stockLog = new StockTransaction
                     {
                         ProductId = item.ProductId,
@@ -152,13 +156,13 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 }
 
                 await _deliveryRepo.SaveChangesAsync(ct);
-                await _soItemRepo.SaveChangesAsync(ct);
-                await _stockTransactionRepo.SaveChangesAsync(ct);
+                await transaction.CommitAsync(ct);
 
                 return ResponseDataModel<string>.SuccessResponse("Success", "Delivery processed successfully!");
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync(ct);
                 return ResponseDataModel<string>.FailureResponse($"Error: {ex.Message}");
             }
         }

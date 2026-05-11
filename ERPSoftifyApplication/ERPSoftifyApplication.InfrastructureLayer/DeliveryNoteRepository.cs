@@ -17,7 +17,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public async Task AddAsync(DeliveryNote entity, CancellationToken ct)
         {
             await _dbcontext.DeliveryNotes.AddAsync(entity, ct);
-            await _dbcontext.SaveChangesAsync();
+            //await _dbcontext.SaveChangesAsync();
         }
 
         public async Task<DeliveryNote> GetByIdAsync(int id, CancellationToken ct)
@@ -28,10 +28,13 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public async Task<DeliveryNote> CreateDeliveryNote(DeliveryNote model, CancellationToken can)
         {
             await _dbcontext.DeliveryNotes.AddAsync(model);
-            await _dbcontext.SaveChangesAsync();
+            //await _dbcontext.SaveChangesAsync();
             return model;
         }
-
+        public async Task<object> BeginTransactionAsync(CancellationToken ct)
+        {
+            return await _dbcontext.Database.BeginTransactionAsync(ct);
+        }
         public async Task<bool> DeleteDeliveryNote(int Id, CancellationToken can)
         {
             var list = await _dbcontext.DeliveryNotes.FirstOrDefaultAsync(c => c.ID == Id);

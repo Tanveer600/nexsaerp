@@ -846,6 +846,7 @@
           "BCrypt.Net-Next": "4.1.0",
           "ERPSoftifyApplication.DomainLayer": "1.0.0",
           "MailKit": "4.16.0",
+          "Microsoft.EntityFrameworkCore": "8.0.0",
           "MimeKit": "4.16.0",
           "System.IdentityModel.Tokens.Jwt": "8.16.0"
         },

@@ -20,6 +20,7 @@ const saleSlice = createSlice({
     },
     setSaleList: (state, action) => {
       state.dropdownList = action.payload || []
+      state.isLoading = false
     },
     createSale: (state) => {
       state.isLoading = true

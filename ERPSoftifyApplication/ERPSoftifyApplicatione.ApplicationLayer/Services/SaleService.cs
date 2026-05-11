@@ -64,7 +64,9 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     ProductId = i.ProductId,
                     Quantity = i.Quantity,
                     UnitPrice = i.UnitPrice,
-                    ProductName = i.Product?.Name
+                    ProductName = i.Product?.Name,
+                    DeliveredQuantity=i.DeliveredQuantity,
+
                 }).ToList()
             }).ToList();
 

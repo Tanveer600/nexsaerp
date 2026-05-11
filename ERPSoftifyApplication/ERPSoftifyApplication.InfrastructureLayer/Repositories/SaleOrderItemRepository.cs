@@ -44,7 +44,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
             if (existing == null) throw new Exception("Item not found");
 
             _context.Entry(existing).CurrentValues.SetValues(model);
-            await _context.SaveChangesAsync(ct);
+           // await _context.SaveChangesAsync(ct);
             return existing;
         }
         public async Task SaveChangesAsync(CancellationToken ct)
