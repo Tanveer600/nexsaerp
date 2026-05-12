@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplication.DomainLayer.Entities
 {
-    public class Category
+    public class Category : IMustHaveTenant
     {
         public int ID { get; set; }
         public string Name { get; set; }
