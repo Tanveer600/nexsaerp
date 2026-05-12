@@ -54,6 +54,7 @@ const Vendors = React.lazy(() => import('./views/purchaseManagement/Vendors'))
 const DeliveryNotes = React.lazy(() => import('./views/purchaseManagement/DeliveryNotes'))
 const PurchaseOrderItems = React.lazy(() => import('./views/purchaseManagement/PurchaseOrderItem'))
 const Quotations = React.lazy(() => import('./views/QuotationManagement/Quotation'))
+const Sales = React.lazy(() => import('./views/QuotationManagement/Sale'))
 const Products = React.lazy(() => import('./views/inventoryManagement/Product'))
 const Emails = React.lazy(() => import('./views/setups/Email'))
 // Buttons
@@ -165,7 +166,8 @@ export const routes = [
    { path: '/purchaseManagement/deliverynotes', name: 'DeliveryNotes', element: DeliveryNotes },
   { path: '/purchaseManagement/purchase-order-items', name: 'Purchase Order Items', element: PurchaseOrderItems },
   {path: '/quotationManagement/quotations', name: 'Quotations', element: Quotations },
-  { path: '/setups/companySetting', name: 'CompanySetting', element: CompanySetting },
+  {path: '/quotationManagement/sales', name: 'Quotations', element: Sales },
+  { path: '/setups/companySetting', name: 'Sales', element: CompanySetting },
  { path: '/permission-settings', name: 'Permission Settings', element: PermissionSetting },
  { path: '/setups/role-menu-permission', name: 'Role Menu Permission', element: RoleMenuPermission },
 ]

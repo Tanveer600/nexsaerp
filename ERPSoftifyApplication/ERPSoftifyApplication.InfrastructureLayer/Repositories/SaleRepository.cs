@@ -36,14 +36,14 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
             return true;
         }
 
-
-
         public async Task<List<SalesOrder>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _context.Set<SalesOrder>()
-               .Include(x => x.Items)
-               .AsNoTracking()
-               .ToListAsync(cancellationToken);
+                .Include(x => x.Customer) 
+                .Include(x => x.Items) 
+                    .ThenInclude(i => i.Product) 
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
         }
 
         public async Task<SalesOrder?> GetByIdAsync(int id, CancellationToken cancellationToken)

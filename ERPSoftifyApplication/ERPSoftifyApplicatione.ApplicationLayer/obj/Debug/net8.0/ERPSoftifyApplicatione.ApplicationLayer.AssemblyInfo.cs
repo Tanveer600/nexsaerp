@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERPSoftifyApplicatione.ApplicationLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c7fdf5e9310da569fe876222be33058f5ec43e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9026301df8a0dcaef6d0be79539cde9466722c41")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERPSoftifyApplicatione.ApplicationLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERPSoftifyApplicatione.ApplicationLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

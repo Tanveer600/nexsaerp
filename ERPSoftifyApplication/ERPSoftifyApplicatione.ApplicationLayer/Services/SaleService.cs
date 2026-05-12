@@ -58,13 +58,14 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 SONumber = b.SONumber,
                 CustomerId = b.CustomerId, 
                 OrderDate = b.OrderDate,
+                CustomerName=b.Customer.Name,
                 Items = b.Items.Select(i => new SaleItemViewDto
                 {
                     ID = i.ID, 
                     ProductId = i.ProductId,
                     Quantity = i.Quantity,
                     UnitPrice = i.UnitPrice,
-                    ProductName = i.Product?.Name,
+                    ProductName = i.Product.Name,
                     DeliveredQuantity=i.DeliveredQuantity,
 
                 }).ToList()
@@ -234,6 +235,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     Status = o.Status,
                     SONumber=o.SONumber,
                     CustomerId = o.CustomerId,
+                    CustomerName=o.Customer.Name,
                     TotalAmount = o.TotalAmount,
                     TotalDiscount = o.TotalDiscount,
                     TotalTax = o.TotalTax,
@@ -242,7 +244,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     {
                         SOId = i.ID,
                         ProductId = i.ProductId,
-                         ProductName = i.Product?.Name,
+                         ProductName = i.Product.Name,
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
                         TaxAmount = i.TaxAmount,

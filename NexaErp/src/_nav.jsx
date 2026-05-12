@@ -159,6 +159,11 @@ const _nav = [
         name: 'Quotations',
         to: '/quotationManagement/quotations',
       },
+      {
+        component: CNavItem,
+        name: 'Sale Management',
+        to: '/quotationManagement/sales',
+      },
     ],
   },
 
