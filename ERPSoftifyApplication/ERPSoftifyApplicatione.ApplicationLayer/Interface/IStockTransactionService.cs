@@ -11,7 +11,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Interface
 {
     public interface IStockTransactionService
     {
-        Task<ResponseDataModel<PagedResponse<StockTransaction>>> GetAllTransactionsAsync(int pageNumber, int pageSize, CancellationToken ct);
+        Task<ResponseDataModel<PagedResponse<StockTransactionDto>>> GetAllTransactionsAsync(int pageNumber, int pageSize, CancellationToken ct);
         Task<StockTransaction> GetTransactionById(int id, CancellationToken ct);
         Task<StockTransaction> CreateTransaction(StockTransactionDto model, CancellationToken ct);
         Task<StockTransaction> UpdateTransaction(int id,UpdateStockTransactionDto model, CancellationToken ct);

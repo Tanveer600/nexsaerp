@@ -61,17 +61,31 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             return result;
         }
 
-        public async Task<ResponseDataModel<PagedResponse<StockTransaction>>> GetAllTransactionsAsync(int pageNumber, int pageSize, CancellationToken ct)
+        public async Task<ResponseDataModel<PagedResponse<StockTransactionDto>>> GetAllTransactionsAsync(int pageNumber, int pageSize, CancellationToken ct)
         {
+            // Repository se data fetch karte waqt Product ko Include karein
             var query = await _stockRepo.GetAll(ct);
+
             var totalCount = query.Count();
 
-            var items = query.OrderByDescending(x => x.ID)
-                             .Skip((pageNumber - 1) * pageSize)
-                             .Take(pageSize)
-                             .ToList();
+            var items = query
+                .OrderByDescending(x => x.ID)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(x => new StockTransactionDto
+                {
+                    ID = x.ID,
+                    ProductName =x.Product?.Name,
+                    TransactionType = x.TransactionType,
+                    Quantity = x.Quantity,
+                    UnitPrice = x.UnitPrice,
+                    TransactionDate = x.TransactionDate,
+                    Remarks = x.Remarks,
+                    ReferenceId = x.ReferenceId
+                })
+                .ToList();
 
-            var pagedData = new PagedResponse<StockTransaction>
+            var pagedData = new PagedResponse<StockTransactionDto>
             {
                 TotalCount = totalCount,
                 Page = pageNumber,
@@ -79,7 +93,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 Items = items
             };
 
-            return ResponseDataModel<PagedResponse<StockTransaction>>.SuccessResponse(pagedData);
+            return ResponseDataModel<PagedResponse<StockTransactionDto>>.SuccessResponse(pagedData);
         }
 
         public async Task<StockTransaction> GetTransactionById(int id, CancellationToken ct)

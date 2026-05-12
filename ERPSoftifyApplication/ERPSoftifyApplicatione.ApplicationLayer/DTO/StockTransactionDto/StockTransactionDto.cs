@@ -10,9 +10,11 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.StockTransactionDto
     public class StockTransactionDto
     {
 
+        public int ID { get; set; }
         public int ProductId { get; set; }
 
         public string TransactionType { get; set; }
+        public string ProductName { get; set; }
 
         public int ReferenceId { get; set; }
 

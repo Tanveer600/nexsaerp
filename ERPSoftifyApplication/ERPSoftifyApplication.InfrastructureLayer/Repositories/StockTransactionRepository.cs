@@ -35,7 +35,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
 
         public async Task<List<StockTransaction>> GetAll(CancellationToken can)
         {
-            var list = await _dbcontext.StockTransactions.AsNoTracking().ToListAsync(can);
+            var list = await _dbcontext.StockTransactions
+                .Include(x=>x.Product)
+                .AsNoTracking().ToListAsync(can);
             return list;
         }
 

@@ -195,19 +195,34 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             }
         }
 
-        public Task<ResponseDataModel<bool>> DeleteQuotationAsync(int id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ResponseDataModel<bool>> DeleteSaleAsync(int id, CancellationToken cancellationToken)
         {
             try
             {
+
+                var saleOrder = await _repository.GetByIdAsync(id, cancellationToken);
+
+                if (saleOrder == null)
+                    return ResponseDataModel<bool>.FailureResponse("Sale Order not found");
                 var deleted = await _repository.DeleteAsync(id, cancellationToken);
-                return deleted
-                    ? ResponseDataModel<bool>.SuccessResponse(true, "Deleted")
-                    : ResponseDataModel<bool>.FailureResponse("Failed to delete");
+
+                if (deleted)
+                {
+                    if (saleOrder.QuotationId > 0)
+                    {
+                        var quotation = await _quotationRepository.GetByIdAsync(saleOrder.QuotationId, cancellationToken);
+
+                        if (quotation != null)
+                        {
+                            quotation.Status = "Pending";
+                            await _quotationRepository.UpdateAsync(quotation, cancellationToken);
+                        }
+                    }
+
+                    return ResponseDataModel<bool>.SuccessResponse(true, "Sale deleted and Quotation reverted to Pending.");
+                }
+
+                return ResponseDataModel<bool>.FailureResponse("Failed to delete Sale Order");
             }
             catch (Exception ex)
             {

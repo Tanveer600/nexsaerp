@@ -140,7 +140,8 @@ export const API_ENDPOINTS = {
   },
 
   STOCK_TRANSACTION: {
-    GET_ALL: '/api/StockTransaction/all',
+    GET_ALL: (page = 1, size = 10) =>
+      `/api/StockTransaction/all?pageNumber=${page}&pageSize=${size}`,
     GET_BY_ID: (id) => `/api/StockTransaction/${id}`,
     CREATE: '/api/StockTransaction/create',
     // UPDATE: (id) => `/api/StockTransaction/${id}`,
