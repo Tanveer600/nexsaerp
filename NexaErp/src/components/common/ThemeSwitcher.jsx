@@ -22,7 +22,14 @@ const colors = [
   '#C9A227',
   '#E6C35C',
   '#5C6B73',
-  '#AAB2BD'
+  '#AAB2BD',
+  '#2FA084',
+  '#3B7597',
+    '#81912F',
+     '#FF4081',
+ '#2C687B',
+ '#35858E'
+
 ];
 
   const shortcuts = [
