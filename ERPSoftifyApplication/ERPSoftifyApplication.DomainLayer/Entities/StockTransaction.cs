@@ -26,7 +26,10 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public int BranchId { get; set; }
 
         public int TenantId { get; set; }
+        public int WarehouseId { get; set; }
 
+        [ForeignKey(nameof(WarehouseId))]
+        public virtual Warehouse Warehouse { get; set; }
         [ForeignKey(nameof(ProductId))]
         public Product Product { get; set; }
     }

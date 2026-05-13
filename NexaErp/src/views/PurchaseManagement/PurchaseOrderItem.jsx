@@ -11,6 +11,7 @@ import {
   CTableHead,
   CTableRow,
   CBadge,
+  CWidgetStatsC,
 } from '@coreui/react'
 import TableHeader from '../../components/common/TableHeader'
 import AppButton from '../../components/common/AppButton'
@@ -31,11 +32,22 @@ function PurchaseOrderItem() {
   const [visible, setVisible] = useState(false)
   const [editData, setEditData] = useState(null)
   const { addToast } = useToast()
+
   useEffect(() => {
     dispatch(getAllPurchaseOrderItems({ page: 1, size: 10 }))
   }, [dispatch])
 
-  // Delete Handler
+  const totals = Array.isArray(orders)
+    ? orders.reduce(
+        (acc, curr) => ({
+          amount: acc.amount + (curr.totalAmount || 0),
+          tax: acc.tax + (curr.totalTax || 0),
+          discount: acc.discount + (curr.totalDiscount || 0),
+        }),
+        { amount: 0, tax: 0, discount: 0 },
+      )
+    : { amount: 0, tax: 0, discount: 0 }
+
   const handleDelete = (id) => {
     if (
       addToast('Are you sure you want to delete this order?', 'warning', { yes: 'Yes', no: 'No' })
@@ -62,6 +74,43 @@ function PurchaseOrderItem() {
 
   return (
     <CRow>
+      <CCol sm={6} lg={4}>
+        <CWidgetStatsC
+          className="mb-3 border-0 shadow-sm"
+          icon={<span style={{ fontSize: '20px' }}>💰</span>}
+          color="primary"
+          inverse
+          padding={false}
+          title="Gross Amount"
+          value={`${toNumber(totals.amount)} PKR`}
+          style={{ background: 'linear-gradient(45deg, #4c1d95 0%, #7c3aed 100%)' }}
+        />
+      </CCol>
+      <CCol sm={6} lg={4}>
+        <CWidgetStatsC
+          className="mb-3 border-0 shadow-sm text-white"
+          icon={<span style={{ fontSize: '20px' }}>📑</span>}
+          color="danger"
+          inverse
+          padding={false}
+          title="Total Tax"
+          value={`${toNumber(totals.tax)} PKR`}
+          style={{ background: 'linear-gradient(45deg, #dc2626 0%, #f87171 100%)' }}
+        />
+      </CCol>
+      <CCol sm={6} lg={4}>
+        <CWidgetStatsC
+          className="mb-3 border-0 shadow-sm text-white"
+          icon={<span style={{ fontSize: '20px' }}>📉</span>}
+          color="success"
+          inverse
+          padding={false}
+          title="Total Discount"
+          value={`${toNumber(totals.discount)} PKR`}
+          style={{ background: 'linear-gradient(45deg, #059669 0%, #34d399 100%)' }}
+        />
+      </CCol>
+
       <CCol xs={12}>
         <CCard className="shadow-sm border-0">
           <CCardBody>
@@ -70,7 +119,7 @@ function PurchaseOrderItem() {
                 Purchase Orders
               </h4>
               <AppButton
-                variant="purple" // Using your professional purple gradient
+                variant="purple"
                 onClick={() => {
                   setEditData(null)
                   setVisible(true)
@@ -83,9 +132,10 @@ function PurchaseOrderItem() {
             <CTable responsive hover align="middle" className="border-top">
               <CTableHead color="light">
                 <CTableRow>
-                  <TableHeader col="ID" />
+                  <TableHeader col="PO Number" />
                   <TableHeader col="Vendor" />
                   <TableHeader col="Date" />
+                  <TableHeader col="Amount" />
                   <TableHeader col="Status" />
                   <TableHeader col="Action" />
                 </CTableRow>
@@ -93,19 +143,18 @@ function PurchaseOrderItem() {
               <CTableBody>
                 {Array.isArray(orders) &&
                   orders.map((order) => {
-                    const id = order.ID || order.id
-                    const status = order.status || order.Status || 'Pending'
+                    const id = order.id || order.ID
+                    const status = order.status || 'Pending'
 
                     return (
-                      <CTableRow key={id} className="align-middle">
+                      <CTableRow key={id}>
                         <CTableDataCell className="fw-bold text-muted">
-                          #{toNumber(id, 0)}
+                          {order.poNumber}
                         </CTableDataCell>
-                        <CTableDataCell className="fw-semibold">
-                          {order.vendorName || order.VendorName || 'N/A'}
-                        </CTableDataCell>
-                        <CTableDataCell>
-                          {formatDate(order.orderDate || order.OrderDate)}
+                        <CTableDataCell className="fw-semibold">{order.vendorName}</CTableDataCell>
+                        <CTableDataCell>{formatDate(order.orderDate)}</CTableDataCell>
+                        <CTableDataCell className="fw-bold">
+                          {toNumber(order.totalAmount)} {order.currencyCode}
                         </CTableDataCell>
                         <CTableDataCell>
                           <CBadge
@@ -139,16 +188,7 @@ function PurchaseOrderItem() {
                                 padding: '4px 12px',
                                 fontSize: '12px',
                                 fontWeight: '600',
-                                transition: '0.3s',
                                 cursor: 'pointer',
-                              }}
-                              onMouseOver={(e) => {
-                                e.currentTarget.style.background = '#dc2626'
-                                e.currentTarget.style.color = '#fff'
-                              }}
-                              onMouseOut={(e) => {
-                                e.currentTarget.style.background = 'rgba(220, 38, 38, 0.1)'
-                                e.currentTarget.style.color = '#dc2626'
                               }}
                             >
                               <DeleteIcon /> Delete

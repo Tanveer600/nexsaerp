@@ -17,11 +17,12 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
     {
         private readonly IPurchaseOrderInterface _repository;
         private readonly ICurrentUserService _currentUserService;
-
-        public PurchaseOrderService(IPurchaseOrderInterface repository, ICurrentUserService currentUserService)
+        private readonly IVendorQuotationInterface _quotationRepository;
+        public PurchaseOrderService(IPurchaseOrderInterface repository, ICurrentUserService currentUserService, IVendorQuotationInterface quotationRepository)
         {
             _repository = repository;
             _currentUserService = currentUserService;
+            _quotationRepository = quotationRepository;
         }
 
         public async Task<string> GenerateNextPoNumberAsync(CancellationToken cancellationToken)
@@ -103,17 +104,32 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
                     .ToList();
-
                 var mappedItems = paginatedOrders.Select(o => new PurchaseOrderResponseDto
                 {
                     ID = o.ID,
                     VendorId = o.VendorId,
-                    VendorName = o.Vendor?.Name ?? "Vendor-" + o.VendorId,
+                    VendorName = o.Vendor?.Name ?? "N/A",
                     PONumber = o.PONumber,
                     CurrencyCode = o.CurrencyCode,
                     OrderDate = o.OrderDate,
                     Status = o.Status,
-                    TotalAmount = o.TotalAmount
+                    ExchangeRate = o.ExchangeRate,
+                    TotalDiscount = o.TotalDiscount,
+                    TotalTax = o.TotalTax,
+                    TotalAmount = o.TotalAmount,
+                    Items = o.Items.Select(x => new PurchaseOrderItemResponseDto
+                    {
+                        ID = x.ID,
+                        ProductId = x.ProductId,
+                        ProductName = x.Product?.Name,
+                        Quantity = x.Quantity,
+                        UnitPrice = x.UnitPrice,
+                        Discount = x.Discount,
+                        TaxPercentage = x.TaxPercentage,
+                        TaxAmount = x.TaxAmount,
+                        ReceivedQuantity = x.ReceivedQuantity,
+                        LineTotal = x.LineTotal,
+                    }).ToList()
                 }).ToList();
 
                 var pagedData = new PagedResponse<PurchaseOrderResponseDto>
@@ -242,7 +258,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
         {
             try
             {
-                var quotation = await _repository.GetByIdAsync(vendorQuotationId, cancellationToken);
+                var quotation = await _quotationRepository.GetByIdAsync(vendorQuotationId, cancellationToken);
                 if (quotation == null)
                     return ResponseDataModel<PurchaseOrderResponseDto>.FailureResponse("Vendor Quotation not found");
                 if (quotation.Status == "Converted" || quotation.Status == "Ordered")
@@ -252,12 +268,12 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     VendorId = quotation.VendorId,
                     OrderDate = DateTime.Now,
                     Status = "Ordered",
-                    PONumber = quotation.PONumber, 
+                    PONumber = quotation.VQNumber,
                     CurrencyCode = quotation.CurrencyCode,
                     ExchangeRate = quotation.ExchangeRate,
                     TotalDiscount = quotation.TotalDiscount,
                     TotalTax = quotation.TotalTax,
-                    TotalAmount = quotation.TotalAmount,
+                    TotalAmount = quotation.NetAmount,
                     BranchId = _currentUserService.BranchId,
                     TenantId = _currentUserService.TenantId,
 
@@ -266,11 +282,11 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                         ProductId = qItem.ProductId,
                         Quantity = qItem.Quantity,
                         UnitPrice = qItem.UnitPrice,
-                        Discount = qItem.Discount,
+                        Discount = qItem.DiscountAmount,
                         TaxPercentage = qItem.TaxPercentage,
                         TaxAmount = qItem.TaxAmount,
                         LineTotal = qItem.LineTotal,
-                        ReceivedQuantity = 0, 
+                        ReceivedQuantity = 0,
                         TenantId = _currentUserService.TenantId,
                         BranchId = _currentUserService.BranchId,
                     }).ToList()
@@ -278,7 +294,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
                 var result = await _repository.CreateAsync(purchaseOrder, cancellationToken);
                 quotation.Status = "Converted";
-                await _repository.UpdateAsync(quotation, cancellationToken);
+                await _quotationRepository.UpdateAsync(quotation, cancellationToken);
 
                 var responseDto = new PurchaseOrderResponseDto { ID = result.ID, PONumber = result.PONumber };
                 return ResponseDataModel<PurchaseOrderResponseDto>.SuccessResponse(responseDto, "Quotation converted to Purchase Order successfully!");

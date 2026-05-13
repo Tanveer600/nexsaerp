@@ -29,10 +29,10 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Discount { get; set; }
-        public decimal TaxPercentage { get; set; } // Added missing property
+        public decimal TaxPercentage { get; set; } 
         public decimal TaxAmount { get; set; }
-        public decimal LineTotal { get; set; } // Manual set in mapping or calculated
-        public int ReceivedQuantity { get; set; } // Added to match service mapping
+        public decimal LineTotal { get; set; } 
+        public int ReceivedQuantity { get; set; } 
     }
 
     public class PurchaseOrderRequestDto

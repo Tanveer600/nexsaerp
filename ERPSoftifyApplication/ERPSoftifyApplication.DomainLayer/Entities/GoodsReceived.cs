@@ -19,6 +19,9 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public string Remarks { get; set; }
         public int TenantId { get; set; }
         public int BranchId { get; set; }
+        public int WarehouseId { get; set; }
+        [ForeignKey(nameof(WarehouseId))]
+        public virtual Warehouse Warehouse { get; set; }
         [ForeignKey(nameof(POId))]
         public virtual PurchaseOrder PurchaseOrder { get; set; }
         public virtual ICollection<GoodsReceivedItem> Items { get; set; } = new List<GoodsReceivedItem>();
