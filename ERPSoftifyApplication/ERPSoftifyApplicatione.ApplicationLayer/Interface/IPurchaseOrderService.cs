@@ -1,6 +1,7 @@
 ﻿using ERPSoftifyApplication.DomainLayer;
 using ERPSoftifyApplication.DomainLayer.Entities;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.SalesOutput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,6 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Interface
 
         // Delete
         Task<ResponseDataModel<bool>> DeletePurchaseOrderAsync(int id, CancellationToken cancellationToken);
+        Task<ResponseDataModel<PurchaseOrderResponseDto>> ConvertQuotationToPurchaseAsync(int vendorQuotationId, CancellationToken cancellationToken);
     }
 }

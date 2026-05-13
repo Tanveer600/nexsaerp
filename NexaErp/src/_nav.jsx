@@ -138,6 +138,11 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Vendor Quotation',
+        to: '/purchaseManagement/vendorquotations',
+      },
+      {
+        component: CNavItem,
         name: 'Purchase Order Items',
         to: '/purchaseManagement/purchase-order-items',
       },

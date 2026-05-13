@@ -85,6 +85,8 @@ builder.Services.AddScoped<IStockTransactionService, StockTransactionService>();
 builder.Services.AddScoped<ISalesOrderItemInterface, SaleOrderItemRepository>();
 builder.Services.AddScoped<IDeliveryNoteService, DeliveryNoteService>();
 builder.Services.AddScoped<ICategoryInterface, CategoryRepository>();
+builder.Services.AddScoped<IVendorQuotationInterface, VendorQuotationRepository>();
+builder.Services.AddScoped<IVendorQuotationService, VendorQuotationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 //builder.Services.AddScoped<ISaleord, DeliveryNoteService>();
 builder.Services.AddScoped<IEmailService, EmailService>();

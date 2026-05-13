@@ -63,6 +63,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public DbSet<Category> Categorys { get; set; }
         public DbSet<DeliveryNote> DeliveryNotes { get; set; }
         public DbSet<DeliveryNoteItem> DeliveryNoteItems { get; set; }
+        public DbSet<VendorQuotation> VendorQuotations { get; set; }
+        public DbSet<VendorQuotationItem> VendorQuotationItems { get; set; }
 
 
         #endregion

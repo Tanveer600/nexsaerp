@@ -958,6 +958,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ERPSoftifyApplication.Controllers.PurchaseOrderController",
+    "Method": "ConvertVendorQuotationToPurchase",
+    "RelativePath": "api/PurchaseOrder/convert-to-purchase/{vendorQuotationId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vendorQuotationId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ERPSoftifyApplication.Controllers.QuotationController",
     "Method": "Create",
     "RelativePath": "api/Quotation",
@@ -1798,6 +1814,96 @@
       {
         "Name": "dto",
         "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.VendorDto.UpdateVendorDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.VendorQuotationController",
+    "Method": "Create",
+    "RelativePath": "api/VendorQuotation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.VendorQuotatinOutput.CreateVendorQuotationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.VendorQuotationController",
+    "Method": "GetAll",
+    "RelativePath": "api/VendorQuotation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.VendorQuotationController",
+    "Method": "GetById",
+    "RelativePath": "api/VendorQuotation/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.VendorQuotationController",
+    "Method": "Update",
+    "RelativePath": "api/VendorQuotation/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.VendorQuotatinOutput.UpdateVendorQuotationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.VendorQuotationController",
+    "Method": "Delete",
+    "RelativePath": "api/VendorQuotation/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

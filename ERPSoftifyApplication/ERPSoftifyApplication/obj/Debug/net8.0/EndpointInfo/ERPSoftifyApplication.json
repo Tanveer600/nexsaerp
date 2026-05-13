@@ -1465,6 +1465,29 @@
         }
       }
     },
+    "/api/PurchaseOrder/convert-to-purchase/{vendorQuotationId}": {
+      "post": {
+        "tags": [
+          "PurchaseOrder"
+        ],
+        "parameters": [
+          {
+            "name": "vendorQuotationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/PurchaseOrder/{id}": {
       "get": {
         "tags": [
@@ -2935,6 +2958,151 @@
         }
       }
     },
+    "/api/VendorQuotation": {
+      "post": {
+        "tags": [
+          "VendorQuotation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendorQuotationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendorQuotationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendorQuotationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "VendorQuotation"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/VendorQuotation/{id}": {
+      "get": {
+        "tags": [
+          "VendorQuotation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "VendorQuotation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVendorQuotationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVendorQuotationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVendorQuotationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "VendorQuotation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -3677,6 +3845,117 @@
         },
         "additionalProperties": false
       },
+      "CreateVendorQuotationItemRequest": {
+        "type": "object",
+        "properties": {
+          "vqId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "discountPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "lineTotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "tenantId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "branchId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateVendorQuotationRequest": {
+        "type": "object",
+        "properties": {
+          "vqNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quotationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalDiscount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "netAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "tenantId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "branchId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateVendorQuotationItemRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "DeliveryNoteItemDto": {
         "type": "object",
         "properties": {
@@ -3878,6 +4157,22 @@
           "currencyCode": {
             "type": "string",
             "nullable": true
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalDiscount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
           },
           "status": {
             "type": "string",
@@ -4601,6 +4896,63 @@
           },
           "address": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVendorQuotationRequest": {
+        "type": "object",
+        "properties": {
+          "vendorQuotationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vqNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "vendorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quotationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalDiscount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalTax": {
+            "type": "number",
+            "format": "double"
+          },
+          "netAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateVendorQuotationItemRequest"
+            },
             "nullable": true
           }
         },

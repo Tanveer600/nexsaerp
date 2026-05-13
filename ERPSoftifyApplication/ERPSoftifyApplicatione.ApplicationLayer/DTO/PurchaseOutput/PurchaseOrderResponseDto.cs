@@ -14,13 +14,11 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto
         public string VendorName { get; set; }
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }
-
+        public decimal ExchangeRate { get; set; }
+        public decimal TotalDiscount { get; set; }
+        public decimal TotalTax { get; set; }
+        public decimal TotalAmount { get; set; }
         public List<PurchaseOrderItemResponseDto> Items { get; set; } = new();
-
-        public decimal TotalDiscount => Items.Sum(x => x.Discount);
-        public decimal TotalTax => Items.Sum(x => x.TaxAmount);
-        public decimal SubTotal => Items.Sum(x => x.Quantity * x.UnitPrice);
-        public decimal GrandTotal => (SubTotal - TotalDiscount) + TotalTax;
     }
 
     public class PurchaseOrderItemResponseDto
@@ -44,6 +42,10 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto
         public DateTime OrderDate { get; set; }
         public string PONumber { get; set; }
         public string CurrencyCode { get; set; }
+        public decimal ExchangeRate { get; set; }
+        public decimal TotalDiscount { get; set; }
+        public decimal TotalTax { get; set; }
+        public decimal TotalAmount { get; set; }
         public string Status { get; set; }
         public List<PurchaseOrderItemRequestDto> Items { get; set; } = new();
     }

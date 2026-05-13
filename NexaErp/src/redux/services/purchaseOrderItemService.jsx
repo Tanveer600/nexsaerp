@@ -35,6 +35,11 @@ const purchaseOrderItemService = {
     const res = await apiClient.delete(API_ENDPOINTS.PURCHASE_ORDER.DELETE(id))
     return res?.data
   },
+  convertToPurchase: async (quotationId) => {
+    const url = API_ENDPOINTS.PURCHASE_ORDER.APPROVE_VENDOR_QUOTATION(quotationId)
+    const res = await apiClient.post(url)
+    return res?.data
+  },
 }
 
 export default purchaseOrderItemService

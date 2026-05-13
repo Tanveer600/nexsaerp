@@ -29,7 +29,16 @@ namespace ERPSoftifyApplication.Controllers
 
             return BadRequest(response);
         }
+        [HttpPost("convert-to-purchase/{vendorQuotationId}")]
+        public async Task<IActionResult> ConvertVendorQuotationToPurchase(int vendorQuotationId, CancellationToken cancellationToken)
+        {
+            var response = await _service.ConvertQuotationToPurchaseAsync(vendorQuotationId, cancellationToken);
 
+            if (response.Success)
+                return Ok(response);
+
+            return BadRequest(response);
+        }
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, CancellationToken cancellationToken = default)
         {

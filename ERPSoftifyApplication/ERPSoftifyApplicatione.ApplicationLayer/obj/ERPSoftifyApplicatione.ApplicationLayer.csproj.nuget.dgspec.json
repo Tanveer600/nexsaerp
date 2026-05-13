@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj": {}
+    "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj": {
+    "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj",
+        "projectUniqueName": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj",
         "projectName": "ERPSoftifyApplication.DomainLayer",
-        "projectPath": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj",
-        "packagesPath": "C:\\Users\\Sidra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\obj\\",
+        "projectPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj",
+        "packagesPath": "C:\\Users\\Tanveer\\.nuget\\packages\\",
+        "outputPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Sidra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tanveer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -66,24 +66,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj": {
+    "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj",
+        "projectUniqueName": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj",
         "projectName": "ERPSoftifyApplicatione.ApplicationLayer",
-        "projectPath": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj",
-        "packagesPath": "C:\\Users\\Sidra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\obj\\",
+        "projectPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\ERPSoftifyApplicatione.ApplicationLayer.csproj",
+        "packagesPath": "C:\\Users\\Tanveer\\.nuget\\packages\\",
+        "outputPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplicatione.ApplicationLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Sidra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tanveer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -99,8 +99,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj": {
-                "projectPath": "C:\\Users\\Sidra\\source\\repos\\neexaerp\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj"
+              "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj": {
+                "projectPath": "C:\\nexa\\nexsaerp\\ERPSoftifyApplication\\ERPSoftifyApplication.DomainLayer\\ERPSoftifyApplication.DomainLayer.csproj"
               }
             }
           }
@@ -172,7 +172,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

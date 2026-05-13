@@ -1,6 +1,7 @@
 ﻿using ERPSoftifyApplication.DomainLayer;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.Quotation;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.VendorQuotatinOutput;
 using System;
 using System.Collections.Generic;
 using System.Linq;

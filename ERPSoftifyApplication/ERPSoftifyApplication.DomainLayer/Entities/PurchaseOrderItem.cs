@@ -25,7 +25,8 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public decimal UnitPrice { get; set; }
         public int BranchId { get; set; }
         public int TenantId { get; set; }
-
+        [ForeignKey(nameof(ProductId))]
+        public Product Product { get; set; }
         [ForeignKey(nameof(POId))]
         public PurchaseOrder PurchaseOrder { get; set; }
     }

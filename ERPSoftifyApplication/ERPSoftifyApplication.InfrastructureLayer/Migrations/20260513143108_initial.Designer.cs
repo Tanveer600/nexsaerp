@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260510175111_initail")]
-    partial class initail
+    [Migration("20260513143108_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -996,6 +996,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
                     b.HasIndex("POId");
 
+                    b.HasIndex("ProductId");
+
                     b.ToTable("PurchaseOrderItems");
                 });
 
@@ -1538,6 +1540,113 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.ToTable("Vendors");
                 });
 
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.VendorQuotation", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CurrencyCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ExchangeRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("NetAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("QuotationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("SubTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalDiscount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalTax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("VQNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ValidUntil")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VendorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("VendorQuotations");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.VendorQuotationItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("LineTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TaxAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TaxPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("VQId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("VQId");
+
+                    b.ToTable("VendorQuotationItems");
+                });
+
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Warehouse", b =>
                 {
                     b.Property<int>("ID")
@@ -1709,6 +1818,14 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
                     b.Navigation("PurchaseOrder");
                 });
 
@@ -1856,6 +1973,36 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.VendorQuotation", b =>
+                {
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Vendor", "Vendor")
+                        .WithMany()
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.VendorQuotationItem", b =>
+                {
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.VendorQuotation", "VendorQuotation")
+                        .WithMany("Items")
+                        .HasForeignKey("VQId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("VendorQuotation");
+                });
+
             modelBuilder.Entity("RoleMenu", b =>
                 {
                     b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Menu", "Menu")
@@ -1933,6 +2080,11 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.SalesOrder", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.VendorQuotation", b =>
                 {
                     b.Navigation("Items");
                 });

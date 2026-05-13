@@ -51,6 +51,7 @@ const PermissionSetting = React.lazy(() => import('./views/PermissionSetting'))
 const Customers = React.lazy(() => import('./views/stakeholders/Customers'))
 const Employees = React.lazy(() => import('./views/stakeholders/Employees'))
 const Vendors = React.lazy(() => import('./views/purchaseManagement/Vendors'))
+const VendorQuotations = React.lazy(() => import('./views/purchaseManagement/VendorQuotation'))
 const DeliveryNotes = React.lazy(() => import('./views/purchaseManagement/DeliveryNotes'))
 const PurchaseOrderItems = React.lazy(() => import('./views/purchaseManagement/PurchaseOrderItem'))
 const Quotations = React.lazy(() => import('./views/QuotationManagement/Quotation'))
@@ -164,6 +165,7 @@ export const routes = [
 {path: '/setups/email', name: 'Email', element: Emails },
   { path: '/inventoryManagement/product', name: 'Products', element: Products },
   { path: '/purchaseManagement/vendors', name: 'Vendors', element: Vendors },
+   { path: '/purchaseManagement/vendorquotations', name: 'VendorQuotations', element: VendorQuotations },
    { path: '/purchaseManagement/deliverynotes', name: 'DeliveryNotes', element: DeliveryNotes },
   { path: '/purchaseManagement/purchase-order-items', name: 'Purchase Order Items', element: PurchaseOrderItems },
   {path: '/quotationManagement/quotations', name: 'Quotations', element: Quotations },

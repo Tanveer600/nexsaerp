@@ -101,6 +101,7 @@ export const API_ENDPOINTS = {
     BY_ID: (id) => `/api/PurchaseOrder/${id}`,
     UPDATE: (id) => `/api/PurchaseOrder/${id}`,
     DELETE: (id) => `/api/PurchaseOrder/${id}`,
+    APPROVE_VENDOR_QUOTATION: (id) => `/api/PurchaseOrder/convert-to-purchase/${id}`,
   },
   QUOTATION: {
     CREATE: '/api/Quotation',
@@ -108,6 +109,13 @@ export const API_ENDPOINTS = {
     BY_ID: (id) => `/api/Quotation/${id}`,
     UPDATE: (id) => `/api/Quotation/${id}`,
     DELETE: (id) => `/api/Quotation/${id}`,
+  },
+  VENDOR_QUOTATION: {
+    CREATE: '/api/VendorQuotation',
+    GET_ALL: (page = 1, size = 10) => `/api/VendorQuotation?pageNumber=${page}&pageSize=${size}`,
+    BY_ID: (id) => `/api/VendorQuotation/${id}`,
+    UPDATE: (id) => `/api/VendorQuotation/${id}`,
+    DELETE: (id) => `/api/VendorQuotation/${id}`,
   },
   SALE: {
     CREATE: '/api/Sale',
