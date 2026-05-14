@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace ERPSoftifyApplication.Controllers
 {
     [Route("api/[controller]")]
@@ -21,7 +20,7 @@ namespace ERPSoftifyApplication.Controllers
         {
             _deliveryNoteService = deliveryNoteService;
         }
-        //[Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> CreateDeliveryNote([FromBody] DeliveryNoteRequestDto dto, CancellationToken cancellationToken)
         {
@@ -37,14 +36,14 @@ namespace ERPSoftifyApplication.Controllers
             }
 
         }
-       
+
         [HttpGet("all")]
         public async Task<IActionResult> GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, CancellationToken cancellationToken = default)
         {
             var result = await _deliveryNoteService.GetAllDeliveryNotes(pageNumber, pageSize, cancellationToken);
             return Ok(result);
         }
-      
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<DeliveryNoteRequestDto>> GetDeliveryNoteById(int id, CancellationToken ct)

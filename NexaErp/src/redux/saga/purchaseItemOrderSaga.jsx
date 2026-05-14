@@ -4,6 +4,8 @@ import {
   getAllPurchaseOrderItems,
   setAllPurchaseOrderItems,
   createPurchaseOrderItem,
+  setPurchaseList,
+  getPurchaseList,
   deletePurchaseOrderItem,
   updatePurchaseOrderItem,
   createPurchaseOrderItemCompleted,
@@ -22,7 +24,15 @@ function* getPurchaseOrderItemsSaga(action) {
     yield put(setAllPurchaseOrderItems({ items: [], totalCount: 0 }))
   }
 }
-
+function* getPurchaseListSaga() {
+  try {
+    const data = yield call(purchaseOrderItemService.getList)
+    console.log('>>> Saga: setPurchaseListsaga Success Response:', data)
+    yield put(setPurchaseList(data))
+  } catch (e) {
+    yield put(setPurchaseList([]))
+  }
+}
 function* createPurchaseOrderItemSaga(action) {
   //console.log('>>> Saga: createPurchaseOrderItemSaga Triggered with:', action.payload)
   try {
@@ -69,7 +79,10 @@ function* watchGetPurchaseOrderItems() {
   // console.log('Watcher: watchGetPurchaseOrderItems Active', getAllPurchaseOrderItems.type)
   yield takeLatest(getAllPurchaseOrderItems.type, getPurchaseOrderItemsSaga)
 }
-
+function* watchGetPurchaseList() {
+  //console.log('Watcher: watchGetProductList Active', getProductList.type)
+  yield takeLatest(getPurchaseList.type, getPurchaseListSaga)
+}
 function* watchCreatePurchaseOrderItem() {
   //console.log('Watcher: watchCreatePurchaseOrderItem Active', createPurchaseOrderItem.type)
   yield takeLatest(createPurchaseOrderItem.type, createPurchaseOrderItemSaga)
@@ -93,5 +106,6 @@ export function* purchaseItemOrderSaga() {
     fork(watchCreatePurchaseOrderItem),
     fork(watchUpdatePurchaseOrderItem),
     fork(watchDeletePurchaseOrderItem),
+    fork(watchGetPurchaseList),
   ])
 }

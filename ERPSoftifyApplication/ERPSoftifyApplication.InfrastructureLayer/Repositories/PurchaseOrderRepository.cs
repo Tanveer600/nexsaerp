@@ -40,6 +40,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
             return await _context.Set<PurchaseOrder>()
               .Include(x=>x.Vendor)
               .Include(x => x.Items)
+              .ThenInclude(x=>x.Product)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }

@@ -14,7 +14,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Interface
     {
         // Create: Input RequestDto lega aur Output ResponseDto dega
         Task<ResponseDataModel<PurchaseOrderResponseDto>> CreatePurchaseOrderAsync(PurchaseOrderRequestDto request, CancellationToken cancellationToken);
-
+         Task<ResponseDataModel<List<PurchaseOrderResponseDto>>> GetAllPurchaseListAsync(CancellationToken cancellationToken);
         // List: Saari orders ki details descriptive DTO mein ayengi
         Task<ResponseDataModel<PagedResponse<PurchaseOrderResponseDto>>> GetAllPurchaseOrdersAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 

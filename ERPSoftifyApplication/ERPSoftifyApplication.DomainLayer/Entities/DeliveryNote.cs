@@ -19,9 +19,12 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public string Remarks { get; set; }
         public int TenantId { get; set; }
         public int BranchId { get; set; }
-        public int WarehouseId { get; set; }
-        [ForeignKey(nameof(WarehouseId))]
+
+        public int WarehouseId { get; set; } 
+
+        [ForeignKey("WarehouseId")] 
         public virtual Warehouse Warehouse { get; set; }
-        public ICollection<DeliveryNoteItem> DeliveryNoteItems { get; set; } = new List<DeliveryNoteItem>();
+
+        public virtual ICollection<DeliveryNoteItem> DeliveryNoteItems { get; set; } = new List<DeliveryNoteItem>();
     }
 }

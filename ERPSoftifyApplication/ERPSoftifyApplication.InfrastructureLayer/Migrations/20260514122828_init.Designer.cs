@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260513143108_initial")]
-    partial class initial
+    [Migration("20260514122828_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -322,7 +322,12 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("DeliveryNotes");
                 });
@@ -350,9 +355,14 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("WarehouseID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("DeliveryNoteId");
+
+                    b.HasIndex("WarehouseID");
 
                     b.ToTable("DeliveryNoteItems");
                 });
@@ -480,6 +490,10 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
@@ -487,11 +501,16 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("POId");
 
-                    b.ToTable("GoodsReceiveds");
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("GoodsReceived");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.GoodsReceivedItem", b =>
@@ -506,6 +525,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ExpiryDate")
                         .HasColumnType("datetime2");
 
@@ -518,7 +540,10 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("QuantityReceived")
                         .HasColumnType("int");
 
-                    b.Property<int>("WarehouseId")
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarehouseID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -527,9 +552,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("WarehouseId");
+                    b.HasIndex("WarehouseID");
 
-                    b.ToTable("GoodsReceivedItem");
+                    b.ToTable("GoodsReceivedItems");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Invoice", b =>
@@ -1322,9 +1347,14 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("StockTransactions");
                 });
@@ -1658,6 +1688,16 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("BranchId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ContactPerson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1666,12 +1706,16 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Warehouse");
+                    b.ToTable("Warehouses");
                 });
 
             modelBuilder.Entity("RoleMenu", b =>
@@ -1719,6 +1763,17 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Navigation("ParentBranch");
                 });
 
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.DeliveryNote", b =>
+                {
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.DeliveryNoteItem", b =>
                 {
                     b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.DeliveryNote", "DeliveryNote")
@@ -1726,6 +1781,10 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasForeignKey("DeliveryNoteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Warehouse", null)
+                        .WithMany("DeliveryNoteItems")
+                        .HasForeignKey("WarehouseID");
 
                     b.Navigation("DeliveryNote");
                 });
@@ -1738,7 +1797,15 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("PurchaseOrder");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.GoodsReceivedItem", b =>
@@ -1755,17 +1822,13 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Warehouse", "Warehouse")
-                        .WithMany()
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Warehouse", null)
+                        .WithMany("GoodsReceivedItems")
+                        .HasForeignKey("WarehouseID");
 
                     b.Navigation("GoodsReceived");
 
                     b.Navigation("Product");
-
-                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.InvoiceItems", b =>
@@ -1916,7 +1979,15 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ERPSoftifyApplication.DomainLayer.Entities.Warehouse", "Warehouse")
+                        .WithMany("StockTransactions")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Product");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.User", b =>
@@ -2087,6 +2158,15 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
             modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.VendorQuotation", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("ERPSoftifyApplication.DomainLayer.Entities.Warehouse", b =>
+                {
+                    b.Navigation("DeliveryNoteItems");
+
+                    b.Navigation("GoodsReceivedItems");
+
+                    b.Navigation("StockTransactions");
                 });
 #pragma warning restore 612, 618
         }

@@ -17,6 +17,7 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public DateTime Date { get; set; }
         public string VendorChallanNumber { get; set; }
         public string Remarks { get; set; }
+        public string Status { get; set; }
         public int TenantId { get; set; }
         public int BranchId { get; set; }
         public int WarehouseId { get; set; }

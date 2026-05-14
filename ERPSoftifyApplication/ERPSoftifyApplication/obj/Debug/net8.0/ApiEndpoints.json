@@ -599,6 +599,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ERPSoftifyApplication.Controllers.GoodReceivedController",
+    "Method": "GetGoodReceivedById",
+    "RelativePath": "api/GoodReceived/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.GoodReceived.GoodReceivedRequestDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.GoodReceivedController",
+    "Method": "DeleteGoodReceived",
+    "RelativePath": "api/GoodReceived/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.GoodReceivedController",
+    "Method": "GetAll",
+    "RelativePath": "api/GoodReceived/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.GoodReceivedController",
+    "Method": "CreateGoodReceived",
+    "RelativePath": "api/GoodReceived/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.GoodReceived.GoodReceivedRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ERPSoftifyApplication.Controllers.MenuController",
     "Method": "Create",
     "RelativePath": "api/Menu/create",
@@ -971,6 +1050,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.PurchaseOrderController",
+    "Method": "GetAllPurchaseList",
+    "RelativePath": "api/PurchaseOrder/purchaselist",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

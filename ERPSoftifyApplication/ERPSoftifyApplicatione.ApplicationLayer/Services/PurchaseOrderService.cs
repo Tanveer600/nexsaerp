@@ -1,6 +1,7 @@
 ﻿using ERPSoftifyApplication.DomainLayer;
 using ERPSoftifyApplication.DomainLayer.Entities;
 using ERPSoftifyApplication.DomainLayer.Interface;
+using ERPSoftifyApplicatione.ApplicationLayer.DTO.ProductDto;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.PurchaseDto;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.SalesOutput;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
@@ -93,7 +94,34 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 return ResponseDataModel<PurchaseOrderResponseDto>.FailureResponse(ex.Message);
             }
         }
+        public async Task<ResponseDataModel<List<PurchaseOrderResponseDto>>> GetAllPurchaseListAsync(CancellationToken cancellationToken)
+        {
+            var query = await _repository.GetAllAsync(cancellationToken);
+            var purchaseOrders = query.Select(b => new PurchaseOrderResponseDto
+            {
+                ID = b.ID,
+                PONumber = b.PONumber,
+                CurrencyCode = b.CurrencyCode,
+                OrderDate = b.OrderDate,
+                VendorName=b.Vendor.Name,
+                Status=b.Status,
+                ExchangeRate=b.ExchangeRate,
+                Items = b.Items.Select(i => new PurchaseOrderItemResponseDto
+                {
+                    ID = i.ID,
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity,
+                    UnitPrice = i.UnitPrice,
+                    ProductName = i.Product.Name,
+                    ReceivedQuantity = i.ReceivedQuantity,
 
+                }).ToList()
+            }).ToList();
+
+
+            return ResponseDataModel<List<PurchaseOrderResponseDto>>.SuccessResponse(purchaseOrders);
+
+        }
         public async Task<ResponseDataModel<PagedResponse<PurchaseOrderResponseDto>>> GetAllPurchaseOrdersAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             try

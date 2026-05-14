@@ -30,7 +30,10 @@ const purchaseOrderItemService = {
     const res = await apiClient.put(API_ENDPOINTS.PURCHASE_ORDER.UPDATE(orderId), payload)
     return res?.data
   },
-
+  getList: async () => {
+    const res = await apiClient.get(API_ENDPOINTS.PURCHASE_ORDER.GET_LIST)
+    return res?.data?.data || res?.data
+  },
   delete: async (id) => {
     const res = await apiClient.delete(API_ENDPOINTS.PURCHASE_ORDER.DELETE(id))
     return res?.data

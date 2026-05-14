@@ -4,6 +4,7 @@ const initialState = {
   result: [], // Ismein items ayenge
   totalCount: 0, // Pagination ke liye
   selectedOrder: { id: 0, name: '' },
+  dropdownList: [],
   isLoading: false,
 }
 
@@ -23,7 +24,12 @@ const purchaseOrdertemSlice = createSlice({
     deletePurchaseOrderItem: (state) => {
       state.isLoading = true
     },
-
+    getPurchaseList: (state) => {
+      state.isLoading = true
+    },
+    setPurchaseList: (state, action) => {
+      state.dropdownList = action.payload || []
+    },
     setAllPurchaseOrderItems: (state, action) => {
       state.result = action.payload.data?.items || []
       state.totalCount = action.payload.data?.totalCount || 0
@@ -62,6 +68,8 @@ export const {
   updatePurchaseOrderItemCompleted,
   deletePurchaseOrderItemCompleted,
   setIsLoading,
+  setPurchaseList,
+  getPurchaseList,
 } = purchaseOrdertemSlice.actions
 
 export default purchaseOrdertemSlice.reducer

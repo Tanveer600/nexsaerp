@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -150,24 +150,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DeliveryNotes",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SaleOrderId = table.Column<int>(type: "int", nullable: false),
-                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: false),
-                    BranchId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DeliveryNotes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -464,19 +446,23 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Warehouse",
+                name: "Warehouses",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactPerson = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: false),
                     BranchId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Warehouse", x => x.ID);
+                    table.PrimaryKey("PK_Warehouses", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -586,29 +572,6 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         name: "FK_SalesOrders_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DeliveryNoteItems",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DeliveryNoteId = table.Column<int>(type: "int", nullable: false),
-                    SalesOrderItemId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    QuantityDelivered = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DeliveryNoteItems", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_DeliveryNoteItems_DeliveryNotes_DeliveryNoteId",
-                        column: x => x.DeliveryNoteId,
-                        principalTable: "DeliveryNotes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -824,6 +787,31 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DeliveryNotes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleOrderId = table.Column<int>(type: "int", nullable: false),
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryNotes", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_DeliveryNotes_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StockTransactions",
                 columns: table => new
                 {
@@ -837,7 +825,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BranchId = table.Column<int>(type: "int", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: false)
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -846,6 +835,12 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         name: "FK_StockTransactions_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockTransactions_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -921,7 +916,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GoodsReceiveds",
+                name: "GoodsReceived",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -931,16 +926,24 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VendorChallanNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: false),
-                    BranchId = table.Column<int>(type: "int", nullable: false)
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GoodsReceiveds", x => x.ID);
+                    table.PrimaryKey("PK_GoodsReceived", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_GoodsReceiveds_PurchaseOrders_POId",
+                        name: "FK_GoodsReceived_PurchaseOrders_POId",
                         column: x => x.POId,
                         principalTable: "PurchaseOrders",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GoodsReceived_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1016,39 +1019,69 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GoodsReceivedItem",
+                name: "DeliveryNoteItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DeliveryNoteId = table.Column<int>(type: "int", nullable: false),
+                    SalesOrderItemId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    QuantityDelivered = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    WarehouseID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryNoteItems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_DeliveryNoteItems_DeliveryNotes_DeliveryNoteId",
+                        column: x => x.DeliveryNoteId,
+                        principalTable: "DeliveryNotes",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DeliveryNoteItems_Warehouses_WarehouseID",
+                        column: x => x.WarehouseID,
+                        principalTable: "Warehouses",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GoodsReceivedItems",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GoodsReceivedId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
                     QuantityReceived = table.Column<int>(type: "int", nullable: false),
-                    WarehouseId = table.Column<int>(type: "int", nullable: false),
                     BatchNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    WarehouseID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GoodsReceivedItem", x => x.ID);
+                    table.PrimaryKey("PK_GoodsReceivedItems", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_GoodsReceivedItem_GoodsReceiveds_GoodsReceivedId",
+                        name: "FK_GoodsReceivedItems_GoodsReceived_GoodsReceivedId",
                         column: x => x.GoodsReceivedId,
-                        principalTable: "GoodsReceiveds",
+                        principalTable: "GoodsReceived",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GoodsReceivedItem_Products_ProductId",
+                        name: "FK_GoodsReceivedItems_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GoodsReceivedItem_Warehouse_WarehouseId",
-                        column: x => x.WarehouseId,
-                        principalTable: "Warehouse",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_GoodsReceivedItems_Warehouses_WarehouseID",
+                        column: x => x.WarehouseID,
+                        principalTable: "Warehouses",
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(
@@ -1062,24 +1095,39 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 column: "DeliveryNoteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GoodsReceivedItem_GoodsReceivedId",
-                table: "GoodsReceivedItem",
-                column: "GoodsReceivedId");
+                name: "IX_DeliveryNoteItems_WarehouseID",
+                table: "DeliveryNoteItems",
+                column: "WarehouseID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GoodsReceivedItem_ProductId",
-                table: "GoodsReceivedItem",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GoodsReceivedItem_WarehouseId",
-                table: "GoodsReceivedItem",
+                name: "IX_DeliveryNotes_WarehouseId",
+                table: "DeliveryNotes",
                 column: "WarehouseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GoodsReceiveds_POId",
-                table: "GoodsReceiveds",
+                name: "IX_GoodsReceived_POId",
+                table: "GoodsReceived",
                 column: "POId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GoodsReceived_WarehouseId",
+                table: "GoodsReceived",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GoodsReceivedItems_GoodsReceivedId",
+                table: "GoodsReceivedItems",
+                column: "GoodsReceivedId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GoodsReceivedItems_ProductId",
+                table: "GoodsReceivedItems",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GoodsReceivedItems_WarehouseID",
+                table: "GoodsReceivedItems",
+                column: "WarehouseID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_invoiceitems_InvoiceId",
@@ -1177,6 +1225,11 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StockTransactions_WarehouseId",
+                table: "StockTransactions",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserProfiles_CompanyId",
                 table: "UserProfiles",
                 column: "CompanyId");
@@ -1244,7 +1297,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 name: "FollowUps");
 
             migrationBuilder.DropTable(
-                name: "GoodsReceivedItem");
+                name: "GoodsReceivedItems");
 
             migrationBuilder.DropTable(
                 name: "invoiceitems");
@@ -1301,10 +1354,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 name: "DeliveryNotes");
 
             migrationBuilder.DropTable(
-                name: "GoodsReceiveds");
-
-            migrationBuilder.DropTable(
-                name: "Warehouse");
+                name: "GoodsReceived");
 
             migrationBuilder.DropTable(
                 name: "invoice");
@@ -1344,6 +1394,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "PurchaseOrders");
+
+            migrationBuilder.DropTable(
+                name: "Warehouses");
 
             migrationBuilder.DropTable(
                 name: "Customers");

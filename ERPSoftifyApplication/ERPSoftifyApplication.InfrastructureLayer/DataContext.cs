@@ -65,6 +65,10 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public DbSet<DeliveryNoteItem> DeliveryNoteItems { get; set; }
         public DbSet<VendorQuotation> VendorQuotations { get; set; }
         public DbSet<VendorQuotationItem> VendorQuotationItems { get; set; }
+        public DbSet<GoodsReceived> GoodsReceivedes { get; set; }
+        public DbSet<GoodsReceivedItem> GoodsReceivedItems { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+
 
 
         #endregion
@@ -94,7 +98,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer
                .HasForeignKey(i => i.QuotationId)
                .OnDelete(DeleteBehavior.Cascade);
 
-
+         
             modelBuilder.Entity<SalesOrderItem>()
                .HasOne(i => i.SalesOrder)
                .WithMany(o => o.Items)

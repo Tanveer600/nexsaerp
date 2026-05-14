@@ -97,6 +97,7 @@ export const API_ENDPOINTS = {
   },
   PURCHASE_ORDER: {
     CREATE: '/api/PurchaseOrder',
+    GET_LIST: '/api/PurchaseOrder/purchaselist',
     GET_ALL: (page = 1, size = 10) => `/api/PurchaseOrder?pageNumber=${page}&pageSize=${size}`,
     BY_ID: (id) => `/api/PurchaseOrder/${id}`,
     UPDATE: (id) => `/api/PurchaseOrder/${id}`,
@@ -146,7 +147,12 @@ export const API_ENDPOINTS = {
     GET_BY_ID: (id) => `/api/DeliveryNote/${id}`,
     DELETE: (id) => `/api/DeliveryNote/${id}`,
   },
-
+  GOOD_RECEIVED: {
+    CREATE: '/api/GoodReceived/create',
+    GET_ALL: (page = 1, size = 10) => `/api/GoodReceived/all?pageNumber=${page}&pageSize=${size}`,
+    GET_BY_ID: (id) => `/api/GoodReceived/${id}`,
+    DELETE: (id) => `/api/GoodReceived/${id}`,
+  },
   STOCK_TRANSACTION: {
     GET_ALL: (page = 1, size = 10) =>
       `/api/StockTransaction/all?pageNumber=${page}&pageSize=${size}`,
