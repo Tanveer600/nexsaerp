@@ -116,13 +116,14 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     DeliveryDate = request.DeliveryDate,
                     Remarks = request.Remarks,
                     Status = "Delivered",
+                    WarehouseId = 1,
                     TenantId = _currentUser.TenantId,
                     BranchId = _currentUser.BranchId,
                     DeliveryNoteItems = new List<DeliveryNoteItem>()
                 };
 
                 await _deliveryRepo.AddAsync(delivery, ct);
-                await _deliveryRepo.SaveChangesAsync(ct);
+                await _deliveryRepo.SaveChangesAsync(CancellationToken.None);
                 foreach (var item in request.Items)
                 {
                     var soItem = await _soItemRepo.GetByIdAsync(item.SalesOrderItemId, ct);
@@ -150,6 +151,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                         TransactionDate = DateTime.Now,
                         UnitPrice=soItem.UnitPrice,
                         ReferenceId=delivery.ID,
+                        WarehouseId=1,
                         Remarks = $"Delivered against SO #{request.SaleOrderId}",
                         TenantId = _currentUser.TenantId,
                         BranchId = _currentUser.BranchId

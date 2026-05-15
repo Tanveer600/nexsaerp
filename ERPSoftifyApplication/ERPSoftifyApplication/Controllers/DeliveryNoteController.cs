@@ -20,7 +20,7 @@ namespace ERPSoftifyApplication.Controllers
         {
             _deliveryNoteService = deliveryNoteService;
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> CreateDeliveryNote([FromBody] DeliveryNoteRequestDto dto, CancellationToken cancellationToken)
         {
