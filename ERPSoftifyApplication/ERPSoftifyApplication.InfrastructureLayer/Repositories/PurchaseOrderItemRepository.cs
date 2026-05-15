@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
 {
-    public class PurchaseOrderItemRepository:IPurchaseOrderItemItemInterface
+    public class PurchaseOrderItemRepository:IPurchaseOrderItemInterface
     {
 
         private readonly DataContext _context;
@@ -40,14 +40,21 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<PurchaseOrderItem> UpdateAsync(PurchaseOrderItem PurchaseOrderItem, CancellationToken cancellationToken)
+        public void Update(PurchaseOrderItem PurchaseOrderItem)
         {
-            _context.PurchaseOrderItems.Update(PurchaseOrderItem);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return PurchaseOrderItem;
+            _context.PurchaseOrderItems.Update(PurchaseOrderItem);      
         }
+        public async Task<PurchaseOrderItem> UpdateAsync(PurchaseOrderItem model, CancellationToken ct)
+        {
+            var existing = await _context.PurchaseOrderItems
+                .FirstOrDefaultAsync(x => x.ID == model.ID, ct);
 
+            if (existing == null) throw new Exception("Item not found");
+
+            _context.Entry(existing).CurrentValues.SetValues(model);
+            // await _context.SaveChangesAsync(ct);
+            return existing;
+        }
         public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken)
         {
             var entity = await _context.PurchaseOrderItems

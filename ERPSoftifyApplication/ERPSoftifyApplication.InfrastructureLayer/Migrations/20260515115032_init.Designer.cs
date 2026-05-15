@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260514122828_init")]
+    [Migration("20260515115032_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -534,6 +534,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("GoodsReceivedId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PoItemId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -967,6 +970,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("VendorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VendorQuotationId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -1618,6 +1624,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("VendorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VendorQuotationId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");

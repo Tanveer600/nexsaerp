@@ -21,9 +21,10 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
 
         public async Task<GoodsReceived> GetByIdAsync(int id, CancellationToken ct)
         {
-            return await _dbcontext.GoodsReceiveds
+            var goodRecivedList= await _dbcontext.GoodsReceiveds
                 .Include(x => x.Items)
                 .FirstOrDefaultAsync(x => x.ID == id, ct);
+            return goodRecivedList;
         }
 
         public async Task<GoodsReceived> CreateGoodsReceived(GoodsReceived model, CancellationToken can)
@@ -44,7 +45,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
                 return false;
 
             _dbcontext.GoodsReceiveds.Remove(record);
-            await _dbcontext.SaveChangesAsync(can);
+            //await _dbcontext.SaveChangesAsync(can);
             return true;
         }
 
@@ -57,7 +58,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
         public async Task<GoodsReceived> UpDateGoodsReceived(GoodsReceived model, CancellationToken can)
         {
             _dbcontext.GoodsReceiveds.Update(model);
-            await _dbcontext.SaveChangesAsync(can);
+            //await _dbcontext.SaveChangesAsync(can);
             return model;
         }
 

@@ -12,8 +12,8 @@ import {
   updateDeliveryNote,
 } from '../slice/deliveryNotesSlice'
 import { func } from 'prop-types'
-import deliveryNoteService from '../services/deliveryNoteService'
-import { updateProduct } from '../slice/productSlice'
+// import deliveryNoteService from '../services/deliveryNoteService'
+// import { updateProduct } from '../slice/productSlice'
 
 // ================= WORKER SAGAS =================
 

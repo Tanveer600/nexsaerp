@@ -19,11 +19,13 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
         private readonly IPurchaseOrderInterface _repository;
         private readonly ICurrentUserService _currentUserService;
         private readonly IVendorQuotationInterface _quotationRepository;
-        public PurchaseOrderService(IPurchaseOrderInterface repository, ICurrentUserService currentUserService, IVendorQuotationInterface quotationRepository)
+        private readonly IVendorQuotationInterface _vendorQuotationInterface;
+        public PurchaseOrderService(IPurchaseOrderInterface repository, ICurrentUserService currentUserService, IVendorQuotationInterface quotationRepository, IVendorQuotationInterface vendorQuotationInterface)
         {
             _repository = repository;
             _currentUserService = currentUserService;
             _quotationRepository = quotationRepository;
+            _vendorQuotationInterface = vendorQuotationInterface;
         }
 
         public async Task<string> GenerateNextPoNumberAsync(CancellationToken cancellationToken)
@@ -269,17 +271,29 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
         public async Task<ResponseDataModel<bool>> DeletePurchaseOrderAsync(int id, CancellationToken cancellationToken)
         {
-            try
+            var exists = await _repository.GetByIdAsync(id, cancellationToken);
+
+            if (exists == null)
+                return ResponseDataModel<bool>.FailureResponse("PurchaseOrderItem not found");
+
+            var deleted = await _repository.DeleteAsync(id, cancellationToken);
+            if (deleted)
             {
-                var deleted = await _repository.DeleteAsync(id, cancellationToken);
-                return deleted
-                    ? ResponseDataModel<bool>.SuccessResponse(true, "Deleted")
-                    : ResponseDataModel<bool>.FailureResponse("Failed to delete");
+                if (exists.VendorQuotationId > 0)
+                {
+                    var quotation = await _vendorQuotationInterface.GetByIdAsync(exists.VendorQuotationId, cancellationToken);
+
+                    if (quotation != null)
+                    {
+                        quotation.Status = "Pending";
+                        await _vendorQuotationInterface.UpdateAsync(quotation, cancellationToken);
+                    }
+                }
+
+                return ResponseDataModel<bool>.SuccessResponse(true, "Sale deleted and Quotation reverted to Pending.");
             }
-            catch (Exception ex)
-            {
-                return ResponseDataModel<bool>.FailureResponse(ex.Message);
-            }
+
+            return ResponseDataModel<bool>.SuccessResponse(deleted, "PurchaseOrderItem deleted successfully");
         }
 
         public async Task<ResponseDataModel<PurchaseOrderResponseDto>> ConvertQuotationToPurchaseAsync(int vendorQuotationId, CancellationToken cancellationToken)
@@ -300,6 +314,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     CurrencyCode = quotation.CurrencyCode,
                     ExchangeRate = quotation.ExchangeRate,
                     TotalDiscount = quotation.TotalDiscount,
+                    VendorQuotationId=quotation.ID,
                     TotalTax = quotation.TotalTax,
                     TotalAmount = quotation.NetAmount,
                     BranchId = _currentUserService.BranchId,

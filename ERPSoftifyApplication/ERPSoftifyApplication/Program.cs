@@ -82,6 +82,7 @@ builder.Services.AddScoped<ISaleInterface, SaleRepository>();
 builder.Services.AddScoped<IStockTransactionInterface, StockTransactionRepository>();
 builder.Services.AddScoped<IDeliveryNoteInterface, DeliveryNoteRepository>();
 builder.Services.AddScoped<IGoodReceivedInterface, GoodReceivedRepository>();
+builder.Services.AddScoped<IGoodReceivedService, GoodReceivedService>();
 builder.Services.AddScoped<IStockTransactionService, StockTransactionService>();
 builder.Services.AddScoped<ISalesOrderItemInterface, SaleOrderItemRepository>();
 builder.Services.AddScoped<IDeliveryNoteService, DeliveryNoteService>();
@@ -89,7 +90,7 @@ builder.Services.AddScoped<ICategoryInterface, CategoryRepository>();
 builder.Services.AddScoped<IVendorQuotationInterface, VendorQuotationRepository>();
 builder.Services.AddScoped<IVendorQuotationService, VendorQuotationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-//builder.Services.AddScoped<ISaleord, DeliveryNoteService>();
+builder.Services.AddScoped<IPurchaseOrderItemInterface, PurchaseOrderItemRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ISaleService, Saleervice>();
 builder.Services.AddCors(options =>

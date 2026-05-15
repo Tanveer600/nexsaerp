@@ -12,9 +12,9 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 {
     public class PurchaseOrderItemService:IPurchaseOrderItemService
     {
-        private readonly IPurchaseOrderItemItemInterface _PurchaseOrderItemRepository;
+        private readonly IPurchaseOrderItemInterface _PurchaseOrderItemRepository;
 
-        public PurchaseOrderItemService(IPurchaseOrderItemItemInterface userRepository)
+        public PurchaseOrderItemService(IPurchaseOrderItemInterface userRepository)
         {
             _PurchaseOrderItemRepository = userRepository;
         }

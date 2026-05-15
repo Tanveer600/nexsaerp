@@ -12,6 +12,7 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
     public class PurchaseOrder: IMustHaveTenant,IMustHaveBranch
     {
         public int ID { get; set; }
+        public int VendorQuotationId { get; set; }
         public string PONumber { get; set; } 
         public string CurrencyCode { get; set; } 
         public int VendorId { get; set; }

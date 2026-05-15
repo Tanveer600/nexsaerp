@@ -531,6 +531,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                     b.Property<int>("GoodsReceivedId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PoItemId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -964,6 +967,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("VendorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VendorQuotationId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -1615,6 +1621,9 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("VendorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VendorQuotationId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");

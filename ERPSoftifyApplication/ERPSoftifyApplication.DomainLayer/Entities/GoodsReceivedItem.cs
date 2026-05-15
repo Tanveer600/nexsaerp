@@ -12,6 +12,7 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
         public int ID { get; set; }
         public int GoodsReceivedId { get; set; }
         public int ProductId { get; set; }
+        public int PoItemId { get; set; }
         public int TenantId { get; set; }
         public int BranchId { get; set; }
         public int QuantityReceived { get; set; }      

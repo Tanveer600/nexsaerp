@@ -33,7 +33,6 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
   const { l } = useAppLanguage()
   const dispatch = useDispatch()
 
-  // Redux Selectors
   const purchaseDropdown = useSelector((state) => state.purchaseOrderItems?.dropdownList || [])
   const productList = useSelector(
     (state) => state.product?.dropdownList || state.products?.dropdownList || [],
@@ -42,6 +41,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
   const formik = useFormik({
     initialValues: {
       id: 0,
+      vendorQuotationId: 0,
       purchaseOrderId: '',
       receivedDate: new Date().toISOString().split('T')[0],
       remarks: '',
@@ -65,16 +65,17 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
               .test('max-check', 'Exceeds balance', function (value) {
                 return value <= (this.parent.balanceQty || 0)
               }),
-            batchNumber: Yup.string().required('Batch is required'), // Added Validation
-            expiryDate: Yup.date().required('Expiry is required').nullable(), // Added Validation
+            batchNumber: Yup.string().required('Batch is required'),
+            expiryDate: Yup.date().required('Expiry is required').nullable(),
           }),
         )
         .min(1, 'At least one item required'),
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
+        // onSubmit ke andar payload ko aise clean karein
         const payload = {
-          ID: values.id || 0,
+          // VendorQuotationId hata dein kyunki DTO mein nahi hai
           POId: Number(values.purchaseOrderId),
           Date: values.receivedDate,
           GRNNumber:
@@ -82,18 +83,13 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
           VendorChallanNumber: values.vendorChallanNumber,
           Remarks: values.remarks || '',
           Status: values.status,
-          WarehouseId: 1,
+          WarehouseId: 1, // Ensure karein ke DB mein Warehouse ID 1 exist karti hai
           Items: values.items.map((item) => ({
-            ID: item.id || 0,
-            GoodsReceivedId: values.id || 0,
             ProductId: Number(item.productId),
-            TenantId: 1,
-            BranchId: 1,
             QuantityReceived: Number(item.currentQty),
-            WarehouseId: 1,
             BatchNumber: item.batchNumber,
             ExpiryDate: item.expiryDate,
-            PurchaseOrderItemId: Number(item.purchaseOrderItemId),
+            PoItemId: Number(item.poItemId),
           })),
         }
 
@@ -119,6 +115,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
     if (visible && editData) {
       formik.setValues({
         id: editData.id,
+        vendorQuotationId: editData.vendorQuotationId || 0,
         purchaseOrderId: editData.poId || editData.purchaseOrderId,
         receivedDate: editData.date?.split('T')[0] || editData.receivedDate?.split('T')[0],
         remarks: editData.remarks || '',
@@ -128,7 +125,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
         items:
           editData.items?.map((item) => ({
             id: item.id,
-            purchaseOrderItemId: item.purchaseOrderItemId,
+            poItemId: item.poItemId || item.purchaseOrderItemId,
             productId: item.productId,
             currentQty: item.quantityReceived || item.currentQty,
             balanceQty: item.quantityReceived || item.balanceQty,
@@ -145,10 +142,16 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
 
     if (selectedPOId) {
       const selectedPO = purchaseDropdown.find((p) => String(p.id) === String(selectedPOId))
+
       if (selectedPO) {
+        const vqId = selectedPO.vendorQuotationId || selectedPO.VendorQuotationId || 0
+        console.log('Selected VQ ID:', vqId)
+        formik.setFieldValue('vendorQuotationId', vqId)
+
         if (selectedPO.orderDate) {
           formik.setFieldValue('receivedDate', selectedPO.orderDate.split('T')[0])
         }
+
         if (selectedPO.items) {
           const mappedItems = selectedPO.items
             .map((item) => {
@@ -156,7 +159,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
               if (balance <= 0) return null
 
               return {
-                purchaseOrderItemId: item.id,
+                poItemId: item.id,
                 productId: item.productId,
                 currentQty: balance,
                 balanceQty: balance,
@@ -165,11 +168,13 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
               }
             })
             .filter(Boolean)
+
           formik.setFieldValue('items', mappedItems)
         }
       }
     } else {
       formik.setFieldValue('items', [])
+      formik.setFieldValue('vendorQuotationId', 0)
     }
   }
 
@@ -200,11 +205,6 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
                   value={formik.values.purchaseOrderId}
                   onChange={handlePOChange}
                   disabled={formik.values.id > 0}
-                  className={
-                    formik.touched.purchaseOrderId && formik.errors.purchaseOrderId
-                      ? 'is-invalid'
-                      : ''
-                  }
                 >
                   <option value="">{l('select_po_number')}</option>
                   {purchaseDropdown.map((po) => (
@@ -213,9 +213,6 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
                     </option>
                   ))}
                 </CFormSelect>
-                <ValidationError
-                  message={formik.touched.purchaseOrderId && formik.errors.purchaseOrderId}
-                />
               </CCol>
               <CCol md={3}>
                 <label className="form-label small fw-bold text-muted">{l('received_date')}</label>
@@ -234,14 +231,6 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
                   name="vendorChallanNumber"
                   value={formik.values.vendorChallanNumber}
                   onChange={formik.handleChange}
-                  className={
-                    formik.touched.vendorChallanNumber && formik.errors.vendorChallanNumber
-                      ? 'is-invalid'
-                      : ''
-                  }
-                />
-                <ValidationError
-                  message={formik.touched.vendorChallanNumber && formik.errors.vendorChallanNumber}
                 />
               </CCol>
               <CCol md={3}>
@@ -287,7 +276,6 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
                         ))}
                       </CFormSelect>
                     </CTableDataCell>
-
                     <CTableDataCell>
                       <CFormInput
                         size="sm"
@@ -295,16 +283,8 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
                         value={item.batchNumber}
                         onChange={formik.handleChange}
                         placeholder="Batch#"
-                        invalid={
-                          !!(
-                            formik.touched.items?.[index]?.batchNumber &&
-                            formik.errors.items?.[index]?.batchNumber
-                          )
-                        }
                       />
                     </CTableDataCell>
-
-                    {/* EXPIRY DATE INPUT */}
                     <CTableDataCell>
                       <CFormInput
                         size="sm"
@@ -312,15 +292,8 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
                         name={`items[${index}].expiryDate`}
                         value={item.expiryDate}
                         onChange={formik.handleChange}
-                        invalid={
-                          !!(
-                            formik.touched.items?.[index]?.expiryDate &&
-                            formik.errors.items?.[index]?.expiryDate
-                          )
-                        }
                       />
                     </CTableDataCell>
-
                     <CTableDataCell className="text-center">
                       <span className="badge rounded-pill bg-info text-dark px-3">
                         {item.balanceQty}
@@ -333,12 +306,6 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
                         name={`items[${index}].currentQty`}
                         value={item.currentQty}
                         onChange={formik.handleChange}
-                        invalid={
-                          !!(
-                            formik.touched.items?.[index]?.currentQty &&
-                            formik.errors.items?.[index]?.currentQty
-                          )
-                        }
                       />
                     </CTableDataCell>
                     <CTableDataCell className="text-center">

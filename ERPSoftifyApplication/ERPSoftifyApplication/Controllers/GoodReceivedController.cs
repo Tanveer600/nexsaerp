@@ -1,6 +1,7 @@
 ﻿using ERPSoftifyApplicatione.ApplicationLayer.DTO.DeliveryNoteDto;
 using ERPSoftifyApplicatione.ApplicationLayer.DTO.GoodReceived;
 using ERPSoftifyApplicatione.ApplicationLayer.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace ERPSoftifyApplication.Controllers
         {
             _goodReceivedService = goodReceivedService;
         }
-        //[Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> CreateGoodReceived([FromBody] GoodReceivedRequestDto dto, CancellationToken cancellationToken)
         {

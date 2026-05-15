@@ -732,6 +732,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    VendorQuotationId = table.Column<int>(type: "int", nullable: false),
                     PONumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CurrencyCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VendorId = table.Column<int>(type: "int", nullable: false),
@@ -761,6 +762,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    VendorQuotationId = table.Column<int>(type: "int", nullable: false),
                     VQNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VendorId = table.Column<int>(type: "int", nullable: false),
                     QuotationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -1055,6 +1057,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GoodsReceivedId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
+                    PoItemId = table.Column<int>(type: "int", nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: false),
                     BranchId = table.Column<int>(type: "int", nullable: false),
                     QuantityReceived = table.Column<int>(type: "int", nullable: false),

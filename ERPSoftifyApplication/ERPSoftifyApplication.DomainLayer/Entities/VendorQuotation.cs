@@ -9,6 +9,7 @@ namespace ERPSoftifyApplication.DomainLayer.Entities
     public class VendorQuotation : IMustHaveTenant, IMustHaveBranch
     {
         public int ID { get; set; }
+        public int VendorQuotationId { get; set; }
         public string VQNumber { get; set; } 
         public int VendorId { get; set; }
         public DateTime QuotationDate { get; set; }

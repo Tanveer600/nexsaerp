@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const goodReceivedSlice = createSlice({
-  name: 'goodReceived',
+  name: 'goodReceiveds',
   initialState,
   reducers: {
     getAllGoodReceiveds: (state) => {

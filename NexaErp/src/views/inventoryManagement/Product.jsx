@@ -31,7 +31,6 @@ function Product() {
   const [activeColumn, setActiveColumn] = useState(l('name'))
   const [visible, setVisible] = useState(false)
 
-  // Sync keys with Model inputs (Capital Letters)
   const [form, setForm] = useState({
     id: 0,
     Name: '',
@@ -60,7 +59,6 @@ function Product() {
   const totalPages = Math.ceil(totalCount / pageSize)
 
   const handleSave = () => {
-    // Validation check uses 'Name' (Capital N)
     if (!form.Name) {
       addToast(l('error'), 'Product Name is required', 'danger')
       return
@@ -211,7 +209,6 @@ function Product() {
                     <CDropdownItem
                       className="py-2"
                       onClick={() => {
-                        // Crucial: Map backend keys to form keys for the modal
                         setForm({
                           ...p,
                           Name: p.name || p.Name,
@@ -220,7 +217,6 @@ function Product() {
                           SKU: p.sku || p.SKU,
                           VatPercentage: p.vatPercentage || p.VatPercentage,
                           ManageStock: p.manageStock || p.ManageStock,
-                          Barcode :p.barcode || p.barcode, 
                           UOM: p.uom || p.UOM,
                           CategoryId: p.categoryId || p.CategoryId,
                         })

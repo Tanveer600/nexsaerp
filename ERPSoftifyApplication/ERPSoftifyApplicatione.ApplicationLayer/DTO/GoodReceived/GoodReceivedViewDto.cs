@@ -16,8 +16,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.GoodReceived
         public DateTime Date { get; set; }
         public string VendorChallanNumber { get; set; }
         public string Remarks { get; set; }
-        public int TenantId { get; set; }
-        public int BranchId { get; set; }
+        public string Status { get; set; }
         public int WarehouseId { get; set; }
         public List<GoodReceivedViewItemDto> Items { get; set; } = new();
     }
@@ -25,16 +24,15 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.GoodReceived
   
     public class GoodReceivedViewItemDto
     {
-        public int ID { get; set; }
+        //public int ID { get; set; }
         public int GoodsReceivedId { get; set; }
         public int ProductId { get; set; }
-        public int TenantId { get; set; }
-        public int BranchId { get; set; }
+        public int PoItemId { get; set; }
         public int QuantityReceived { get; set; }
         public int WarehouseId { get; set; }
         public string BatchNumber { get; set; }
         public DateTime? ExpiryDate { get; set; }
-        public int PurchaseOrderItemId { get; set; }
+       
     }
 
  
