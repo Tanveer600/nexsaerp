@@ -106,12 +106,12 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
             return ResponseDataModel<WarehouseOutputDto>.SuccessResponse(dto);
         }
 
-        public async Task<ResponseDataModel<WarehouseOutputDto>> UpdateWarehouseAsync(int id, WarehouseOutputDto dto, CancellationToken cancellationToken)
+        public async Task<ResponseDataModel<WarehouseUpdateDto>> UpdateWarehouseAsync(int id, WarehouseUpdateDto dto, CancellationToken cancellationToken)
         {
             var existing = await _warehouseInterface.GetById(id, cancellationToken);
 
             if (existing == null)
-                return ResponseDataModel<WarehouseOutputDto>.FailureResponse("Warehouse not found");
+                return ResponseDataModel<WarehouseUpdateDto>.FailureResponse("Warehouse not found");
 
             // Map updated values
             existing.Name = dto.Name;
@@ -124,7 +124,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
 
             await _warehouseInterface.UpDateWarehouse(existing, cancellationToken);
 
-            return ResponseDataModel<WarehouseOutputDto>.SuccessResponse(dto, "warehouse updated successfully");
+            return ResponseDataModel<WarehouseUpdateDto>.SuccessResponse(dto, "warehouse updated successfully");
         }
 
 

@@ -14,11 +14,11 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Interface
     {
         Task<ResponseDataModel<WarehouseCreateDto>> CreateWarehouseAsync(WarehouseCreateDto product, CancellationToken cancellationToken);
 
-        Task<ResponseDataModel<PagedResponse<WarehouseOutputDto>>> GetAllWarehouseAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
-        Task<ResponseDataModel<List<Warehouse>>> GetAllWarehouseListAsync(CancellationToken cancellationToken);
-        Task<ResponseDataModel<Warehouse>> GetWarehouseByIdAsync(int id, CancellationToken cancellationToken);
+        Task<ResponseDataModel<PagedResponse<WarehouseUpdateDto>>> GetAllWarehouseAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
+        Task<ResponseDataModel<List<WarehouseOutputDto>>> GetAllWarehouseListAsync(CancellationToken cancellationToken);
+        Task<ResponseDataModel<WarehouseOutputDto>> GetWarehouseByIdAsync(int id, CancellationToken cancellationToken);
 
-        Task<ResponseDataModel<Warehouse>> UpdateWarehouseAsync(int id, Warehouse customer, CancellationToken cancellationToken);
+        Task<ResponseDataModel<WarehouseUpdateDto>> UpdateWarehouseAsync(int id, WarehouseUpdateDto customer, CancellationToken cancellationToken);
 
         Task<ResponseDataModel<bool>> DeleteWarehouseAsync(int id, CancellationToken cancellationToken);
     }
