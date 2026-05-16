@@ -124,6 +124,11 @@ const _nav = [
         name: 'Product',
         to: '/inventoryManagement/product',
       },
+      {
+        component: CNavItem,
+        name: 'Category',
+        to: '/inventoryManagement/category',
+      },
     ],
   },
   {
@@ -135,6 +140,11 @@ const _nav = [
         component: CNavItem,
         name: 'Vendors',
         to: '/purchaseManagement/vendors',
+      },
+      {
+        component: CNavItem,
+        name: 'Warehouse',
+        to: '/purchaseManagement/warehouse',
       },
       {
         component: CNavItem,

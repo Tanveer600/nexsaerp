@@ -58,17 +58,17 @@ function Product() {
 
   const totalPages = Math.ceil(totalCount / pageSize)
 
-  const handleSave = () => {
-    if (!form.Name) {
+  const handleSave = (formattedValues) => {
+    if (!formattedValues.Name) {
       addToast(l('error'), 'Product Name is required', 'danger')
       return
     }
 
-    if (form.id === 0) {
-      dispatch(createProduct(form))
+    if (formattedValues.id === 0) {
+      dispatch(createProduct(formattedValues))
       addToast(l('success'), l('product_created'), 'success')
     } else {
-      dispatch(updateProduct(form))
+      dispatch(updateProduct(formattedValues))
       addToast(l('success'), l('product_updated'), 'success')
     }
     setVisible(false)
@@ -255,7 +255,6 @@ function Product() {
         visible={visible}
         setVisible={setVisible}
         form={form}
-        setForm={setForm}
         handleSave={handleSave}
       />
     </div>

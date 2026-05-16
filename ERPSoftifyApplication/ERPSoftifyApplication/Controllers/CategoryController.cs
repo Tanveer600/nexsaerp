@@ -39,7 +39,7 @@ namespace ERPSoftifyApplication.Controllers
             var result = await _Service.GetAllCategoryAsync(pageNumber, pageSize, cancellationToken);
             return Ok(result);
         }
-        [HttpGet("CategoryList")]
+        [HttpGet("categoryList")]
         public async Task<IActionResult> GetCategoryList(CancellationToken cancellationToken = default)
         {
             var result = await _Service.GetAllCategoryListAsync(cancellationToken);

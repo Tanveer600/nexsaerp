@@ -93,6 +93,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IPurchaseOrderItemInterface, PurchaseOrderItemRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ISaleService, Saleervice>();
+builder.Services.AddScoped<IWarehouseInterface, WarehouseRepository>();
+builder.Services.AddScoped<IWareHouseService, WarehouseService>();
+builder.Services.AddScoped<IWareHouseService, WarehouseService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",

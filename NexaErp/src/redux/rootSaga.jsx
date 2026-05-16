@@ -19,6 +19,8 @@ import { deliveryNotesSaga } from './saga/deliveryNotesSaga'
 import { stockTransactionSaga } from './saga/stockTransactionSaga'
 import { vendorQuotationSaga } from './saga/vendorQuotationSaga'
 import { goodReceivedSaga } from './saga/goodReceivedSaga'
+import { warehouseSaga } from './saga/warehouseSaga'
+import { categorieSaga } from './saga/categorieSaga'
 
 export default function* rootSaga() {
   yield all([
@@ -42,5 +44,7 @@ export default function* rootSaga() {
     fork(stockTransactionSaga),
     fork(vendorQuotationSaga),
     fork(goodReceivedSaga),
+    fork(warehouseSaga),
+    fork(categorieSaga),
   ])
 }

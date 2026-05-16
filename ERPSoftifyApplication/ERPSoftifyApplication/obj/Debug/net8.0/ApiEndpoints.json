@@ -81,7 +81,7 @@
   {
     "ContainingType": "ERPSoftifyApplication.Controllers.CategoryController",
     "Method": "GetCategoryList",
-    "RelativePath": "api/Category/CategoryList",
+    "RelativePath": "api/Category/categoryList",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1996,6 +1996,106 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.WarehouseController",
+    "Method": "Create",
+    "RelativePath": "api/Warehouse/createWarehouse",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.WarehouseDto.WarehouseCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.WarehouseController",
+    "Method": "Delete",
+    "RelativePath": "api/Warehouse/deleteWarehouse/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.WarehouseController",
+    "Method": "GetById",
+    "RelativePath": "api/Warehouse/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.WarehouseController",
+    "Method": "GetAll",
+    "RelativePath": "api/Warehouse/getWarehouse",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.WarehouseController",
+    "Method": "Update",
+    "RelativePath": "api/Warehouse/updateWarehouse/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ERPSoftifyApplicatione.ApplicationLayer.DTO.WarehouseDto.WarehouseUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSoftifyApplication.Controllers.WarehouseController",
+    "Method": "GetWarehouseList",
+    "RelativePath": "api/Warehouse/WarehouseList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

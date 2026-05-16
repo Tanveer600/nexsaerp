@@ -86,6 +86,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                 Quantity = dto.CurrentQty,
                 TransactionType = "Manual",
                 TransactionDate = DateTime.Now,
+               // WarehouseId=dto.WarehouseId
                 TenantId = _currentUser.TenantId,
                 BranchId = _currentUser.BranchId
             };
@@ -116,7 +117,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                     DeliveryDate = request.DeliveryDate,
                     Remarks = request.Remarks,
                     Status = "Delivered",
-                    WarehouseId = 1,
+                    WarehouseId=request.WarehouseId,
                     TenantId = _currentUser.TenantId,
                     BranchId = _currentUser.BranchId,
                     DeliveryNoteItems = new List<DeliveryNoteItem>()
@@ -148,10 +149,10 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
                         ProductId = item.ProductId,
                         TransactionType = "Delivery",
                         Quantity = item.CurrentQty,
+                        WarehouseId = request.WarehouseId,
                         TransactionDate = DateTime.Now,
                         UnitPrice=soItem.UnitPrice,
                         ReferenceId=delivery.ID,
-                        WarehouseId=1,
                         Remarks = $"Delivered against SO #{request.SaleOrderId}",
                         TenantId = _currentUser.TenantId,
                         BranchId = _currentUser.BranchId

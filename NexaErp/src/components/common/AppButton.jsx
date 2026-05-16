@@ -1,7 +1,5 @@
 import React from 'react'
 import { CButton } from '@coreui/react'
-
-// Reusable Excel Function
 const exportToExcel = (data, fileName) => {
   if (!data || data.length === 0) return
 
@@ -31,7 +29,7 @@ const AppButton = ({
   variant = 'purple',
   data = null,
   fileName = 'Report',
-  className = '', // className support add ki
+  className = '',
   ...props
 }) => {
   const styles = {
@@ -48,7 +46,7 @@ const AppButton = ({
       color: '#000',
       fontWeight: '600',
     },
-    // Aapka favourite mustard/gold theme
+
     primary: {
       background: '#e28a2b',
       border: 'none',
@@ -70,16 +68,16 @@ const AppButton = ({
   return (
     <CButton
       {...props}
-      className={`${className} shadow-sm`} // Bootstrap shadows use krne ke liye
+      className={`${className} shadow-sm`}
       onClick={handleClick}
       style={{
         ...styles[variant],
-        padding: '8px 20px', // Width aur height ko behtar kiya
-        minWidth: '110px', // Buttons ko dabba dikhne se bachane ke liye
+        padding: '8px 20px',
+        minWidth: '110px',
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        ...props.style, // Custom width bahar se bhi pass ho sakay gi
+        ...props.style,
       }}
     >
       {children}

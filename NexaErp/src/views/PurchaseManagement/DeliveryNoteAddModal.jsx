@@ -28,6 +28,7 @@ import { useAppLanguage } from '../../components/common/LanguageContext'
 // Actions
 import { getProductList } from '../../redux/slice/productSlice'
 import { getSaleList } from '../../redux/slice/saleSlice'
+import { getWarehouseList } from '../../redux/slice/warehouseSlice'
 
 function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
   const { l } = useAppLanguage()
@@ -36,7 +37,9 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
   const dropdownList = useSelector(
     (state) => state.sale?.dropdownList || state.sales?.dropdownList || [],
   )
-
+  const warehousesList = useSelector(
+    (state) => state.warehouses?.dropdownList || state.warehouses?.dropdownList || [],
+  )
   const productList = useSelector(
     (state) => state.product?.dropdownList || state.products?.dropdownList || [],
   )
@@ -45,6 +48,7 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
     initialValues: {
       id: 0,
       saleOrderId: '',
+      warehouseId: '', // <-- 1. Warehouse ki initial value add ki
       deliveryDate: new Date().toISOString().split('T')[0],
       remarks: '',
       items: [],
@@ -52,6 +56,7 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
     enableReinitialize: true,
     validationSchema: Yup.object({
       saleOrderId: Yup.string().required(l('so_required')),
+      warehouseId: Yup.string().required(l('warehouse_required')), // <-- 2. Validation lagayi
       deliveryDate: Yup.date().required(l('date_required')),
       items: Yup.array().of(
         Yup.object({
@@ -71,12 +76,14 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
           ...values,
           id: Number(values.id),
           saleOrderId: Number(values.saleOrderId),
+          warehouseId: Number(values.warehouseId),
           items: values.items.map((item) => ({
             salesOrderItemId: Number(item.salesOrderItemId || 0),
             productId: Number(item.productId),
             currentQty: Number(item.currentQty),
           })),
         }
+        console.info('pay data load', payload)
         await handleSave(payload)
         resetForm()
         setVisible(false)
@@ -92,6 +99,7 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
     if (visible) {
       dispatch(getSaleList())
       dispatch(getProductList())
+      dispatch(getWarehouseList()) // <-- 4. List fetch karne ke liye dispatch add kiya
     }
   }, [visible, dispatch])
 
@@ -144,8 +152,9 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
             className="p-3 mb-4 rounded-3 border-start border-4 shadow-sm bg-light"
             style={{ borderLeftColor: 'var(--cui-primary)' }}
           >
+            {/* Row grid ko as-is rakha hy taake fields properly render hon */}
             <CRow className="g-3">
-              <CCol md={4}>
+              <CCol md={3}>
                 <label className="form-label small fw-bold text-muted">{l('sales_order')}</label>
                 <CFormSelect
                   name="saleOrderId"
@@ -163,7 +172,29 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
                   message={formik.touched.saleOrderId && formik.errors.saleOrderId}
                 />
               </CCol>
-              <CCol md={4}>
+
+              {/* <-- 5. Warehouse Dropdown yahan perfect fit kar dia hy --> */}
+              <CCol md={3}>
+                <label className="form-label small fw-bold text-muted">{l('warehouse')}</label>
+                <CFormSelect
+                  name="warehouseId"
+                  value={formik.values.warehouseId}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                >
+                  <option value="">{l('select_warehouse')}</option>
+                  {warehousesList.map((wh) => (
+                    <option key={wh.id} value={wh.id}>
+                      {wh.name}
+                    </option>
+                  ))}
+                </CFormSelect>
+                <ValidationError
+                  message={formik.touched.warehouseId && formik.errors.warehouseId}
+                />
+              </CCol>
+
+              <CCol md={3}>
                 <label className="form-label small fw-bold text-muted">{l('delivery_date')}</label>
                 <CFormInput
                   type="date"
@@ -172,7 +203,7 @@ function DeliveryNoteAddModal({ visible, setVisible, handleSave }) {
                   onChange={formik.handleChange}
                 />
               </CCol>
-              <CCol md={4}>
+              <CCol md={3}>
                 <label className="form-label small fw-bold text-muted">{l('remarks')}</label>
                 <CFormInput
                   name="remarks"

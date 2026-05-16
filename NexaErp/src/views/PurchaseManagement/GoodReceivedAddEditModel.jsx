@@ -28,6 +28,7 @@ import { useAppLanguage } from '../../components/common/LanguageContext'
 // Actions
 import { getPurchaseList } from '../../redux/slice/purchaseOrdertemSlice'
 import { getProductList } from '../../redux/slice/productSlice'
+import { getWarehouseList } from '../../redux/slice/warehouseSlice' // <-- Warehouse slice import ki
 
 function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData }) {
   const { l } = useAppLanguage()
@@ -37,12 +38,17 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
   const productList = useSelector(
     (state) => state.product?.dropdownList || state.products?.dropdownList || [],
   )
+  // Warehouse data list state se nikaali
+  const warehousesList = useSelector(
+    (state) => state.warehouses?.dropdownList || state.warehouse?.dropdownList || [],
+  )
 
   const formik = useFormik({
     initialValues: {
       id: 0,
       vendorQuotationId: 0,
       purchaseOrderId: '',
+      warehouseId: '', // <-- Initial value add ki
       receivedDate: new Date().toISOString().split('T')[0],
       remarks: '',
       vendorChallanNumber: '',
@@ -53,6 +59,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
     enableReinitialize: true,
     validationSchema: Yup.object({
       purchaseOrderId: Yup.string().required(l('po_required')),
+      warehouseId: Yup.string().required(l('warehouse_required')), // <-- Validation lagayi
       receivedDate: Yup.date().required(l('date_required')),
       vendorChallanNumber: Yup.string().required(l('challan_required')),
       items: Yup.array()
@@ -73,9 +80,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        // onSubmit ke andar payload ko aise clean karein
         const payload = {
-          // VendorQuotationId hata dein kyunki DTO mein nahi hai
           POId: Number(values.purchaseOrderId),
           Date: values.receivedDate,
           GRNNumber:
@@ -83,7 +88,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
           VendorChallanNumber: values.vendorChallanNumber,
           Remarks: values.remarks || '',
           Status: values.status,
-          WarehouseId: 1, // Ensure karein ke DB mein Warehouse ID 1 exist karti hai
+          WarehouseId: Number(values.warehouseId), // <-- Hardcoded '1' hata kar dynamic dynamic selected value integer me bhej di
           Items: values.items.map((item) => ({
             ProductId: Number(item.productId),
             QuantityReceived: Number(item.currentQty),
@@ -108,6 +113,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
     if (visible) {
       dispatch(getPurchaseList())
       dispatch(getProductList())
+      dispatch(getWarehouseList()) // <-- Data list load karne ke liye dispatch kiya
     }
   }, [visible, dispatch])
 
@@ -117,6 +123,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
         id: editData.id,
         vendorQuotationId: editData.vendorQuotationId || 0,
         purchaseOrderId: editData.poId || editData.purchaseOrderId,
+        warehouseId: editData.warehouseId || '', // <-- Edit mode ke liye sync kiya
         receivedDate: editData.date?.split('T')[0] || editData.receivedDate?.split('T')[0],
         remarks: editData.remarks || '',
         vendorChallanNumber: editData.vendorChallanNumber || '',
@@ -214,6 +221,28 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
                   ))}
                 </CFormSelect>
               </CCol>
+
+              {/* <-- Humne UI me bas aapki purani lines ke flow me hi Warehouse select dropdown ko handle kiya hy --> */}
+              <CCol md={3}>
+                <label className="form-label small fw-bold text-muted">{l('warehouse')}</label>
+                <CFormSelect
+                  name="warehouseId"
+                  value={formik.values.warehouseId}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                >
+                  <option value="">{l('select_warehouse')}</option>
+                  {warehousesList.map((wh) => (
+                    <option key={wh.id} value={wh.id}>
+                      {wh.name}
+                    </option>
+                  ))}
+                </CFormSelect>
+                <ValidationError
+                  message={formik.touched.warehouseId && formik.errors.warehouseId}
+                />
+              </CCol>
+
               <CCol md={3}>
                 <label className="form-label small fw-bold text-muted">{l('received_date')}</label>
                 <CFormInput
@@ -244,6 +273,7 @@ function GoodReceivedAddEditModel({ visible, setVisible, handleSave, editData })
             </CRow>
           </div>
 
+          {/* Items table section as-is same to same unchanged hy */}
           <div className="rounded-3 border overflow-hidden shadow-sm">
             <CTable align="middle" className="mb-0" hover responsive>
               <CTableHead style={{ backgroundColor: 'var(--cui-light)' }}>

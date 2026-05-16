@@ -56,6 +56,13 @@ function GoodReceived() {
     }
   }
 
+  // Safe date rendering helper function
+  const renderDate = (dateString) => {
+    if (!dateString) return '-'
+    const parsedDate = new Date(dateString)
+    return isNaN(parsedDate.getTime()) ? dateString : parsedDate.toLocaleDateString()
+  }
+
   return (
     <div className="delivery-page">
       <CRow className="mb-4">
@@ -164,12 +171,14 @@ function GoodReceived() {
                                   <FileText size={14} className="text-muted" />
                                 </div>
                                 <span className="fw-bold" style={{ color: 'var(--cui-primary)' }}>
-                                  PO-{item.purchaseOrderId}
+                                  {/* DTO/Model properties binding fix for PO Number */}
+                                  PO-{item.poId || item.purchaseOrderId || item.po?.id || item.id}
                                 </span>
                               </div>
                             </CTableDataCell>
                             <CTableDataCell className="text-muted fw-medium">
-                              {new Date(item.receivedDate).toLocaleDateString()}
+                              {/* DTO/Model properties binding fix for Date */}
+                              {renderDate(item.date || item.receivedDate)}
                             </CTableDataCell>
                             <CTableDataCell>
                               <span className="text-muted small">{item.remarks || '-'}</span>

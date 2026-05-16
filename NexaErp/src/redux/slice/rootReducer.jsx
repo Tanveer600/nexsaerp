@@ -20,6 +20,8 @@ import deliveryNotesReducer from './deliveryNotesSlice'
 import stockTransactionReducer from './stockTransactionSlice'
 import vendorQuotationReducer from './vendorQuotationSlice'
 import goodReceivedReducer from './goodReceivedSlice'
+import warehouseReducer from './warehouseSlice'
+import categoriesReducer from './categoriesSlice'
 const rootReducer = combineReducers({
   tenants: tenantReducer,
   users: userReducer,
@@ -42,6 +44,8 @@ const rootReducer = combineReducers({
   stockTransactions: stockTransactionReducer,
   vendorQuotations: vendorQuotationReducer,
   goodReceives: goodReceivedReducer,
+  warehouses: warehouseReducer,
+  categories: categoriesReducer,
 })
 
 export default rootReducer

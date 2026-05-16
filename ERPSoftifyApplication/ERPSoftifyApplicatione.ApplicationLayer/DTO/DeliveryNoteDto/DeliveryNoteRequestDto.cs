@@ -12,6 +12,7 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.DeliveryNoteDto
         public int SaleOrderId { get; set; }
         public DateTime DeliveryDate { get; set; }
         public string Remarks { get; set; }
+        public int WarehouseId { get; set; }
         public List<DeliveryNoteItemDto> Items { get; set; }
     }
 

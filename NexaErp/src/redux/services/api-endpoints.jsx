@@ -87,6 +87,24 @@ export const API_ENDPOINTS = {
     UPDATE: (id) => `/api/Product/updateProduct/${id}`,
     DELETE: (Id) => `/api/Product/deleteProduct/${Id}`,
   },
+  CATEGORIES: {
+    CREATE: '/api/Category/createCategory',
+    GET_ALL: (page = 1, size = 10) =>
+      `/api/Category/getCategory?pageNumber=${page}&pageSize=${size}`,
+    GET_LIST: '/api/Category/categoryList',
+    BY_ID: (id) => `/api/Category/${id}`,
+    UPDATE: (id) => `/api/Category/updateCategory/${id}`,
+    DELETE: (Id) => `/api/Category/deleteCategory/${Id}`,
+  },
+  WAREHOUSE: {
+    CREATE: '/api/Warehouse/createWarehouse',
+    GET_ALL: (page = 1, size = 10) =>
+      `/api/Warehouse/getWarehouse?pageNumber=${page}&pageSize=${size}`,
+    GET_LIST: '/api/Warehouse/WarehouseList',
+    BY_ID: (id) => `/api/Warehouse/${id}`,
+    UPDATE: (id) => `/api/Warehouse/updateProduct/${id}`,
+    DELETE: (Id) => `/api/Warehouse/deleteProduct/${Id}`,
+  },
   VENDOR: {
     CREATE: '/api/Vendor/createVendor',
     GET_LIST: '/api/Vendor/getVendorList',

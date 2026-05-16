@@ -51,6 +51,7 @@ const PermissionSetting = React.lazy(() => import('./views/PermissionSetting'))
 const Customers = React.lazy(() => import('./views/stakeholders/Customers'))
 const Employees = React.lazy(() => import('./views/stakeholders/Employees'))
 const Vendors = React.lazy(() => import('./views/purchaseManagement/Vendors'))
+const Warehouses = React.lazy(() => import('./views/purchaseManagement/Warehouse'))
 const VendorQuotations = React.lazy(() => import('./views/purchaseManagement/VendorQuotation'))
 const DeliveryNotes = React.lazy(() => import('./views/purchaseManagement/DeliveryNotes'))
 const GoodReceiveds = React.lazy(() => import('./views/purchaseManagement/GoodReceived'))
@@ -59,6 +60,7 @@ const Quotations = React.lazy(() => import('./views/QuotationManagement/Quotatio
 const StockTransactions = React.lazy(() => import('./views/QuotationManagement/StockTransaction'))
 const Sales = React.lazy(() => import('./views/QuotationManagement/Sale'))
 const Products = React.lazy(() => import('./views/inventoryManagement/Product'))
+const Categories = React.lazy(() => import('./views/inventoryManagement/Category'))
 const Emails = React.lazy(() => import('./views/setups/Email'))
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
@@ -165,6 +167,8 @@ export const routes = [
    { path: '/stakeholders/employees', name: 'Employees', element: Employees },
 {path: '/setups/email', name: 'Email', element: Emails },
   { path: '/inventoryManagement/product', name: 'Products', element: Products },
+   { path: '/inventoryManagement/category', name: 'Categories', element: Categories },
+  { path: '/purchaseManagement/warehouse', name: 'Warehouse', element: Warehouses },
   { path: '/purchaseManagement/vendors', name: 'Vendors', element: Vendors },
   { path: '/purchaseManagement/goodreceived', name: 'GoodReceived', element: GoodReceiveds },
    { path: '/purchaseManagement/vendorquotations', name: 'VendorQuotations', element: VendorQuotations },

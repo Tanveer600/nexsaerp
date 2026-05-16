@@ -18,7 +18,7 @@ namespace ERPSoftifyApplication.Controllers
             }
 
 
-            [Authorize]
+            //[Authorize]
             [HttpPost("createWarehouse")]
             public async Task<IActionResult> Create([FromBody] WarehouseCreateDto dto, CancellationToken cancellationToken)
             {
