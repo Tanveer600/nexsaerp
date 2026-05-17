@@ -14,5 +14,6 @@ namespace ERPSoftifyApplication.DomainLayer.Interface
         Task<bool> DeleteInvoice(int Id, CancellationToken can);
         Task<Invoice> UpDateInvoice(Invoice model, CancellationToken can);
         Task<Invoice> CreateInvoice(Invoice model, CancellationToken can);
+        Task UpdateInvoiceStatusAsync(int invoiceId, string status, CancellationToken cancellationToken);
     }
 }

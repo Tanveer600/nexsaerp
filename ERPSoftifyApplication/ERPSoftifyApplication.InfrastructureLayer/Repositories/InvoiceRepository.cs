@@ -54,7 +54,12 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
                 .Include(x => x.Items)
                 .FirstOrDefaultAsync(c => c.ID == Id, can);
         }
-
+        public async Task UpdateInvoiceStatusAsync(int invoiceId, string status, CancellationToken cancellationToken)
+        {
+            await _dbcontext.invoices
+                .Where(x => x.ID == invoiceId)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(b => b.PaymentStatus, status), cancellationToken);
+        }
         public async Task<Invoice> UpDateInvoice(Invoice model, CancellationToken cancellationToken)
         {
             var existingInvoice = await _dbcontext.invoices
@@ -64,13 +69,15 @@ namespace ERPSoftifyApplication.InfrastructureLayer.Repositories
             if (existingInvoice != null)
             {
                 _dbcontext.Entry(existingInvoice).CurrentValues.SetValues(model);
-                if (existingInvoice.Items != null && existingInvoice.Items.Any())
-                {
-                    _dbcontext.RemoveRange(existingInvoice.Items);
-                }
 
                 if (model.Items != null && model.Items.Any())
                 {
+                    if (existingInvoice.Items != null && existingInvoice.Items.Any())
+                    {
+                        var existingItemsList = existingInvoice.Items.ToList();
+                        _dbcontext.RemoveRange(existingItemsList);
+                    }
+
                     foreach (var newItem in model.Items)
                     {
                         newItem.InvoiceId = existingInvoice.ID;

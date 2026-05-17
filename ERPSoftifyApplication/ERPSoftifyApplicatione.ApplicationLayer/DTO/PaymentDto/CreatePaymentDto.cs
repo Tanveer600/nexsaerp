@@ -28,8 +28,8 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.DTO.PaymentDto
     }
     public class CreatePaymentDto
     {
-     
 
+        public int ID { get; set; }
         public int InvoiceId { get; set; }
 
         public decimal Amount { get; set; }

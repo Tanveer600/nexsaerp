@@ -100,7 +100,7 @@ const PaymentAddEditModel = ({ visible, setVisible, form, handleSave }) => {
         onSubmit={handleSubmitForm}
         enableReinitialize
       >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
           <Form autoComplete="off" onSubmit={handleSubmit}>
             <CModalBody className="px-4 py-3">
               <CRow className="g-3">
@@ -113,17 +113,44 @@ const PaymentAddEditModel = ({ visible, setVisible, form, handleSave }) => {
                     style={inputStyle}
                     className="custom-input text-muted"
                     value={values.InvoiceId}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const selectedId = e.target.value
+                      handleChange(e) // Formik ka default change handler taakay state update ho
+
+                      if (selectedId) {
+                        // Dropdown list mein se selected invoice dhoondhein
+                        const selectedInvoice = invoiceList.find(
+                          (inv) => String(inv.id || inv.ID) === String(selectedId),
+                        )
+
+                        if (selectedInvoice) {
+                          const autoAmount =
+                            selectedInvoice.TotalAmount || selectedInvoice.totalAmount || 0
+                          setFieldValue('Amount', autoAmount)
+                        }
+                      } else {
+                        setFieldValue('Amount', '')
+                      }
+                    }}
                     onBlur={handleBlur}
                     invalid={!!(touched.InvoiceId && errors.InvoiceId)}
                   >
                     <option value="">Select Target Invoice Link</option>
-                    {invoiceList.map((inv) => (
-                      <option key={inv.id} value={String(inv.id)}>
-                        Invoice #{inv.invoiceNo || inv.id} ({inv.customerName || 'Walking Customer'}
-                        )
-                      </option>
-                    ))}
+                    {invoiceList.map((inv) => {
+                      const invDate =
+                        inv.date || inv.Date
+                          ? new Date(inv.date || inv.Date).toLocaleDateString()
+                          : 'N/A'
+                      const invAmount = Number(
+                        inv.totalAmount || inv.TotalAmount || 0,
+                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })
+
+                      return (
+                        <option key={inv.id || inv.ID} value={String(inv.id || inv.ID)}>
+                          Invoice #{inv.id || inv.ID} — (Date: {invDate}) — Total: AED {invAmount}
+                        </option>
+                      )
+                    })}
                   </CFormSelect>
                   {touched.InvoiceId && errors.InvoiceId && (
                     <ValidationError message={errors.InvoiceId} />
@@ -185,7 +212,6 @@ const PaymentAddEditModel = ({ visible, setVisible, form, handleSave }) => {
                   {touched.Mode && errors.Mode && <ValidationError message={errors.Mode} />}
                 </CCol>
 
-                {/* Payment Allocation Status */}
                 <CCol md={6}>
                   <label className="form-label small fw-bold text-secondary">
                     Settlement Status
@@ -200,8 +226,8 @@ const PaymentAddEditModel = ({ visible, setVisible, form, handleSave }) => {
                     invalid={!!(touched.Status && errors.Status)}
                   >
                     <option value="Pending">Pending Clearance</option>
-                    <option value="Paid">Cleared / Paid</option>
-                    <option value="Failed">Declined / Failed</option>
+                    <option value="Paid">Cleared Paid</option>
+                    <option value="Failed">Declined Failed</option>
                   </CFormSelect>
                   {touched.Status && errors.Status && <ValidationError message={errors.Status} />}
                 </CCol>

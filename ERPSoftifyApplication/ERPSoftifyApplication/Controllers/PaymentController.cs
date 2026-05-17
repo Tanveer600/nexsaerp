@@ -18,7 +18,7 @@ namespace ERPSoftifyApplication.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("createPayment")]
         public async Task<IActionResult> Create([FromBody] CreatePaymentDto dto, CancellationToken cancellationToken)
         {

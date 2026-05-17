@@ -15,27 +15,65 @@ namespace ERPSoftifyApplicatione.ApplicationLayer.Services
     {
         private readonly IPaymentInterface _PaymentInterface;
         private readonly ICurrentUserService _currentUserService;
-        public PaymentService(IPaymentInterface PaymentInterface, ICurrentUserService currentUserService)
+        private readonly IInvoiceInterface _invoiceInterface;
+        public PaymentService(IPaymentInterface PaymentInterface, ICurrentUserService currentUserService, IInvoiceInterface invoiceInterface)
         {
             _PaymentInterface = PaymentInterface;
             _currentUserService = currentUserService;
+            _invoiceInterface = invoiceInterface;
         }
 
         public async Task<ResponseDataModel<CreatePaymentDto>> CreatePaymentAsync(CreatePaymentDto dto, CancellationToken cancellationToken)
         {
-            var Payment = new Payment
+            try
             {
-                Amount = dto.Amount,
-                Date = dto.Date,
-                Status = dto.Status,
-                Mode = dto.Mode,
-                InvoiceId = dto.InvoiceId,
-                BranchId = _currentUserService.BranchId,
-                TenantId = _currentUserService.TenantId,
-            };
+                var invoice = await _invoiceInterface.GetById(dto.InvoiceId, cancellationToken);
+                if (invoice == null)
+                {
+                    return ResponseDataModel<CreatePaymentDto>.FailureResponse("Targeted Invoice not found.");
+                }
 
-            var result = await _PaymentInterface.Create(Payment, cancellationToken);
-            return ResponseDataModel<CreatePaymentDto>.SuccessResponse(dto, "Payment created successfully");
+                var payment = new Payment
+                {
+                    ID = 0,
+                    Amount = dto.Amount,
+                    Date = dto.Date,
+                    Status = dto.Status,
+                    Mode = dto.Mode,
+                    InvoiceId = dto.InvoiceId,
+                    BranchId = _currentUserService.BranchId,
+                    TenantId = _currentUserService.TenantId,
+                };
+
+                var result = await _PaymentInterface.Create(payment, cancellationToken);
+
+                string targetStatus = "Pending";
+                switch (dto.Status)
+                {
+                    case "Paid":
+                        targetStatus = "Paid";
+                        break;
+                    case "Pending":
+                        targetStatus = "Pending";
+                        break;
+                    case "Failed":
+                        targetStatus = "Pending";
+                        break;
+                    default:
+                        targetStatus = "Pending";
+                        break;
+                }
+
+                await _invoiceInterface.UpdateInvoiceStatusAsync(dto.InvoiceId, targetStatus, cancellationToken);
+
+                dto.ID = result.ID;
+                return ResponseDataModel<CreatePaymentDto>.SuccessResponse(dto, "Payment processed and Invoice workflow status reconciled successfully.");
+            }
+            catch (Exception ex)
+            {
+                var innerMessage = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
+                return ResponseDataModel<CreatePaymentDto>.FailureResponse($"Error: {ex.Message} | InnerError: {innerMessage}");
+            }
         }
         public async Task<ResponseDataModel<List<PaymentDto>>> GetAllPaymentListAsync(CancellationToken cancellationToken)
         {
