@@ -40,7 +40,7 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
         public DbSet<JobAssignment> JobAssignments { get; set; }
         public DbSet<Job> Jobs { get; set; }
-        public DbSet<Invoice> invoice { get; set; }
+        public DbSet<Invoice> invoices { get; set; }
         public DbSet<InvoiceItems> invoiceitems { get; set; }
         public DbSet<FollowUp> FollowUps { get; set; }
         public DbSet<GoodsReceived> GoodsReceiveds { get; set; }
@@ -76,7 +76,8 @@ namespace ERPSoftifyApplication.InfrastructureLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.Entity<Invoice>().ToTable("invoice");
+            modelBuilder.Entity<InvoiceItems>().ToTable("invoiceitems");
             modelBuilder.Entity<RoleMenu>(entity =>
             {
                 entity.HasKey(x => x.ID);

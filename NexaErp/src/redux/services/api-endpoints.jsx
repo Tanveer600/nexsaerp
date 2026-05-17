@@ -96,6 +96,22 @@ export const API_ENDPOINTS = {
     UPDATE: (id) => `/api/Category/updateCategory/${id}`,
     DELETE: (Id) => `/api/Category/deleteCategory/${Id}`,
   },
+  PAYMENTS: {
+    CREATE: '/api/Payment/createPayment',
+    GET_ALL: (page = 1, size = 10) => `/api/Payment/getPayment?pageNumber=${page}&pageSize=${size}`,
+    GET_LIST: '/api/Payment/paymentList',
+    BY_ID: (id) => `/api/Payment/${id}`,
+    UPDATE: (id) => `/api/Payment/updatePayment/${id}`,
+    DELETE: (Id) => `/api/Payment/deletePayment/${Id}`,
+  },
+  INVOICES: {
+    CREATE: '/api/Invoice/createInvoice',
+    GET_ALL: (page = 1, size = 10) => `/api/Invoice/getInvoice?pageNumber=${page}&pageSize=${size}`,
+    GET_LIST: '/api/Invoice/invoiceList',
+    BY_ID: (id) => `/api/Invoice/${id}`,
+    UPDATE: (id) => `/api/Invoice/updateInvoice/${id}`,
+    DELETE: (Id) => `/api/Invoice/deleteInvoice/${Id}`,
+  },
   WAREHOUSE: {
     CREATE: '/api/Warehouse/createWarehouse',
     GET_ALL: (page = 1, size = 10) =>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   CCard,
   CCardBody,
@@ -23,14 +24,20 @@ import { getAllUsers } from '../../redux/slice/userSlice'
 import { getAllProducts } from '../../redux/slice/productSlice'
 import { getAllCustomers } from '../../redux/slice/customerSlice'
 
+const ROUTE_PATHS = {
+  customers: '/stakeholders/customers',
+  products: '/inventoryManagement/product',
+  employees: '/stakeholders/employees',
+  users: '/setups/users',
+}
+
 const Dashboard = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
 
-  // Dynamic Theme Color (Sidebar wala variable)
   const dynamicPrimary = 'var(--cui-primary)'
 
-  // Selectors with Optional Chaining (To avoid crashes)
   const quotations = useSelector((state) => state.quotations?.result) || []
   const employees = useSelector((state) => state.employee?.result) || []
   const users = useSelector((state) => state.users?.result) || []
@@ -40,11 +47,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
-
-      // 1. Kam az kam 3 second ka delay
       const timer = new Promise((resolve) => setTimeout(resolve, 3000))
 
-      // 2. Parallel API Calls
       const dataFetch = Promise.all([
         dispatch(getAllQuotations({ page: 1, size: 5 })),
         dispatch(getAllEmployees({ page: 1, size: 100 })),
@@ -53,7 +57,6 @@ const Dashboard = () => {
         dispatch(getAllCustomers({ page: 1, size: 100 })),
       ])
 
-      // Wait for both timer and data
       await Promise.all([dataFetch, timer])
       setLoading(false)
     }
@@ -61,7 +64,6 @@ const Dashboard = () => {
     fetchData()
   }, [dispatch])
 
-  // --- LOADING UI (CENTRE SCREEN) ---
   if (loading) {
     return (
       <div
@@ -89,9 +91,12 @@ const Dashboard = () => {
     )
   }
 
-  // --- STAT CARD COMPONENT ---
-  const CountCard = ({ title, count, subtitle }) => (
-    <CCard className="mb-4 shadow-sm border-0 bg-white">
+  const CountCard = ({ title, count, subtitle, path }) => (
+    <CCard
+      className="mb-4 shadow-sm border-0 bg-white"
+      onClick={() => navigate(path)}
+      style={{ cursor: 'pointer' }}
+    >
       <CCardBody
         className="p-4 text-center border-top border-4"
         style={{ borderColor: dynamicPrimary }}
@@ -107,23 +112,41 @@ const Dashboard = () => {
 
   return (
     <div className="animated fadeIn">
-      {/* 4 Stats Cards */}
       <CRow>
         <CCol xs={12} sm={6} lg={3}>
-          <CountCard title="Customers" count={customers.length} subtitle="Total Registered" />
+          <CountCard
+            title="Customers"
+            count={customers.length}
+            subtitle="Total Registered"
+            path={ROUTE_PATHS.customers}
+          />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
-          <CountCard title="Products" count={products.length} subtitle="Items in Stock" />
+          <CountCard
+            title="Products"
+            count={products.length}
+            subtitle="Items in Stock"
+            path={ROUTE_PATHS.products}
+          />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
-          <CountCard title="Workforce" count={employees.length} subtitle="Active Employees" />
+          <CountCard
+            title="Workforce"
+            count={employees.length}
+            subtitle="Active Employees"
+            path={ROUTE_PATHS.employees}
+          />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
-          <CountCard title="System Users" count={users.length} subtitle="Active Accounts" />
+          <CountCard
+            title="System Users"
+            count={users.length}
+            subtitle="Active Accounts"
+            path={ROUTE_PATHS.users}
+          />
         </CCol>
       </CRow>
 
-      {/* Recent Quotations Table */}
       <CRow>
         <CCol xs={12}>
           <CCard className="mb-4 shadow-sm border-0 overflow-hidden">

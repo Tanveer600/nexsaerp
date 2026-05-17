@@ -96,6 +96,10 @@ builder.Services.AddScoped<ISaleService, Saleervice>();
 builder.Services.AddScoped<IWarehouseInterface, WarehouseRepository>();
 builder.Services.AddScoped<IWareHouseService, WarehouseService>();
 builder.Services.AddScoped<IWareHouseService, WarehouseService>();
+builder.Services.AddScoped<IInvoiceInterface, InvoiceRepository>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IPaymentInterface, PaymentRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",

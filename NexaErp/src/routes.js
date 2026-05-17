@@ -61,6 +61,8 @@ const StockTransactions = React.lazy(() => import('./views/QuotationManagement/S
 const Sales = React.lazy(() => import('./views/QuotationManagement/Sale'))
 const Products = React.lazy(() => import('./views/inventoryManagement/Product'))
 const Categories = React.lazy(() => import('./views/inventoryManagement/Category'))
+const Invoices = React.lazy(() => import('./views/invoiceManagement/Invoice'))
+const Payments = React.lazy(() => import('./views/inventoryManagement/Payment'))
 const Emails = React.lazy(() => import('./views/setups/Email'))
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
@@ -167,6 +169,8 @@ export const routes = [
    { path: '/stakeholders/employees', name: 'Employees', element: Employees },
 {path: '/setups/email', name: 'Email', element: Emails },
   { path: '/inventoryManagement/product', name: 'Products', element: Products },
+    { path: '/inventoryManagement/payment', name: 'Payments', element: Payments },
+  { path: '/invoiceManagement/invoice', name: 'Invoices', element: Invoices },
    { path: '/inventoryManagement/category', name: 'Categories', element: Categories },
   { path: '/purchaseManagement/warehouse', name: 'Warehouse', element: Warehouses },
   { path: '/purchaseManagement/vendors', name: 'Vendors', element: Vendors },

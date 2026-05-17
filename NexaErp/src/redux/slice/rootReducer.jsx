@@ -22,6 +22,8 @@ import vendorQuotationReducer from './vendorQuotationSlice'
 import goodReceivedReducer from './goodReceivedSlice'
 import warehouseReducer from './warehouseSlice'
 import categoriesReducer from './categoriesSlice'
+import invoiceReducer from './invoiceSlice'
+import paymentSlice from './paymentSlice' // Added paymentSlice import
 const rootReducer = combineReducers({
   tenants: tenantReducer,
   users: userReducer,
@@ -46,6 +48,8 @@ const rootReducer = combineReducers({
   goodReceives: goodReceivedReducer,
   warehouses: warehouseReducer,
   categories: categoriesReducer,
+  invoices: invoiceReducer,
+  payment: paymentSlice, // Added paymentSlice to rootReducer
 })
 
 export default rootReducer

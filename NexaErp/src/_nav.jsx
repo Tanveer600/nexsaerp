@@ -191,7 +191,23 @@ const _nav = [
       },
     ],
   },
-
+  {
+    component: CNavGroup,
+    name: 'Invoice Management',
+    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Invoices',
+        to: '/invoiceManagement/invoice',
+      },
+      {
+        component: CNavItem,
+        name: 'Payments',
+        to: '/inventoryManagement/payment',
+      },
+    ],
+  },
   {
     component: CNavGroup,
     name: 'Setups',
